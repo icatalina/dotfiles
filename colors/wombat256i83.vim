@@ -16,7 +16,7 @@ if version > 580
 	endif
 endif
 
-let colors_name = "wombat256mod"
+let colors_name = "wombat256i83"
 
 
 " General colors
@@ -40,7 +40,7 @@ if version >= 700
 hi CursorLine					ctermbg=236		cterm=none						guibg=#32322f
 hi MatchParen	ctermfg=228		ctermbg=101		cterm=bold		guifg=#eae788	guibg=#857b6f	gui=bold
 hi Pmenu		ctermfg=230		ctermbg=238						guifg=#ffffd7	guibg=#444444
-hi PmenuSel		ctermfg=232		ctermbg=192						guifg=#080808	guibg=#cae982
+hi PmenuSel		ctermfg=232		ctermbg=111						guifg=#080808	guibg=#cae982
 endif
 
 " Diff highlighting
@@ -74,18 +74,19 @@ hi DiffChange					ctermbg=237										guibg=#382a37
 
 
 " Syntax highlighting
-hi Keyword		ctermfg=111		cterm=none		guifg=#00ff00	gui=none
-hi Statement	ctermfg=111		cterm=none		guifg=#00ff00	gui=none
+hi Keyword		ctermfg=173		cterm=none		guifg=#88b8f6	gui=none
+hi Statement	ctermfg=192		cterm=none		guifg=#88b8f6	gui=none
 hi Constant		ctermfg=173		cterm=none		guifg=#e5786d	gui=none
-hi Number		ctermfg=173		cterm=none		guifg=#e5786d	gui=none
+hi Number		ctermfg=111		cterm=none		guifg=#e5786d	gui=none
 hi PreProc		ctermfg=173		cterm=none		guifg=#e5786d	gui=none
-hi Function		ctermfg=192		cterm=none		guifg=#cae982	gui=none
-hi Identifier	ctermfg=192		cterm=none		guifg=#cae982	gui=none
-hi Type			ctermfg=186		cterm=none		guifg=#d4d987	gui=none
-hi Special		ctermfg=228		cterm=none		guifg=#eadead	gui=none
-hi String		ctermfg=228		cterm=none		guifg=#95e454	gui=italic
+hi Function		ctermfg=051		cterm=none		guifg=#cae982	gui=none
+hi Identifier	ctermfg=111		cterm=none		guifg=#cae982	gui=none
+hi Type			ctermfg=051		cterm=none		guifg=#d4d987	gui=none
+hi Special		ctermfg=229		cterm=none		guifg=#eadead	gui=none
+hi String		ctermfg=229		cterm=none		guifg=#00ff00	gui=italic
 hi Comment		ctermfg=246		cterm=none		guifg=#9c998e	gui=italic
-hi Todo			ctermfg=101		cterm=none		guifg=#857b6f	gui=italic
+hi Todo         ctermfg=101     cterm=none      guifg=#857b6f   gui=italic
+hi Conditional  ctermfg=162     cterm=none      guifg=#857b6f   gui=italic
 
 
 " Links
