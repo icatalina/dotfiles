@@ -28,3 +28,6 @@
 [submodule "bundle/velocity"]
 	path = bundle/velocity
 	url = https://github.com/lepture/vim-velocity.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
