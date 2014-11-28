@@ -7,5 +7,5 @@ This repo contains a few submodules, use this command to clone them automaticall
 
 
 ```shell
-git clone --recursive git@github.com:icatalina/vimfiles.git 
+git clone --recursive https://github.com/icatalina/vimfiles.git
 ```
