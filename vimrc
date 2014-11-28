@@ -149,6 +149,30 @@ nnoremap <C-/> :let @/ = ""<CR>
 inoremap <C-/> <C-O>:let @/ = ""<CR>
 vnoremap <c-/> <c-c>:let @/ = ""<cr>v
 
+"" CtrlP excluded folders
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|sass-cache)|node_modules|target$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+"" JSHint
+let jshint2_save = 1
+" jshint validation
+nnoremap <silent><F1> :JSHint<CR>
+inoremap <silent><F1> <C-O>:JSHint<CR>
+vnoremap <silent><F1> :JSHint<CR>
+"
+" " show next jshint error
+nnoremap <silent><F2> :lnext<CR>
+inoremap <silent><F2> <C-O>:lnext<CR>
+vnoremap <silent><F2> :lnext<CR>
+"
+" " show previous jshint error
+nnoremap <silent><F3> :lprevious<CR>
+inoremap <silent><F3> <C-O>:lprevious<CR>
+vnoremap <silent><F3> :lprevious<CR>
+
 "" Fix Delete Key
 nmap [3;*~ "_x
 inoremap [3;*~ <C-O>"_xi
