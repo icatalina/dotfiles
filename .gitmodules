@@ -1,30 +1,30 @@
 [submodule "bundle/ultisnips"]
 	path = bundle/ultisnips
-	url = git://github.com/SirVer/ultisnips.git
+	url = https://github.com/SirVer/ultisnips.git
 [submodule "bundle/vinegar"]
 	path = bundle/vinegar
-	url = git://github.com/tpope/vim-vinegar.git
+	url = https://github.com/tpope/vim-vinegar.git
 [submodule "bundle/snippets"]
 	path = bundle/snippets
-	url = git://github.com/honza/vim-snippets.git
+	url = https://github.com/honza/vim-snippets.git
 [submodule "bundle/snipmate"]
 	path = bundle/snipmate
-	url = git://github.com/garbas/vim-snipmate.git
+	url = https://github.com/garbas/vim-snipmate.git
 [submodule "bundle/multiple-cursor"]
 	path = bundle/multiple-cursor
-	url = git://github.com/terryma/vim-multiple-cursors.git
+	url = https://github.com/terryma/vim-multiple-cursors.git
 [submodule "bundle/airline"]
 	path = bundle/airline
-	url = git://github.com/bling/vim-airline.git
+	url = https://github.com/bling/vim-airline.git
 [submodule "bundle/addon-mw-utils"]
 	path = bundle/addon-mw-utils
-	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
+	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
 [submodule "bundle/tlib"]
 	path = bundle/tlib
-	url = git://github.com/tomtom/tlib_vim.git
+	url = https://github.com/tomtom/tlib_vim.git
 [submodule "bundle/ctrlp"]
 	path = bundle/ctrlp
-	url = git://github.com/kien/ctrlp.vim.git
+	url = https://github.com/kien/ctrlp.vim.git
 [submodule "bundle/velocity"]
 	path = bundle/velocity
 	url = https://github.com/lepture/vim-velocity.git
