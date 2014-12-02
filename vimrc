@@ -1,7 +1,4 @@
 set nocompatible
-source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-behave mswin
 
 set diffexpr=MyDiff()
 function MyDiff()
@@ -28,7 +25,7 @@ function MyDiff()
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
-" Use 4 tabs and softabs
+" Use 4 tabs and softab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -37,6 +34,9 @@ set expandtab
 set backspace=indent,eol,start "" Works also with backspace=2
 set t_kD=[3;*~
 set t_kb=
+
+" Share clipboard
+set clipboard=unnamedplu
 
 " Color Scheme
 set term=xterm
@@ -60,16 +60,17 @@ set nocp
 "" Screen Configuration
 set number
 set nowrap
+set relativenumber
 
-"" History & Undo Levels
+"" History & Undo Level
 set history=700
 set undolevels=700
 
-"" backup to ~/.tmp 
-set backup 
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp 
-set backupskip=/tmp/*,/private/tmp/* 
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp 
+"" backup to ~/.tmp
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 
 """ Plugins in Bundle Folder
@@ -105,7 +106,7 @@ set lazyredraw
 set showmatch
 set mat=2
 
-"" Mappings
+"" Mapping
 let mapleader = ","
 nnoremap <Leader>b :buffers<CR>:buffer<Space>
 
@@ -123,22 +124,22 @@ nnoremap tw  :tabclose<CR>
 nnoremap <C-Z> u
 nnoremap  <C-R>
 
-" Move Between Buffers
+" Move Between Buffer
 nnoremap <Super>i :update<CR>
 
 " Search and Replace
 nnoremap <Leader>/ :%s/
 vnoremap <Leader>/ <C-C>:%s/
 
-" Clean Search Results
+" Clean Search Result
 nnoremap <F3> :set hlsearch!<CR>
 
-"" Splits
+"" Split
 map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
-set noesckeys
+set noesckey
 
 map <leader>R <C-W>R
 
@@ -149,7 +150,7 @@ nnoremap <C-/> :let @/ = ""<CR>
 inoremap <C-/> <C-O>:let @/ = ""<CR>
 vnoremap <c-/> <c-c>:let @/ = ""<cr>v
 
-"" CtrlP excluded folders
+"" CtrlP excluded folder
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn|sass-cache)|node_modules|target$',
   \ 'file': '\v\.(exe|so|dll)$',
@@ -178,11 +179,14 @@ nmap [3;*~ "_x
 inoremap [3;*~ <C-O>"_xi
 
 "" MouseWheel
-map <ScrollWheelUp> <C-Y>
+"" map <ScrollWheelUp> <C-Y>
 
 nnoremap <Leader>n :NERDTree<cr>
 inoremap <Leader>n <C-O>:NERDTree<cr>
 vnoremap <Leader>n <c-c>:NERDTree<cr>
+
+"Remove NERDTree Sidebar
+set guioptions-=L
 
 nnoremap <C-,> :cprev<cr>
 inoremap <C-,> <C-O>:cprev<cr>
@@ -191,5 +195,67 @@ vnoremap <C-,> <c-c>:cprev<cr>
 nnoremap <C-.> :cnext<cr>
 inoremap <C-.> <C-O>:cnext<cr>
 vnoremap <C-.> <c-c>:cnext<cr>
+
+"" Mapping
+let mapleader = ","
+
+" Show buffers an change
+nnoremap <Leader>b :buffers<CR>:buffer<Space>
+
+"Sort in visual mode
+vnoremap <Leader>s :sort<CR>
+
+noremap <Leader>e :bp<bar>sp<bar>bn<bar>bd<CR>
+noremap <Leader>E :bp<bar>sp<bar>bn<bar>bd!<CR>
+noremap <Leader>` :qa!<CR>
+
+nnoremap <Leader>h  :tabprevious<CR>
+nnoremap <leader>l  :tabnext<CR>
+nnoremap <Leader>t  :tabnew<CR>
+nnoremap <Leader>w  :tabclose<CR>
+
+noremap <C-U> <C-R>
+
+" Save
+nnoremap <C-Z> :update<CR>
+inoremap <C-Z> <C-O>:update<CR>
+vnoremap <c-Z> <c-c>:update<CR>v
+
+" Search and Replace
+nnoremap <Leader>/ :%s/
+vnoremap <Leader>/ <C-C>:%s/
+
+"" Split
+map <c-j> <Down>
+map <c-k> <Up>
+map <c-l> <Right>
+map <c-h> <>h
+set noesckey
+
+map <leader>R <C-W>R
+map <leader>r <C-W>R
+
+"vnoremap <unt> * :call VisualSelection('f')<cR>
+"vnoremap <silent> # :call VisualSelection('b')<CR>
+"Double slash removes the prevous search
+nnoremap // :let @/ = ""<CR>
+vnoremap // <c-c>:let @/ = ""<cr>v
+
+"" Fix Delete Key
+nmap [3;*~ "_x
+inoremap [3;*~ <C-O>"_xi
+
+nnoremap <Leader>n :NERDTree<cr>
+vnoremap <Leader>n <c-c>:NERDTree<cr>
+
+nnoremap #9 :cprev<cr>
+inoremap #9 <C-O>:cprev<cr>
+vnoremap #9 <c-c>:cprev<cr>
+
+nnoremap #10 :cnext<cr>
+inoremap #10 <C-O>:cnext<cr>
+vnoremap #10 <c-c>:cnext<cr>
+
+
 
 autocmd VimEnter * :NERDTree
