@@ -36,7 +36,7 @@ set t_kD=[3;*~
 set t_kb=
 
 " Share clipboard
-set clipboard=unnamedplu
+set clipboard=unnamedplus
 
 " Color Scheme
 set term=xterm
@@ -139,7 +139,7 @@ map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
-set noesckey
+set noesckeys
 
 map <leader>R <C-W>R
 
@@ -230,7 +230,6 @@ map <c-j> <Down>
 map <c-k> <Up>
 map <c-l> <Right>
 map <c-h> <>h
-set noesckey
 
 map <leader>R <C-W>R
 map <leader>r <C-W>R
