@@ -50,7 +50,7 @@ hi DiffText						ctermbg=53		cterm=none						guibg=#73186e	gui=none
 hi DiffChange					ctermbg=237										guibg=#382a37
 
 "hi CursorIM
-"hi Directory
+hi Directory ctermfg=173		cterm=none		guifg=#88b8f6	gui=none
 "hi IncSearch
 "hi Menu
 "hi ModeMsg

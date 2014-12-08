@@ -43,7 +43,7 @@ set term=xterm
 set t_Co=256
 let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"
-colorscheme wombat256mod
+colorscheme wombat256i83
 
 " AirLine Configuration
 let g:airline_theme='powerlineish'
@@ -52,6 +52,9 @@ let g:airline_powerline_fonts = 1
 set laststatus=2
 "let g:airline#extensions#tabline#left_sep = ' | '
 "let g:airline#extensions#tabline#left_alt_sep = '|'
+
+let NERDTreeIgnore=['\.DS_Store$']
+
 
 set encoding=utf8
 set ffs=unix,dos,mac
@@ -152,10 +155,10 @@ vnoremap <c-/> <c-c>:let @/ = ""<cr>v
 
 "" CtrlP excluded folder
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn|sass-cache)|node_modules|target$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+ \ 'dir':  '\v[\/]\.(git|hg|svn|sass-cache)|node_modules|target$',
+ \ 'file': '\v\.(exe|so|dll)$',
+ \ 'link': 'some_bad_symbolic_links',
+ \ }
 
 "" JSHint
 let jshint2_save = 1
@@ -255,6 +258,6 @@ nnoremap #10 :cnext<cr>
 inoremap #10 <C-O>:cnext<cr>
 vnoremap #10 <c-c>:cnext<cr>
 
-
+au BufReadPost *.ftl set syntax=ftl
 
 autocmd VimEnter * :NERDTree

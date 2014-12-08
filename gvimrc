@@ -1,1 +1,1 @@
-set guifont=Inconsolata\ for\ Powerline:h11
+set guifont=Inconsolata\ for\ Powerline:h13

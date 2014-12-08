@@ -34,3 +34,12 @@
 [submodule "bundle/jshint2"]
 	path = bundle/jshint2
 	url = https://github.com/Shutnik/jshint2.vim.git
+[submodule "bundle/fugitive"]
+	path = bundle/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "bundle/nerdtree-git-plugin"]
+	path = bundle/nerdtree-git-plugin
+	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
+[submodule "bundle/base16"]
+	path = bundle/base16
+	url = https://github.com/chriskempson/base16-vim.git
