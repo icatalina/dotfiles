@@ -35,15 +35,24 @@ set backspace=indent,eol,start "" Works also with backspace=2
 set t_kD=[3;*~
 set t_kb=
 
-" Share clipboard
-set clipboard=unnamedplus
+" prevent vim from adding that stupid empty line at the end of every file
+set noeol
+set binary
 
-" Color Scheme
-set term=xterm
-set t_Co=256
-let &t_AB="\e[48;5;%dm"
-let &t_AF="\e[38;5;%dm"
-colorscheme wombat256i83
+hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
+
+set shell=/bin/bash     " use bash for shell commands
+set hidden              " enable multiple modified buffers
+set autoread            " automatically read file that has been changed on disk and doesn't have changes in vim
+set cinoptions=:0,(s,u0,U1,g0,t0 " some indentation options ':h cinoptions' for details
+set autoindent          " automatically indent new line
+
+" Share clipboard
+if has('unnamedplus')
+  set clipboard=unnamedplus
+else
+  set clipboard=unnamed
+endif
 
 " AirLine Configuration
 let g:airline_theme='powerlineish'
@@ -55,6 +64,9 @@ set laststatus=2
 
 let NERDTreeIgnore=['\.DS_Store$']
 
+nmap <F6> <Plug>ColorstepPrev
+nmap <F7> <Plug>ColorstepNext
+nmap <S-F7> <Plug>ColorstepReload
 
 set encoding=utf8
 set ffs=unix,dos,mac
@@ -62,6 +74,7 @@ set nocp
 
 "" Screen Configuration
 set number
+set numberwidth=3       " number of culumns for line numbers
 set nowrap
 set relativenumber
 
@@ -96,6 +109,9 @@ set incsearch
 set ignorecase
 set smartcase
 set magic
+
+set wildmenu            " enhanced command completion
+set visualbell          " use visual bell instead of beeping
 
 "set nofoldenable
 set ruler
@@ -247,8 +263,9 @@ vnoremap // <c-c>:let @/ = ""<cr>v
 nmap [3;*~ "_x
 inoremap [3;*~ <C-O>"_xi
 
-nnoremap <Leader>n :NERDTree<cr>
-vnoremap <Leader>n <c-c>:NERDTree<cr>
+nnoremap <Leader>n :NERDTreeTabsToggle<cr>
+vnoremap <Leader>n <c-c><plug>NERDTreeTabsToggle<cr>
+nmap <leader>m :NERDTreeFind<CR>
 
 nnoremap #9 :cprev<cr>
 inoremap #9 <C-O>:cprev<cr>
@@ -260,4 +277,12 @@ vnoremap #10 <c-c>:cnext<cr>
 
 au BufReadPost *.ftl set syntax=ftl
 
-autocmd VimEnter * :NERDTree
+" Color Scheme
+set term=xterm
+set t_Co=256
+let &t_AB="\e[48;5;%dm"
+let &t_AF="\e[38;5;%dm"
+set background=dark
+colorscheme base16-ocean
+
+autocmd VimEnter * :NERDTreeTabsToggle

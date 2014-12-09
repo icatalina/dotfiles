@@ -43,3 +43,6 @@
 [submodule "bundle/base16"]
 	path = bundle/base16
 	url = https://github.com/chriskempson/base16-vim.git
+[submodule "bundle/nerdtree-tabs"]
+	path = bundle/nerdtree-tabs
+	url = https://github.com/jistr/vim-nerdtree-tabs.git
