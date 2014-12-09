@@ -193,10 +193,6 @@ nnoremap <silent><F3> :lprevious<CR>
 inoremap <silent><F3> <C-O>:lprevious<CR>
 vnoremap <silent><F3> :lprevious<CR>
 
-"" Fix Delete Key
-nmap [3;*~ "_x
-inoremap [3;*~ <C-O>"_xi
-
 "" MouseWheel
 "" map <ScrollWheelUp> <C-Y>
 
@@ -261,7 +257,7 @@ vnoremap // <c-c>:let @/ = ""<cr>v
 
 "" Fix Delete Key
 nmap [3;*~ "_x
-inoremap [3;*~ <C-O>"_xi
+inoremap [3;*~ <C-O>"_x
 
 nnoremap <Leader>n :NERDTreeTabsToggle<cr>
 vnoremap <Leader>n <c-c><plug>NERDTreeTabsToggle<cr>
@@ -277,6 +273,15 @@ vnoremap #10 <c-c>:cnext<cr>
 
 au BufReadPost *.ftl set syntax=ftl
 
+"" YouCompleteMe
+let g:ycm_key_list_previous_completion=['<Up>']
+
+"" Ultisnips
+let g:UltiSnipsExpandTrigger="<c-tab>"
+let g:UltiSnipsListSnippets="<c-s-tab>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 " Color Scheme
 set term=xterm
 set t_Co=256
