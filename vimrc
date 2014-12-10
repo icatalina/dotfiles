@@ -1,39 +1,32 @@
 set nocompatible
 
 set diffexpr=MyDiff()
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
+if !exists("*MyDiff")
+    function MyDiff()
+    let opt = '-a --binary '
+    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+    let arg1 = v:fname_in
+    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+    let arg2 = v:fname_new
+    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+    let arg3 = v:fname_out
+    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+    let eq = ''
+    if $VIMRUNTIME =~ ' '
+        if &sh =~ '\<cmd'
+        let cmd = '""' . $VIMRUNTIME . '\diff"'
+        let eq = '"'
+        else
+        let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        endif
     else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        let cmd = $VIMRUNTIME . '\diff'
     endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-endfunction
+    silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+    endfunction
+endif
 
-" Use 4 tabs and softab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set shiftround
-set expandtab
-set backspace=indent,eol,start "" Works also with backspace=2
-set t_kD=[3;*~
-set t_kb=
 
 " prevent vim from adding that stupid empty line at the end of every file
 set noeol
@@ -150,9 +143,6 @@ nnoremap <Super>i :update<CR>
 nnoremap <Leader>/ :%s/
 vnoremap <Leader>/ <C-C>:%s/
 
-" Clean Search Result
-nnoremap <F3> :set hlsearch!<CR>
-
 "" Split
 map <c-j> <c-w>j
 map <c-k> <c-w>k
@@ -177,21 +167,9 @@ let g:ctrlp_custom_ignore = {
  \ }
 
 "" JSHint
-let jshint2_save = 1
-" jshint validation
-nnoremap <silent><F1> :JSHint<CR>
-inoremap <silent><F1> <C-O>:JSHint<CR>
-vnoremap <silent><F1> :JSHint<CR>
-"
-" " show next jshint error
-nnoremap <silent><F2> :lnext<CR>
-inoremap <silent><F2> <C-O>:lnext<CR>
-vnoremap <silent><F2> :lnext<CR>
-"
-" " show previous jshint error
-nnoremap <silent><F3> :lprevious<CR>
-inoremap <silent><F3> <C-O>:lprevious<CR>
-vnoremap <silent><F3> :lprevious<CR>
+nnoremap <silent><F1> :SyntasticCheck<CR>
+inoremap <silent><F1> <C-O>:SyntasticCheck<CR>
+vnoremap <silent><F1> :SyntasticCheck<CR>
 
 "" MouseWheel
 "" map <ScrollWheelUp> <C-Y>
@@ -271,17 +249,20 @@ nnoremap #10 :cnext<cr>
 inoremap #10 <C-O>:cnext<cr>
 vnoremap #10 <c-c>:cnext<cr>
 
-au BufReadPost *.ftl set syntax=ftl
+au BufReadPost *.ftl set filetype=ftl
 
 "" YouCompleteMe
 let g:ycm_key_list_previous_completion=['<Up>']
 
 "" Ultisnips
-let g:UltiSnipsExpandTrigger="<c-tab>"
-let g:UltiSnipsListSnippets="<c-s-tab>"
+let g:UltiSnipsExpandTrigger="<C-Space>"
+let g:UltiSnipsListSnippets="<C-S-Space>"
+let g:UltiSnipsJumpForwardTrigger="<C-Space>"
+let g:UltiSnipsJumpBackwardTrigger="<C-S-Space>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
 " Color Scheme
 set term=xterm
 set t_Co=256
@@ -289,5 +270,15 @@ let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"
 set background=dark
 colorscheme base16-ocean
+
+" Use 4 tabs and softab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set shiftround
+set expandtab
+set backspace=indent,eol,start "" Works also with backspace=2
+set t_kD=[3;*~
+set t_kb=
 
 autocmd VimEnter * :NERDTreeTabsToggle
