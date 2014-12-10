@@ -1,6 +1,13 @@
-# vimfiles
+# dotFiles
 
-My VIM Configuration:
+Various Configuration files for:
+
+  - Zsh
+  - Vim
+  - MacVim
+  - Bash
+
+##My VIM Configuration:
 
 ![vim](https://cloud.githubusercontent.com/assets/4542735/5229851/7a2edf78-7715-11e4-9826-9ffaa8637d1e.png)
 
