@@ -263,13 +263,20 @@ let g:UltiSnipsJumpBackwardTrigger="<C-S-Space>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
+let base16colorspace=256
+
 " Color Scheme
-set term=xterm
-set t_Co=256
+"set term=xterm
+"set t_Co=256
 let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"
 set background=dark
-colorscheme base16-ocean
+
+if !empty($BASE16_SHELL)
+    colorscheme base16-ocean
+else
+    colorscheme wombat256mod
+endif
 
 " Use 4 tabs and softab
 set tabstop=4
