@@ -31,17 +31,23 @@ Various Configuration files for:
 This repo contains a few submodules, use this command to clone them automatically:
 
 ```shell
-git clone --recursive https://github.com/icatalina/vimfiles.git
+git clone --recursive https://github.com/icatalina/dotfiles.git
 ```
 
 My recomendation is to run this set of commands:
 
 ```shell
-cd
-git clone --recursive https://github.com/icatalina/vimfiles.git .vim
-ln -s .vim/vimrc .vimrc
+git clone --recursive https://github.com/icatalina/dotfiles.git ~/.dotfiles
+ln -s ~/.dotfiles/vim ~/.vim
+cat ~/.dotfiles/vimrc.home >> ~/.vimrc
+cat ~/.dotfiles/gvimrc.home >> ~/.gvimrc
+cat ~/.dotfiles/zshrc.home >> ~/.zshrc
+cat ~/.dotfiles/bash_profile.home >> ~/.bash_profile
+~/.dotfiles/vim/bundle/youcompleteme/install.sh
 ```
 
-That should change the current directory to your personal folder, clone the repo and submodules in the .vim folder and then create a link for the .vimrc file.
+That should:
 
-
+- Clone the repo in the .dotfiles folder
+- Create a symbolic link for .vim 
+- Include vimrc, gvimrc, zshrc & bash_profile in the respective files
