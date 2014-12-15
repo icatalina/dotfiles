@@ -34,9 +34,6 @@
 [submodule "vim/bundle/nerdtree-tabs"]
 	path = vim/bundle/nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
-[submodule "vim/bundle/delimitmate"]
-	path = vim/bundle/delimitmate
-	url = https://github.com/Raimondi/delimitMate.git
 [submodule "vim/bundle/surround"]
 	path = vim/bundle/surround
 	url = https://github.com/tpope/vim-surround.git
@@ -55,3 +52,12 @@
 [submodule "pure"]
 	path = pure
 	url = https://github.com/sindresorhus/pure.git
+[submodule "vim/bundle/vim-javascript"]
+	path = vim/bundle/vim-javascript
+	url = https://github.com/pangloss/vim-javascript
+[submodule "vim/bundle/css3-syntax"]
+	path = vim/bundle/css3-syntax
+	url = https://github.com/hail2u/vim-css3-syntax.git
+[submodule "vim/bundle/autoclose"]
+	path = vim/bundle/autoclose
+	url = https://github.com/Townk/vim-autoclose

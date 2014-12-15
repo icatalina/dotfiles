@@ -33,9 +33,6 @@ endif
 execute pathogen#infect()
 
 " prevent vim from adding that stupid empty line at the end of every file
-set noeol
-set binary
-
 hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 
 set shell=/bin/bash     " use bash for shell commands
@@ -138,6 +135,7 @@ endif
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set smarttab
 set shiftround
 set expandtab
 set backspace=indent,eol,start "" Works also with backspace=2

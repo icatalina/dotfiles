@@ -3,3 +3,6 @@ set guioptions-=L
 
 colorscheme base16-ocean
 set guifont=Inconsolata\ for\ Powerline:h13
+
+highlight EWOL ctermbg=red ctermfg=black guibg=#3B2B35 guifg=black
+match EWOL /\(\t\+\|\s\+$\)/
