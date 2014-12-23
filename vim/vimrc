@@ -2,6 +2,8 @@ set nocompatible
 
 let $VIMHOME=expand('<sfile>:p:h')
 
+let g:pathogen_disabled = ['autoclose']
+"pumvisible() ? "\f" : "\let g:pathogen_disabled = ['addon-mw-utils', 'airline', 'autoclose', 'base16', 'css3-syntax', 'ctrlp', 'detectindent', 'jshint2', 'multiple-cursor', 'nerdtree', 'nerdtree-tabs', 'surround', 'syntastic', 'tlib', 'ultisnips', 'velocity', 'vim-javascript', 'vimsnippets', 'vinegar', 'youcompleteme']
 set diffexpr=MyDiff()
 if !exists("*MyDiff")
     function MyDiff()
@@ -114,18 +116,17 @@ set showmatch
 set mat=2
 
 "" Split
-set noesckeys
+"set noesckeys
 
-let base16colorspace=256
- 
 " Color Scheme
-"set term=ansi
+set term=xterm
 set t_Co=256
 let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"
 set background=dark
 
-if !empty($BASE16_SHELL)
+if !empty($BASE16)
+    let base16colorspace=256
     colorscheme base16-ocean
 else
     colorscheme wombat256mod
@@ -150,11 +151,22 @@ so $VIMHOME/ctrlp.vim
 so $VIMHOME/filedef.vim
 so $VIMHOME/ultisnips.vim
 
+"" Detect Indent
+let g:detectindent_preferred_expandtab = 1
+let g:detectindent_preferred_indent = 4
+let g:detectindent_max_lines_to_analyse = 1024
+
+autocmd BufNewFile,BufReadPost * :DetectIndent
+autocmd FileType make setlocal noexpandtab
+
 "" YouCompleteMe
-let g:ycm_key_list_previous_completion=['<Up>']
+"let g:ycm_key_list_previous_completion=['<Up>']
 
 "" Mapping
 let mapleader = ","
+so $VIMHOME/uppercasecommands.vim
 so $VIMHOME/keymaps.vim
 
-autocmd VimEnter * :NERDTreeTabsToggle
+if  expand('%:t') != 'COMMIT_EDITMSG'
+  autocmd VimEnter * :NERDTreeTabsToggle
+endif

@@ -1,0 +1,6 @@
+bindkey "\e[3~" delete-char
+bindkey "[1;9D" emacs-backward-word
+bindkey "[1;9C" emacs-forward-word
+bindkey "" backward-kill-word
+bindkey "[1;9H" beginning-of-line
+bindkey "[1;9F" end-of-line,

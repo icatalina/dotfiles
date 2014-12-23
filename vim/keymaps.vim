@@ -17,8 +17,8 @@ vnoremap <Leader>s :sort<CR>
 vnoremap <Leader>u :sort u<CR>
 
 " Search and Replace
-nnoremap <Leader>/ :%s/
-vnoremap <Leader>/ <C-C>:'<,'>s/
+nnoremap <Leader># :%s/
+vnoremap <Leader># <C-C>:s/\%V
 
 "
 "" Syntastic Check
@@ -68,4 +68,18 @@ nnoremap <Leader>n :NERDTreeTabsToggle<cr>
 vnoremap <Leader>n <c-c><plug>NERDTreeTabsToggle<cr>
 nmap <leader>m :NERDTreeFind<CR>
 
+" NERD Commenter
+map <leader>/ <plug>NERDCommenterToggle
+imap <leader>/ <Esc><plug>NERDCommenterToggle
 
+" Remap ctrl+enter and ctrl+shift+enter to insert a line above and below the
+" current line
+nmap <C-CR> o<Esc>k
+nmap <C-S-CR> O<Esc>j
+
+nmap <F8> va":s/\%V"/'/g<CR>
+
+" Remove Trailing spaces with F5
+nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+" Remove Tabs with F6
+nnoremap <silent> <F6> :let _s=@/<Bar>:%s/\t/    /g<Bar>:let @/=_s<Bar>:nohl<CR>

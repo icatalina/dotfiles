@@ -18,11 +18,15 @@ bindkey -e
 # End of lines configured by zsh-newuser-install
 
 # Base16 Shell
-export BASE16_SHELL="$HOME/.dotfiles/base16-shell/base16-default.dark.sh"
+BASE16_SHELL="$HOME/.dotfiles/base16-shell/base16-default.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-
+export BASE16=1
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
+
+unsetopt nomatch
+
+source ~/.dotfiles/zsh_keymaps
 
 # .zshrc
 autoload -U promptinit && promptinit
