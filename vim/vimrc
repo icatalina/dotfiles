@@ -4,32 +4,6 @@ let $VIMHOME=expand('<sfile>:p:h')
 
 let g:pathogen_disabled = ['autoclose']
 "pumvisible() ? "\f" : "\let g:pathogen_disabled = ['addon-mw-utils', 'airline', 'autoclose', 'base16', 'css3-syntax', 'ctrlp', 'detectindent', 'jshint2', 'multiple-cursor', 'nerdtree', 'nerdtree-tabs', 'surround', 'syntastic', 'tlib', 'ultisnips', 'velocity', 'vim-javascript', 'vimsnippets', 'vinegar', 'youcompleteme']
-set diffexpr=MyDiff()
-if !exists("*MyDiff")
-    function MyDiff()
-    let opt = '-a --binary '
-    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-    let arg1 = v:fname_in
-    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-    let arg2 = v:fname_new
-    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-    let arg3 = v:fname_out
-    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-    let eq = ''
-    if $VIMRUNTIME =~ ' '
-        if &sh =~ '\<cmd'
-        let cmd = '""' . $VIMRUNTIME . '\diff"'
-        let eq = '"'
-        else
-        let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-        endif
-    else
-        let cmd = $VIMRUNTIME . '\diff'
-    endif
-    silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-    endfunction
-endif
 
 """ Plugins in Bundle Folder
 execute pathogen#infect()
@@ -138,7 +112,7 @@ set softtabstop=4
 set shiftwidth=4
 set smarttab
 set shiftround
-set expandtab
+set noexpandtab
 set backspace=indent,eol,start "" Works also with backspace=2
 set t_kD=[3;*~
 set t_kb=
@@ -152,20 +126,23 @@ so $VIMHOME/filedef.vim
 so $VIMHOME/ultisnips.vim
 
 "" Detect Indent
-let g:detectindent_preferred_expandtab = 1
-let g:detectindent_preferred_indent = 4
-let g:detectindent_max_lines_to_analyse = 1024
+"let g:detectindent_preferred_expandtab = 1
+"let g:detectindent_preferred_indent = 4
+"let g:detectindent_max_lines_to_analyse = 1024
 
-autocmd BufNewFile,BufReadPost * :DetectIndent
-autocmd FileType make setlocal noexpandtab
+"autocmd BufNewFile,BufReadPost * :DetectIndent
+"autocmd FileType make setlocal noexpandtab
 
 "" YouCompleteMe
 "let g:ycm_key_list_previous_completion=['<Up>']
 
 "" Mapping
-let mapleader = ","
+let mapleader = "ß"
 so $VIMHOME/uppercasecommands.vim
 so $VIMHOME/keymaps.vim
+
+" Show commands on the bar
+set showcmd
 
 if  expand('%:t') != 'COMMIT_EDITMSG'
   autocmd VimEnter * :NERDTreeTabsToggle

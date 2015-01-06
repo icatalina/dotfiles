@@ -1,0 +1,8 @@
+priority -50
+
+snippet opacity "opacity" i
+-ms-filter: "progid:dximagetransform.microsoft.alpha(opacity=${1:50})";
+filter: progid:dximagetransform.microsoft.alpha(opacity=$1);
+opacity: `!p res = str(float('0' + t[1])/100).replace('0.', '.')`;
+endsnippet
+

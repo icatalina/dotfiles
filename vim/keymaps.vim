@@ -1,8 +1,6 @@
-map <leader>R <C-W>R
-
 "vnoremap <unt> * :call VisualSelection('f')<cR>
 "vnoremap <silent> # :call VisualSelection('b')<CR>
-
+map <Space> <leader>
 nnoremap <C-/> :let @/ = ""<CR>
 inoremap <C-/> <C-O>:let @/ = ""<CR>
 vnoremap <c-/> <c-c>:let @/ = ""<cr>v
@@ -22,7 +20,7 @@ vnoremap <Leader># <C-C>:s/\%V
 
 "
 "" Syntastic Check
-nnoremap <silent><F1> :SyntasticCheck<CR>
+""nnoremap <silent><F1> :SyntasticCheck<CR>
 inoremap <silent><F1> <C-O>:SyntasticCheck<CR>
 vnoremap <silent><F1> :SyntasticCheck<CR>
 
@@ -30,7 +28,6 @@ vnoremap <silent><F1> :SyntasticCheck<CR>
 "" map <ScrollWheelUp> <C-Y>
 
 nnoremap <Leader>n :NERDTree<cr>
-inoremap <Leader>n <C-O>:NERDTree<cr>
 vnoremap <Leader>n <c-c>:NERDTree<cr>
 
 nnoremap <C-,> :cprev<cr>
@@ -69,15 +66,17 @@ vnoremap <Leader>n <c-c><plug>NERDTreeTabsToggle<cr>
 nmap <leader>m :NERDTreeFind<CR>
 
 " NERD Commenter
-map <leader>/ <plug>NERDCommenterToggle
-imap <leader>/ <Esc><plug>NERDCommenterToggle
+nnoremap <leader>/ <plug>NERDCommenterToggle
+vnoremap <leader>/ <Esc><plug>NERDCommenterToggle
 
-" Remap ctrl+enter and ctrl+shift+enter to insert a line above and below the
+"" Remap ctrl+enter and ctrl+shift+enter to insert a line above and below the
 " current line
 nmap <C-CR> o<Esc>k
 nmap <C-S-CR> O<Esc>j
 
 nmap <F8> va":s/\%V"/'/g<CR>
+
+nnoremap <Leader>w :w<CR>
 
 " Remove Trailing spaces with F5
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
