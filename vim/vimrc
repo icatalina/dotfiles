@@ -124,6 +124,7 @@ inoremap [3;*~ <C-O>"_x
 so $VIMHOME/ctrlp.vim
 so $VIMHOME/filedef.vim
 so $VIMHOME/ultisnips.vim
+so $VIMHOME/silver-search.vim
 
 "" Detect Indent
 "let g:detectindent_preferred_expandtab = 1

@@ -58,8 +58,8 @@ vnoremap <c-Z> <c-c>:update<CR>v
 "vnoremap <silent> # :call VisualSelection('b')<CR>
 
 "Double slash removes the prevous search
-nnoremap // :let @/ = ""<CR>
-vnoremap // <c-c>:let @/ = ""<cr>v
+nnoremap <Leader>. :let @/ = ""<CR>
+vnoremap <Leader>. <c-c>:let @/ = ""<cr>v
 
 nnoremap <Leader>n :NERDTreeTabsToggle<cr>
 vnoremap <Leader>n <c-c><plug>NERDTreeTabsToggle<cr>
