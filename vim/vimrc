@@ -1,3 +1,4 @@
+
 set nocompatible
 
 let $VIMHOME=expand('<sfile>:p:h')
@@ -29,10 +30,8 @@ let g:airline_theme='powerlineish'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 set laststatus=2
-"let g:airline#extensions#tabline#left_sep = ' | '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-
-let NERDTreeIgnore=['\.DS_Store$']
+"" let g:airline#extensions#tabline#left_sep = ' | '
+"" let g:airline#extensions#tabline#left_alt_sep = '|'
 
 set encoding=utf8
 set ffs=unix,dos,mac
@@ -145,6 +144,19 @@ so $VIMHOME/keymaps.vim
 " Show commands on the bar
 set showcmd
 
-if  expand('%:t') != 'COMMIT_EDITMSG'
-  autocmd VimEnter * :NERDTreeTabsToggle
+"  autocmd VimEnter * :NERDTreeTabsToggle
+let NERDTreeIgnore=['\.DS_Store$']
+let g:nerdtree_tabs_open_on_gui_startup=0
+
+if isdirectory(expand('%'))
+    let vimInitDir = expand('%')
 endif
+
+if (expand('%') == '' && exists('vimInitDir') &&  isdirectory(vimInitDir)) || isdirectory(expand('%'))
+    cd `=vimInitDir`
+    let g:nerdtree_tabs_open_on_gui_startup=1
+    let g:nerdtree_tabs_open_on_console_startup=1
+    autocmd VimEnter * bd 
+endif
+
+"let g:NERDTreeHijackNetrw=0
