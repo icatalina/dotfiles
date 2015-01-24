@@ -31,3 +31,17 @@ source ~/.dotfiles/zsh_keymaps
 # .zshrc
 autoload -U promptinit && promptinit
 prompt pure
+
+alias gdf='cdiff -w0 -s'
+alias g='git'
+alias gs='git st --'
+alias gl='git log --'
+alias gls='git ls --'
+alias glss='git lss --'
+alias gc='git commit --'
+alias gaa='git add -A -- .'
+alias ga='git add --'
+alias aliasg='alias | grep git'
+alias gdfw='git dfw'
+alias gdf='git df'
+alias gch='git checkout'

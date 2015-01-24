@@ -7,5 +7,10 @@ set guifont=Inconsolata\ for\ Powerline:h13
 highlight EWOL ctermbg=red ctermfg=black guibg=#3B2B35 guifg=black
 highlight tabsUse ctermbg=red ctermfg=black guibg=#203B23 guifg=black
 
-call matchadd('EWOL', '\s\+$', 11)
-call matchadd('tabsUse', '\t\+', 12)
+function TabHighlight()
+	call matchadd('EWOL', '\s\+$', 11)
+	call matchadd('tabsUse', '\t\+', 12)
+endfunction
+
+nnoremap <Leader>1 :call TabHighlight()<CR>
+nnoremap <Leader>2 :call clearmatches()<CR>
