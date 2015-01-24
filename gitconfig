@@ -1,0 +1,10 @@
+[push]
+    default = current
+[alias]
+	st = status -sb
+	ls = log --oneline
+	lss = log --oneline -30
+	show-files = diff-tree --no-commit-id -M --name-status -r
+	df = diff --cached
+	dfw = diff --cached -w --word-diff
+	ca = clean -f -d
