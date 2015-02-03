@@ -105,6 +105,8 @@ else
     colorscheme wombat256mod
 endif
 
+hi Search cterm=NONE ctermbg=8 ctermfg=NONE guibg=gray30 guifg=NONE
+
 " Use 4 tabs and softab
 set tabstop=4
 set softtabstop=4
