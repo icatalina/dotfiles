@@ -51,3 +51,19 @@ That should:
 - Clone the repo in the .dotfiles folder
 - Create a symbolic link for .vim 
 - Include vimrc, gvimrc, zshrc & bash_profile in the respective files
+
+## New Comments for gitcommits
+
+If you want to use the new comment style for git commits:
+
+```shell
+git config --global core.commentchar="\""
+```
+
+Or under the core section on your .gitconfig file add:
+
+```shell
+commentchar="\""
+```
+
+If you don't want to use them, just delete the gitcommit.vim file from vim/syntax
