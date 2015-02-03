@@ -160,3 +160,5 @@ if (expand('%') == '' && exists('vimInitDir') &&  isdirectory(vimInitDir)) || is
 endif
 
 "let g:NERDTreeHijackNetrw=0
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
