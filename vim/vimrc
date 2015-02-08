@@ -1,8 +1,6 @@
-
 set nocompatible
 
 let $VIMHOME=expand('<sfile>:p:h')
-
 let g:pathogen_disabled = ['autoclose']
 "pumvisible() ? "\f" : "\let g:pathogen_disabled = ['addon-mw-utils', 'airline', 'autoclose', 'base16', 'css3-syntax', 'ctrlp', 'detectindent', 'jshint2', 'multiple-cursor', 'nerdtree', 'nerdtree-tabs', 'surround', 'syntastic', 'tlib', 'ultisnips', 'velocity', 'vim-javascript', 'vimsnippets', 'vinegar', 'youcompleteme']
 
@@ -96,6 +94,7 @@ set term=xterm
 set t_Co=256
 let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"
+
 set background=dark
 
 if !empty($BASE16)
@@ -160,6 +159,19 @@ if (expand('%') == '' && exists('vimInitDir') &&  isdirectory(vimInitDir)) || is
     let g:nerdtree_tabs_open_on_console_startup=1
     autocmd VimEnter * bd 
 endif
+
+" Persistent undo
+try 
+	let $VIMUNDODIR = $VIMHOME."/undodir"
+	if (!exists($VIMUNDODIR))
+		silent !mkdir $VIMUNDODIR > /dev/null 2>&1
+	endif
+
+    set undodir=$VIMUNDODIR
+    set undofile
+catch
+endtry
+
 
 "let g:NERDTreeHijackNetrw=0
 autocmd Filetype gitcommit setlocal spell textwidth=72
