@@ -1,4 +1,4 @@
 .netrwhist
 *.un~
 .DS_Store
-vim/undodir/*
+vim/_**
