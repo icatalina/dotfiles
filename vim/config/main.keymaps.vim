@@ -17,12 +17,6 @@ vnoremap <Leader>u :sort u<CR>
 nnoremap <Leader># :%s/
 vnoremap <Leader># <C-C>:s/\%V
 
-"
-"" Syntastic Check
-""nnoremap <silent><F1> :SyntasticCheck<CR>
-inoremap <silent><F1> <C-O>:SyntasticCheck<CR>
-vnoremap <silent><F1> :SyntasticCheck<CR>
-
 "" MouseWheel
 "" map <ScrollWheelUp> <C-Y>
 
@@ -56,7 +50,7 @@ vnoremap <c-Z> <c-c>:update<CR>v
 "vnoremap <unt> * :call VisualSelection('f')<cR>
 "vnoremap <silent> # :call VisualSelection('b')<CR>
 
-"Double slash removes the prevous search
+" Leader . removes the previous searched string
 nnoremap <Leader>. :let @/ = ""<CR>
 vnoremap <Leader>. <c-c>:let @/ = ""<cr>v
 
@@ -70,14 +64,14 @@ let NERDSpaceDelims = 1
 nmap <Leader>/ <Plug>NERDCommenterToggle
 vmap <Leader>/ <Plug>NERDCommenterToggle
 
-"" Remap ctrl+enter and ctrl+shift+enter to insert a line above and below the
+" Remap ctrl+enter and ctrl+shift+enter to insert a line above and below the
 " current line
 nmap <C-CR> o<Esc>k
 nmap <C-S-CR> O<Esc>j
 
 nmap <F8> va":s/\%V"/'/g<CR>
 
-nnoremap <Leader>w :update<CR>
+nnoremap <leader>s :update<CR>
 
 " Remove Trailing spaces with F5
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
