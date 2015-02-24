@@ -115,6 +115,7 @@ inoremap [3;*~ <C-O>"_x
 "let mapleader = "<space>"
 so $VIMCONFIG/main.ctrlp.vim
 so $VIMCONFIG/main.ultisnips.vim
+so $VIMCONFIG/main.filedef.vim
 so $VIMCONFIG/main.syntastic.vim
 so $VIMCONFIG/main.silver-search.vim
 
