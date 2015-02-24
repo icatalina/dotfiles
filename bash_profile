@@ -10,8 +10,7 @@ fi
 
 
 # Base16 Shell
-export BASE16_SHELL="$HOME/.dotfiles/zsh/base16-shell/base16-default.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
+
+source ~/.dotfiles/exports

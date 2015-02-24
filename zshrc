@@ -1,5 +1,4 @@
 # The following lines were added by compinstall
-
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -18,8 +17,6 @@ bindkey -e
 # End of lines configured by zsh-newuser-install
 
 # Base16 Shell
-BASE16_SHELL="$HOME/.dotfiles/zsh/base16-shell/base16-default.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 export BASE16=1
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
@@ -32,17 +29,4 @@ source ~/.dotfiles/zsh/zsh_keymaps
 autoload -U promptinit && promptinit
 prompt pure
 
-alias gdf='cdiff -w0 -s'
-alias g='git'
-alias gs='git st --'
-alias gl='git log --'
-alias gls='git ls --'
-alias glss='git lss --'
-alias gc='git commit --'
-alias gaa='git add -A -- .'
-alias ga='git add --'
-alias aliasg='alias | grep git'
-alias gdfw='git dfw'
-alias gdf='git df'
-alias gch='git checkout'
-alias gr='git reset'
+source ~/.dotfiles/exports

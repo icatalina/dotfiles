@@ -77,3 +77,11 @@ nnoremap <leader>s :update<CR>
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 " Remove Tabs with F6
 nnoremap <silent> <F6> :let _s=@/<Bar>:%s/\t/    /g<Bar>:let @/=_s<Bar>:nohl<CR>
+
+" Navigate the quickfix list
+nnoremap <silent> <Leader>] :cnext<CR>
+nnoremap <silent> <Leader>[ :cprev<CR>
+nnoremap <silent> <Leader>+ :copen<CR>
+nnoremap <silent> <Leader>= :cclose<CR>
+
+nmap <silent> <F2> <Plug>DashSearch 

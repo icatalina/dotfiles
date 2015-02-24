@@ -13,6 +13,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'editorconfig-vim'
+Plugin 'rizzatti/dash.vim'
 
 " Color Schemas
 Plugin 'chriskempson/base16-vim'
@@ -21,7 +22,7 @@ Plugin 'wombat256.vim'
 " Syntaxes
 Plugin 'lepture/vim-velocity'
 Plugin 'pangloss/vim-javascript'
-Plugin 'chaquotay/ftl-vim-syntax'
+Plugin 'dansomething/ftl-vim-syntax'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'evidens/vim-twig'
 Plugin 'othree/html5.vim'

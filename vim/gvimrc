@@ -12,5 +12,5 @@ function TabHighlight()
 	call matchadd('tabsUse', '\t\+', 12)
 endfunction
 
-nnoremap <Leader>1 :call TabHighlight()<CR>
+nnoremap <Leader>" :call TabHighlight()<CR>
 nnoremap <Leader>2 :call clearmatches()<CR>
