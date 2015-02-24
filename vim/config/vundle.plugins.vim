@@ -23,5 +23,6 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'chaquotay/ftl-vim-syntax'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'evidens/vim-twig'
+Plugin 'othree/html5.vim'
 
 

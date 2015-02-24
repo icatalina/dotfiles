@@ -112,12 +112,12 @@ set t_kb=
 nmap [3;*~ "_x
 inoremap [3;*~ <C-O>"_x
 
-let mapleader = "ß"
+"let mapleader = "<space>"
 so $VIMCONFIG/main.ctrlp.vim
 so $VIMCONFIG/main.ultisnips.vim
 so $VIMCONFIG/main.syntastic.vim
 so $VIMCONFIG/main.silver-search.vim
-"
+
 " Mappings
 so $VIMCONFIG/main.uppercasecommands.vim
 so $VIMCONFIG/main.keymaps.vim

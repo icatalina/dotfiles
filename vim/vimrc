@@ -1,6 +1,10 @@
 let $VIMHOME=expand('<sfile>:p:h')
 let $VIMCONFIG=$VIMHOME.'/config'
+filetype plugin on
+
+let mapleader = " " 
 
 so $VIMCONFIG/vundle.vim
 so $VIMCONFIG/main.vim
+
 
