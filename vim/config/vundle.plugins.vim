@@ -12,7 +12,7 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'editorconfig-vim'
+Plugin 'editorconfig/editorconfig-vim'
 Plugin 'rizzatti/dash.vim'
 
 " Color Schemas

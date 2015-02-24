@@ -97,13 +97,13 @@ endif
 
 hi Search cterm=NONE ctermbg=8 ctermfg=NONE guibg=gray30 guifg=NONE
 
-" Use 4 tabs and softab
+" Use 4 spaces and softab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set smarttab
 set shiftround
-set noexpandtab
+set expandtab
 set backspace=indent,eol,start "" Works also with backspace=2
 set t_kD=[3;*~
 set t_kb=
@@ -113,6 +113,7 @@ nmap [3;*~ "_x
 inoremap [3;*~ <C-O>"_x
 
 "let mapleader = "<space>"
+so $VIMCONFIG/main.functions.vim
 so $VIMCONFIG/main.ctrlp.vim
 so $VIMCONFIG/main.ultisnips.vim
 so $VIMCONFIG/main.filedef.vim
@@ -149,11 +150,11 @@ if (expand('%') == '' && exists('vimInitDir') &&  isdirectory(vimInitDir)) || is
     cd `=vimInitDir`
     let g:nerdtree_tabs_open_on_gui_startup=1
     let g:nerdtree_tabs_open_on_console_startup=1
-    autocmd VimEnter * bd 
+    autocmd VimEnter * bd
 endif
 
 " Persistent undo
-try 
+try
 	let $VIMUNDODIR = $VIMHOME."/_undodir"
 	if (!exists($VIMUNDODIR))
 		silent !mkdir $VIMUNDODIR > /dev/null 2>&1
