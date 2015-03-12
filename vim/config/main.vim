@@ -146,12 +146,12 @@ if isdirectory(expand('%'))
     let vimInitDir = expand('%')
 endif
 
-if (expand('%') == '' && exists('vimInitDir') &&  isdirectory(vimInitDir)) || isdirectory(expand('%'))
-    cd `=vimInitDir`
-    let g:nerdtree_tabs_open_on_gui_startup=1
-    let g:nerdtree_tabs_open_on_console_startup=1
-    autocmd VimEnter * bd
-endif
+"if (expand('%') == '' && exists('vimInitDir') &&  isdirectory(vimInitDir)) || isdirectory(expand('%'))
+"    cd `=vimInitDir`
+"    let g:nerdtree_tabs_open_on_gui_startup=1
+"    let g:nerdtree_tabs_open_on_console_startup=1
+"    autocmd VimEnter * bd
+"endif
 
 " Persistent undo
 try
@@ -165,6 +165,8 @@ try
 catch
 endtry
 
+" Prevent slow down on logn lines
+set synmaxcol=300
 
 "let g:NERDTreeHijackNetrw=0
 autocmd Filetype gitcommit setlocal spell textwidth=72

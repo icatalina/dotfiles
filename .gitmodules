@@ -3,7 +3,7 @@
 	url = https://github.com/gmarik/Vundle.vim.git
 [submodule "zsh/base16-shell"]
 	path = zsh/base16-shell
-	url = git@github.com:chriskempson/base16-shell.git
+	url = http://github.com/chriskempson/base16-shell.git
 [submodule "zsh/pure"]
 	path = zsh/pure
-	url = git@github.com:sindresorhus/pure.git
+	url = http://github.com/sindresorhus/pure.git
