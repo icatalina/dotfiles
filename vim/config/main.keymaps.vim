@@ -20,9 +20,6 @@ vnoremap <Leader># <C-C>:s/\%V
 "" MouseWheel
 "" map <ScrollWheelUp> <C-Y>
 
-nnoremap <Leader>n :NERDTree<cr>
-vnoremap <Leader>n <c-c>:NERDTree<cr>
-
 nnoremap <C-,> :cprev<cr>
 inoremap <C-,> <C-O>:cprev<cr>
 vnoremap <C-,> <c-c>:cprev<cr>
@@ -54,8 +51,8 @@ vnoremap <c-Z> <c-c>:update<CR>v
 nnoremap <Leader>. :let @/ = ""<CR>
 vnoremap <Leader>. <c-c>:let @/ = ""<cr>v
 
-nnoremap <Leader>n :NERDTreeTabsToggle<cr>
-vnoremap <Leader>n <c-c><plug>NERDTreeTabsToggle<cr>
+nnoremap <Leader>n :NERDTreeToggle<cr>
+vnoremap <Leader>n <c-c><plug>NERDTreeToggle<cr>
 nmap <leader>m :NERDTreeFind<CR>
 
 " NERD Commenter

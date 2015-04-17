@@ -171,3 +171,6 @@ set synmaxcol=300
 "let g:NERDTreeHijackNetrw=0
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
+" Opening Split bottom and right
+set splitbelow
+set splitright

@@ -26,7 +26,10 @@
         "no-multi-spaces": [2, { exceptions: { "Property": true } }],
         "key-spacing": [0, { align: "value" }]
     },
-    env: {
+    "globals" : {
+        trackTime: true,
+    },
+    "env": {
         "browser": true,
         "node": true,
         "amd": true,

@@ -6,5 +6,5 @@
 	lss = log --oneline -20
 	show-files = diff-tree --no-commit-id -M --name-status -r
 	df = diff --cached
-	dfw = diff --cached -w --word-diff
+	dfw = diff --cached -w --word-diff=color
 	ca = clean -f -d

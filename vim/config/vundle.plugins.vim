@@ -21,7 +21,7 @@ Plugin 'honza/vim-snippets'
 " A code-completion engine for vim
 Plugin 'Valloric/YouCompleteMe'
 " This plugin aims at making NERDTree feel like a true panel, independent of tabs.
-Plugin 'jistr/vim-nerdtree-tabs'
+"Plugin 'jistr/vim-nerdtree-tabs'
 " This is an EditorConfig plugin for Vim.
 Plugin 'editorconfig/editorconfig-vim'
 " This Vim plugin will search for terms using the excellent Dash.app , making API lookups simple.
