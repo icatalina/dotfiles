@@ -1,3 +1,4 @@
+
 " prevent vim from adding that stupid empty line at the end of every file
 hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 
