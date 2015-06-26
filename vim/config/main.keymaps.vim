@@ -80,5 +80,8 @@ nnoremap <silent> <Leader>+ :copen<CR>
 nnoremap <silent> <Leader>= :cclose<CR>
 
 nmap <silent> <F2> <Plug>DashSearch
-nmap <silent> <Leader>i :MgrToggle
+"nmap <silent> <Leader>i :MgrToggle
+
+" BufferGator
+nmap <silent> <Leader>i :BuffergatorToggle<CR>
 

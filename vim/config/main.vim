@@ -18,7 +18,9 @@ endif
 " AirLine Configuration
 let g:airline_theme='powerlineish'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_powerline_fonts = 1
+
 set laststatus=2
 "" let g:airline#extensions#tabline#left_sep = ' | '
 "" let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -116,6 +118,7 @@ inoremap [3;*~ <C-O>"_x
 "let mapleader = "<space>"
 so $VIMCONFIG/main.functions.vim
 so $VIMCONFIG/main.ctrlp.vim
+so $VIMCONFIG/main.buffergator.vim
 so $VIMCONFIG/main.ultisnips.vim
 so $VIMCONFIG/main.filedef.vim
 so $VIMCONFIG/main.syntastic.vim

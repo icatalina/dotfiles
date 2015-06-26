@@ -15,13 +15,13 @@ Plugin '29decibel/vim-stringify'
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'tpope/vim-sensible'
 Plugin 'rking/ag.vim'
-Plugin 'JessicaKMcIntosh/TagmaBufMgr'
+Plugin 'jeetsukumaran/vim-buffergator'
 
-" Color Schemas
+"" Color Schemas
 Plugin 'chriskempson/base16-vim'
 Plugin 'wombat256.vim'
 
-" Syntaxes
+"" Syntaxes
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'dansomething/ftl-vim-syntax'
 Plugin 'ekalinin/Dockerfile.vim'
@@ -33,5 +33,5 @@ Plugin 'lepture/vim-velocity'
 Plugin 'othree/html5.vim'
 Plugin 'pangloss/vim-javascript'
 
-" Updated sass/scss syntax
+"" Updated sass/scss syntax
 Plugin 'tpope/vim-haml'
