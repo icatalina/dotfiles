@@ -16,6 +16,7 @@ Plugin 'heavenshell/vim-jsdoc'
 Plugin 'tpope/vim-sensible'
 Plugin 'rking/ag.vim'
 Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'airblade/vim-gitgutter'
 
 "" Color Schemas
 Plugin 'chriskempson/base16-vim'
@@ -32,6 +33,7 @@ Plugin 'jelera/vim-javascript-syntax'
 Plugin 'lepture/vim-velocity'
 Plugin 'othree/html5.vim'
 Plugin 'pangloss/vim-javascript'
+Plugin 'hdima/python-syntax'
 
 "" Updated sass/scss syntax
 Plugin 'tpope/vim-haml'

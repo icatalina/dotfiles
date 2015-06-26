@@ -174,7 +174,12 @@ set synmaxcol=300
 
 "let g:NERDTreeHijackNetrw=0
 autocmd Filetype gitcommit setlocal spell textwidth=72
+au BufNewFile,BufRead *.html set filetype=htmldjango
 
 " Opening Split bottom and right
 set splitbelow
 set splitright
+
+" GitGutter
+let g:gitgutter_enabled = 1
+let g:gitgutter_max_signs = 500  " default value
