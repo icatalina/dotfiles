@@ -1,0 +1,11 @@
+[include]
+	path = INSTALL_FOLDER/source/gitconfig
+
+# Add user a password for the system
+#[user]
+#	name = username
+#	email = email
+
+# Uncomment if using OSX
+#[credential]
+#	helper = osxkeychain

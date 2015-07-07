@@ -1,0 +1,3 @@
+mainfolder="INSTALL_FOLDER"
+source "$mainfolder/source/bash_profile"
+

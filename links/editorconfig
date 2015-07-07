@@ -10,8 +10,14 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 charset = utf-8
+curly_bracket_next_line = false
+spaces_around_operators = true
+spaces_around_brackets = outside
+indent_brace_style = K&R
+indent_size = 4
 
 # Matches multiple files with brace expansion notation
 # Set default charset
-[*.{scss,css}]
+[*.{scss,css,js}]
 indent_size = 2
+quote_type = 'single'

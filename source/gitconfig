@@ -1,0 +1,26 @@
+[core]
+    #whitespace = fix,trailing-space
+    #autocrlf = input
+	commentchar = "\""
+	editor = /usr/local/bin/vim
+[mergetool "p4merge"]
+	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+	keepTemporaries = false
+	trustExitCode = false
+	keepBackup = false
+[merge]
+	tool = p4merge
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[push]
+    default = current
+[alias]
+	st = status -sb
+	ls = log --oneline
+	lss = log --oneline -20
+	show-files = diff-tree --no-commit-id -M --name-status -r
+	df = diff --cached
+	dfw = diff --cached -w --word-diff=color
+	ca = clean -f -d

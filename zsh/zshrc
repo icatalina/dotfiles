@@ -10,7 +10,7 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.dotfiles/zsh/temp/histfile
+HISTFILE="$mainfolder/_local/histfile"
 HISTSIZE=1000
 SAVEHIST=1000
 bindkey -e
@@ -23,10 +23,10 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 
 unsetopt nomatch
 
-source ~/.dotfiles/zsh/zsh_keymaps
+source "$mainfolder/zsh/zsh_keymaps"
 
 # .zshrc
 autoload -U promptinit && promptinit
 prompt pure
 
-source ~/.dotfiles/exports
+source "$mainfolder/source/exports"
