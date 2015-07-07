@@ -1,87 +1,77 @@
-"vnoremap <unt> * :call VisualSelection('f')<cR>
-"vnoremap <silent> # :call VisualSelection('b')<CR>
-nnoremap <C-/> :let @/ = ""<CR>
-inoremap <C-/> <C-O>:let @/ = ""<CR>
-vnoremap <c-/> <c-c>:let @/ = ""<cr>v
+function! InsertNewLine(...)
+    let g:cursor=getpos(".")
 
-nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
-nnoremap <silent> <C-L> :CtrlPBuffer<CR>
-nnoremap <silent> <C-K> :CtrlPMRU<CR>
+    if a:0 > 0 && a:1 == 'up'
+        let l:command=':i.'
+        let g:cursor[1] = g:cursor[1] + 1
+    elseif a:0 == 0 || (a:0 > 0 && a:1 == 'down')
+       let l:command=':a.'
+    else
+        return
+    endif
 
-" Sort
-vnoremap <Leader>s :sort<CR>
-" Unique
-vnoremap <Leader>u :sort u<CR>
+    try
+        exec "normal " . l:command
+    finally
+        keepjumps call setpos(".", g:cursor)
+    endtry
 
-" Search and Replace
-nnoremap <Leader># :%s/
-vnoremap <Leader># <C-C>:s/\%V
+endfunction
 
-"" MouseWheel
-"" map <ScrollWheelUp> <C-Y>
+nnoremap <silent> <Leader>pp :CtrlP<CR>
+nnoremap <silent> <Leader>pb :CtrlPBuffer<CR>
+nnoremap <silent> <Leader>pm :CtrlPMRU<CR>
 
-nnoremap <C-,> :cprev<cr>
-inoremap <C-,> <C-O>:cprev<cr>
-vnoremap <C-,> <c-c>:cprev<cr>
+vnoremap <Leader>su :sort u<CR>
+vnoremap <Leader>sa :sort<CR>
+nnoremap <Leader>sr :%s/
+vnoremap \/ <Esc>/\%V
+vnoremap <Leader>sr <Esc>:%s/\%V
 
-nnoremap <C-.> :cnext<cr>
-inoremap <C-.> <C-O>:cnext<cr>
-vnoremap <C-.> <c-c>:cnext<cr>
+" Removes the previous searched string
+nnoremap <silent> <Leader>sc :let @/ = ""<CR>
+vnoremap <silent> <Leader>sc <c-c>:let @/ = ""<cr>v
 
-noremap <Leader>e :bp<bar>sp<bar>bn<bar>bd<CR>
-noremap <Leader>E :bp<bar>sp<bar>bn<bar>bd!<CR>
-noremap <Leader>` :qa!<CR>
+"Location List
+let g:lt_location_list_toggle_map = 'coo'
+nmap coj :lnext<CR>
+nmap cok :lprev<CR>
 
-nnoremap <Leader>h  :tabprevious<CR>
-nnoremap <leader>l  :tabnext<CR>
-nnoremap <Leader>t  :tabnew<CR>
-nnoremap <Leader>w  :tabclose<CR>
-
-noremap <C-U> <C-R>
+" QuickFix List
+let g:lt_quickfix_list_toggle_map = 'cpp'
+nmap cpj :cnext<CR>
+nmap cpk :cnext<CR>
 
 " Save
-nnoremap <C-Z> :update<CR>
-inoremap <C-Z> <C-O>:update<CR>
-vnoremap <c-Z> <c-c>:update<CR>v
+nnoremap <C-z> :update<cr>
+inoremap <C-z> <c-o>:update<cr>
+vnoremap <C-z> <c-c>:update<cr>v
 
-"vnoremap <unt> * :call VisualSelection('f')<cR>
-"vnoremap <silent> # :call VisualSelection('b')<CR>
 
-" Leader . removes the previous searched string
-nnoremap <Leader>. :let @/ = ""<CR>
-vnoremap <Leader>. <c-c>:let @/ = ""<cr>v
-
+" Toggle NerdTree
 nnoremap <Leader>n :NERDTreeToggle<cr>
-vnoremap <Leader>n <c-c><plug>NERDTreeToggle<cr>
+" Find in Nerd Tree
 nmap <leader>m :NERDTreeFind<CR>
 
-" NERD Commenter
-let g:NERDCreateDefaultMappings = 0
-let NERDSpaceDelims = 1
-nmap <Leader>/ <Plug>NERDCommenterToggle
-vmap <Leader>/ <Plug>NERDCommenterToggle
+" nerd commenter
+let g:nerdcreatedefaultmappings = 0
+let nerdspacedelims = 1
+nmap \c <Plug>NERDCommenterToggle
+vmap \c <Plug>NERDCommenterToggle
+map <F9> :normal \c<CR>
+inoremap <F9> <c-o>:normal \c<CR>
+
+au BufEnter *buffergator-buffers* silent! nunmap ds
+au BufLeave *buffergator-buffers* nmap   ds <Plug>Dsurround
 
 " Remap ctrl+enter and ctrl+shift+enter to insert a line above and below the
 " current line
-nmap <C-CR> o<Esc>k
-nmap <C-S-CR> O<Esc>j
+nmap <silent> <C-CR> :call InsertNewLine()<CR>
+nmap <silent> <C-S-CR> :call InsertNewLine('up')<CR>
 
-nmap <F8> va":s/\%V"/'/g<CR>
-
-nnoremap <leader>s :update<CR>
-
-" Remove Trailing spaces with F5
-nnoremap <silent> <F5> :call TrimTrailingWhitespace()<CR>
-
-" Navigate the quickfix list
-nnoremap <silent> <Leader>] :cnext<CR>
-nnoremap <silent> <Leader>[ :cprev<CR>
-nnoremap <silent> <Leader>+ :copen<CR>
-nnoremap <silent> <Leader>= :cclose<CR>
-
-nmap <silent> <F2> <Plug>DashSearch
+" Remove Trailing spaces with F5 / Quick Update for whitespaces
+nnoremap <silent> cdw :call TrimTrailingWhitespace()<CR>:AirlineToggleWhitespace<CR>:AirlineToggleWhitespace<CR>
 
 " BufferGator
-nmap <silent> <Leader>i :BuffergatorToggle<CR>
-map <D-i> <Esc>
+nmap <silent> <Leader>b :BuffergatorToggle<CR>
 

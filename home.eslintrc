@@ -16,7 +16,7 @@
         }],
         "eqeqeq": 2,
         "radix": 2,
-        "indent": [2, "tab"],
+        "indent": [2, 4, {"indentSwitchCase": true}],
         "space-before-blocks": [2, "always"],
         "space-after-keywords": [2, "always"],
         "spaced-line-comment": [2, "always"],
@@ -25,12 +25,10 @@
         "space-before-function-parentheses": [2, {"anonymous": "never", "named": "never"}],
         "no-multi-spaces": [2, { exceptions: { "Property": true } }],
         "key-spacing": [0, { align: "value" }],
-        "no-use-before-define": false
+        "no-use-before-define": 2,
     },
     "globals" : {
-        trackTime: true,
-        loadFixtures: true,
-        YELLDATA: false
+        angular: true
     },
     "env": {
         browser: true,

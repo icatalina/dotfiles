@@ -93,7 +93,7 @@ set background=dark
 
 if !empty($BASE16)
     let base16colorspace=256
-    colorscheme base16-ocean
+    colorscheme base16-default
 else
     colorscheme wombat256mod
 endif
@@ -138,6 +138,10 @@ so $VIMCONFIG/main.keymaps.vim
 
 "" YouCompleteMe
 "let g:ycm_key_list_previous_completion=['<Up>']
+let g:ycm_complete_in_comments = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 
 " Show commands on the bar
 set showcmd
@@ -183,3 +187,10 @@ set splitright
 " GitGutter
 let g:gitgutter_enabled = 1
 let g:gitgutter_max_signs = 500  " default value
+
+" Closetags.vim - Files to activate the plugin in.
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+
+" Vim Angular - FileName Conversion 'camelcased' or 'titlecased' or nothing
+" for dasherized
+let g:angular_filename_convention = 'camelcased'

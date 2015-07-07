@@ -8,12 +8,6 @@ call vundle#begin('~/.dotfiles/vim/_bundle')
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
 so $VIMHOME/config/vundle.plugins.vim
 
 " All of your Plugins must be added before the following line

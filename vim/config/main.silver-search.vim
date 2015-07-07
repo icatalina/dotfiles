@@ -12,5 +12,5 @@ endif
 
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 
-nnoremap K :!grep "\b<C-R><C-W>\b"<CR>:cw<CR>
-nnoremap \ :Ag -i<SPACE>
+" nnoremap K :!grep "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap \\ :Ag -i<SPACE>

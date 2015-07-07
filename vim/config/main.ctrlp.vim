@@ -7,3 +7,12 @@ let g:ctrlp_custom_ignore = {
 
 "Make CtrlP Use the CWD
 let g:ctrlp_working_path_mode = 'a'
+let g:ctrlp_cmd = 'CtrlPMRUFiles'
+
+
+let g:ctrlp_prompt_mappings = {
+    \ 'PrtHistory(-1)':       ['<c-n>'],
+    \ 'PrtHistory(1)':        [],
+    \ 'ToggleType(1)':        ['<c-f>', '<c-p>', '<c-up>'],
+    \ }
+
