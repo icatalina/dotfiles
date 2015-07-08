@@ -8,7 +8,7 @@ call vundle#begin('~/.dotfiles/vim/_bundle')
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-so $VIMHOME/config/vundle.plugins.vim
+so $VIMHOME/config/vundle/plugins.vim
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

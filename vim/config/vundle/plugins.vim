@@ -50,7 +50,9 @@ Plugin 'hdima/python-syntax'
 Plugin 'tpope/vim-haml'
 
 "Perforce Plugin
-Plugin 'gdw2/vimp4python'
+if !empty($P4CONFIG)
+    Plugin 'gdw2/vimp4python'
+endif
 
 "" Custom TextObjects
 Plugin 'kana/vim-textobj-user'

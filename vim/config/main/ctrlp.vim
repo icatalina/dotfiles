@@ -16,3 +16,7 @@ let g:ctrlp_prompt_mappings = {
     \ 'ToggleType(1)':        ['<c-f>', '<c-p>', '<c-up>'],
     \ }
 
+" MAPPINGS
+nnoremap <silent> <Leader>pp :CtrlP<CR>
+nnoremap <silent> <Leader>pb :CtrlPBuffer<CR>
+nnoremap <silent> <Leader>pm :CtrlPMRU<CR>

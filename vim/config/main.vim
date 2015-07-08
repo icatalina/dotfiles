@@ -1,5 +1,3 @@
-
-" prevent vim from adding that stupid empty line at the end of every file
 hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 
 set shell=/bin/bash     " use bash for shell commands
@@ -15,16 +13,6 @@ else
   set clipboard=unnamed
 endif
 
-" AirLine Configuration
-let g:airline_theme='powerlineish'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_powerline_fonts = 1
-
-set laststatus=2
-"" let g:airline#extensions#tabline#left_sep = ' | '
-"" let g:airline#extensions#tabline#left_alt_sep = '|'
-
 set encoding=utf8
 set ffs=unix,dos,mac
 set nocp
@@ -34,20 +22,6 @@ set number
 set numberwidth=3       " number of culumns for line numbers
 set nowrap
 set relativenumber
-
-"" History & Undo Level
-set history=700
-set undolevels=700
-
-let g:NERDTreeBookmarksFile = $VIMTEMP."/_vimNerdTreeBookMarks"
-
-try
-	let $VIMUNDODIR = $VIMTEMP."/_vimundodir"
-    call CreateIfNotExist($VIMUNDODIR)
-    set undodir=$VIMUNDODIR
-    set undofile
-catch
-endtry
 
 set viminfo+=n$VIMTEMP/_viminfo
 
@@ -61,12 +35,6 @@ set writebackup
 filetype off
 syntax on
 filetype plugin indent on
-
-"" Autoreload vimrc on save
-augroup reload_vimrc " {
-   autocmd!
-   autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
 
 set mouse=a
 
@@ -85,7 +53,7 @@ set ruler
 set cmdheight=2
 set hid
 
-set whichwrap+=<,>,h,l
+set whichwrap+=<,>,h,l,[,]
 
 set splitright
 set lazyredraw
@@ -113,9 +81,9 @@ endif
 hi Search cterm=NONE ctermbg=8 ctermfg=NONE guibg=gray30 guifg=NONE
 
 " Use 4 spaces and softab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set smarttab
 set shiftround
 set expandtab
@@ -127,71 +95,41 @@ set t_kb=
 nmap [3;*~ "_x
 inoremap [3;*~ <C-O>"_x
 
-"let mapleader = "<space>"
-so $VIMCONFIG/main.functions.vim
-so $VIMCONFIG/main.ctrlp.vim
-so $VIMCONFIG/main.buffergator.vim
-so $VIMCONFIG/main.ultisnips.vim
-so $VIMCONFIG/main.filedef.vim
-so $VIMCONFIG/main.syntastic.vim
-so $VIMCONFIG/main.silver-search.vim
-
-" Mappings
-so $VIMCONFIG/main.uppercasecommands.vim
-so $VIMCONFIG/main.keymaps.vim
-
-"" Detect Indent
-"let g:detectindent_preferred_expandtab = 1
-"let g:detectindent_preferred_indent = 4
-"let g:detectindent_max_lines_to_analyse = 1024
-
-"autocmd BufNewFile,BufReadPost * :DetectIndent
-"autocmd FileType make setlocal noexpandtab
-
-"" YouCompleteMe
-"let g:ycm_key_list_previous_completion=['<Up>']
-let g:ycm_complete_in_comments = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
-
 " Show commands on the bar
 set showcmd
 
-"  autocmd VimEnter * :NERDTreeTabsToggle
-let NERDTreeIgnore=['\.DS_Store$']
-let g:nerdtree_tabs_open_on_gui_startup=0
-
-if isdirectory(expand('%'))
-    let vimInitDir = expand('%')
-endif
-
-"if (expand('%') == '' && exists('vimInitDir') &&  isdirectory(vimInitDir)) || isdirectory(expand('%'))
-"    cd `=vimInitDir`
-"    let g:nerdtree_tabs_open_on_gui_startup=1
-"    let g:nerdtree_tabs_open_on_console_startup=1
-"    autocmd VimEnter * bd
-"endif
-
-
 " Prevent slow down on logn lines
-set synmaxcol=300
+set synmaxcol=400
 
-"let g:NERDTreeHijackNetrw=0
 autocmd Filetype gitcommit setlocal spell textwidth=72
-au BufNewFile,BufRead *.html set filetype=htmldjango
+"au BufNewFile,BufRead *.html set filetype=htmldjango
 
 " Opening Split bottom and right
 set splitbelow
 set splitright
 
-" GitGutter
-let g:gitgutter_enabled = 1
-let g:gitgutter_max_signs = 500  " default value
+so $VIMCONFIG/main/functions.vim
+"so $VIMCONFIG/main/detect-indent.vim
+so $VIMCONFIG/main/ctrlp.vim
+so $VIMCONFIG/main/buffergator.vim
+so $VIMCONFIG/main/ultisnips.vim
+so $VIMCONFIG/main/filedef.vim
+so $VIMCONFIG/main/syntastic.vim
+so $VIMCONFIG/main/silver-search.vim
+so $VIMCONFIG/main/airline.vim
+so $VIMCONFIG/main/nerd.vim
+so $VIMCONFIG/main/history.vim
+so $VIMCONFIG/main/youcompleteme.vim
+so $VIMCONFIG/main/gitgutter.vim
+so $VIMCONFIG/main/vimangular.vim
+so $VIMCONFIG/main/closetags.vim
+so $VIMCONFIG/main/listtoggle.vim
 
-" Closetags.vim - Files to activate the plugin in.
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+" Mappings
+so $VIMCONFIG/main/uppercasecommands.vim
+so $VIMCONFIG/main/keymaps.vim
 
-" Vim Angular - FileName Conversion 'camelcased' or 'titlecased' or nothing
-" for dasherized
-let g:angular_filename_convention = 'camelcased'
+" Patch for some keys in iterm
+if !has('gui_running')
+    so $VIMCONFIG/main/itermhook.vim
+endif
