@@ -20,6 +20,7 @@ au BufLeave *buffergator-buffers* nmap   ds <Plug>Dsurround
 " current line
 nmap <silent> <C-CR> :call InsertNewLine()<CR>
 nmap <silent> <C-S-CR> :call InsertNewLine('up')<CR>
+
 " Remove Trailing spaces with cdw / Quick Update for whitespaces
 nnoremap <silent> cdw :call TrimTrailingWhitespace()<CR>:AirlineToggleWhitespace<CR>:AirlineToggleWhitespace<CR>
 
