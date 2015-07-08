@@ -39,6 +39,18 @@ set relativenumber
 set history=700
 set undolevels=700
 
+let g:NERDTreeBookmarksFile = $VIMTEMP."/_vimNerdTreeBookMarks"
+
+try
+	let $VIMUNDODIR = $VIMTEMP."/_vimundodir"
+    call CreateIfNotExist($VIMUNDODIR)
+    set undodir=$VIMUNDODIR
+    set undofile
+catch
+endtry
+
+set viminfo+=n$VIMTEMP/_viminfo
+
 "" backup to ~/.tmp
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -161,17 +173,6 @@ endif
 "    autocmd VimEnter * bd
 "endif
 
-" Persistent undo
-try
-	let $VIMUNDODIR = $VIMHOME."/_undodir"
-	if (!exists($VIMUNDODIR))
-		silent !mkdir $VIMUNDODIR > /dev/null 2>&1
-	endif
-
-    set undodir=$VIMUNDODIR
-    set undofile
-catch
-endtry
 
 " Prevent slow down on logn lines
 set synmaxcol=300

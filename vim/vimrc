@@ -1,8 +1,16 @@
 let $VIMHOME=expand('<sfile>:p:h')
+let $VIMTEMP = $VIMHOME."/../_local"
 let $VIMCONFIG=$VIMHOME.'/config'
 filetype plugin on
 
 let mapleader = " "
 
+function! CreateIfNotExist(dir)
+    if(!isdirectory(a:dir))
+       execute "silent !mkdir -p \"" . a:dir . "\" >> /dev/null 2>&1"
+    endif
+endfunction
+
 so $VIMCONFIG/vundle.vim
 so $VIMCONFIG/main.vim
+

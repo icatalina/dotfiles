@@ -43,12 +43,16 @@ function createLinkIfDoesntExist {
 }
 
 cwd=$PWD
+shortCwd=${cwd/$HOME/"~"}
+echo $cwd;
+cd $cwd;
+
 # Copying home files
 cd "$cwd/home"
 for f in *; do
     if [ "$remove" = true ]; then remove ~/".$f"; fi
-    echo "Adding $cwd/home/$f -> ~/.$f";
-    sed "s|INSTALL_FOLDER|$cwd|g" "$f" >> ~/".$f";
+    echo "Adding $shortCwd/home/$f -> ~/.$f";
+    sed "s|INSTALL_FOLDER|$shortCwd|g" "$f" >> ~/".$f";
 done
 cd "$cwd"
 
@@ -59,15 +63,21 @@ for f in *; do
 done
 cd "$cwd"
 
-if [ -z "$(which zsh)" ]; then
-	echo "Installing ZSH:"
+# if [ -z "$(which zsh)" ]; then
+	# echo "Installing ZSH:"
 	#brew install zsh
-fi
+# fi
 
 zshfpath='/usr/share/zsh/site-functions'
+zshfpath2='/usr/local/share/zsh/site-functions'
 if [ -d "$zshfpath" ]; then
-    createLinkIfDoesntExist "$cwd/zsh/pure/pure.zsh" "$zshfpath/prompt_pure_setup" $remove "true";
+    createLinkIfDoesntExist "$cwd/zsh/pure/pure.zsh" "$zshfpath/prompt_pure_setup" $remove true;
 fi
+
+if [ -d "$zshfpath" ]; then
+    createLinkIfDoesntExist "$cwd/zsh/pure/pure.zsh" "$zshfpath2/prompt_pure_setup" $remove true;
+fi
+exit;
 
 vundlefolder="$cwd/vim/_bundle/Vundle.vim"
 if [ ! -d "$vundlefolder/.git" ]; then

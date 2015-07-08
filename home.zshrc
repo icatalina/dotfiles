@@ -1,2 +1,0 @@
-source ./.dotfiles/zshrc
-

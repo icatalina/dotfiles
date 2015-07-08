@@ -10,7 +10,7 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
-HISTFILE="$mainfolder/_local/histfile"
+HISTFILE="$mainfolder/_local/_zshhistfile"
 HISTSIZE=1000
 SAVEHIST=1000
 bindkey -e
