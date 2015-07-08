@@ -77,7 +77,6 @@ fi
 if [ -d "$zshfpath" ]; then
     createLinkIfDoesntExist "$cwd/zsh/pure/pure.zsh" "$zshfpath2/prompt_pure_setup" $remove true;
 fi
-exit;
 
 vundlefolder="$cwd/vim/_bundle/Vundle.vim"
 if [ ! -d "$vundlefolder/.git" ]; then
