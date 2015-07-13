@@ -13,4 +13,5 @@ endif
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 
 " nnoremap K :!grep "\b<C-R><C-W>\b"<CR>:cw<CR>
-nnoremap \\ :Ag -i<SPACE>
+nnoremap \\ :Ag! -i<SPACE>
+vnoremap \\ "zy:Ag! -i <C-r>=fnameescape(@z)<CR>

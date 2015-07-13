@@ -121,7 +121,6 @@ so $VIMCONFIG/main/nerd.vim
 so $VIMCONFIG/main/history.vim
 so $VIMCONFIG/main/youcompleteme.vim
 so $VIMCONFIG/main/gitgutter.vim
-so $VIMCONFIG/main/vimangular.vim
 so $VIMCONFIG/main/closetags.vim
 so $VIMCONFIG/main/listtoggle.vim
 

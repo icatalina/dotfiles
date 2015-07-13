@@ -26,7 +26,13 @@ vmap \c <Plug>NERDCommenterToggle
 map <F9> :normal \c<CR>
 inoremap <F9> <c-o>:normal \c<CR>
 
+let g:NERDCustomDelimiters = {
+      \ 'javascript' : { 'left': '// ', 'leftAlt': '/*', 'rightAlt': '*/' },
+      \ 'javascript.jquery': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }
+    \ }
+
 " NERDTree
 nnoremap <Leader>n :NERDTreeToggle<cr>
 " Find in Nerd Tree
 nmap <leader>m :NERDTreeFind<CR>
+

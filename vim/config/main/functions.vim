@@ -31,3 +31,23 @@ function! InsertNewLine(...)
     endtry
 
 endfunction
+
+" Adds the quicklist items to the Argslist
+function! QuickListToArgs()
+  let l:list = {}
+  let l:ouptut = ''
+
+  exe 'silent! argd *'
+
+  for file in getqflist()
+    let l:list[bufname(file.bufnr)] = 1
+  endfor
+
+  let l:output = join(keys(l:list))
+  let g:output = join(keys(l:list))
+
+  exe 'silent! arga' l:output
+  exe 'silent! cclose'
+  exe 'args'
+
+endfunction
