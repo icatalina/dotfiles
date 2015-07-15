@@ -50,15 +50,7 @@ Plugin 'hdima/python-syntax'
 Plugin 'tpope/vim-haml'
 
 "Perforce Plugin
-"if !empty($P4CONFIG)
-
-function! EnableP4()
-  if empty("g:P4SetRuler")
-    exe "Plugin 'gdw2/vimp4python'"
-  endif
-endfunction
-command! EnableP4 exe "call EnableP4()"
-"endif
+Plugin 'gdw2/vimp4python'
 
 "" Custom TextObjects
 Plugin 'kana/vim-textobj-user'

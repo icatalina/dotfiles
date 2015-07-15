@@ -30,8 +30,10 @@ nmap <silent> \ss :SyntasticCheck<CR>
 nmap <silent> \sS :SyntasticCheck<CR>:SyntasticSetLoclist<CR>:lw<CR>
 nmap <silent> \sb :SyntasticCheck<CR>:SyntasticSetLoclist<CR>:SyntasticReset<CR>:lw<CR>
 
+let g:syntastic_html_tidy_exec = 'tidy5'
 let g:syntastic_error_symbol = '●'
 let g:syntastic_style_error_symbol = '‣'
 let g:syntastic_warning_symbol = '○'
 let g:syntastic_style_warning_symbol = '▹'
 
+autocmd BufNewFile,BufRead *.html let g:syntastic_html_tidy_ignore_errors += ['<if-', 'discarding unexpected </if-', '<a> attribute "href" lacks value']
