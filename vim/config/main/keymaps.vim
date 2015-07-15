@@ -26,4 +26,7 @@ nnoremap <silent> cdw :call TrimTrailingWhitespace()<CR>:AirlineToggleWhitespace
 
 " Advanced gf
 nmap cgf :e <cfile><CR>
+
 map <F7> :call QuickListToArgs()<CR>
+
+nmap <silent> \r :set relativenumber!<CR>

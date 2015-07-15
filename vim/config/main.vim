@@ -132,3 +132,7 @@ so $VIMCONFIG/main/keymaps.vim
 if !has('gui_running')
     so $VIMCONFIG/main/itermhook.vim
 endif
+
+autocmd Filetype * call LongFiles()
+
+

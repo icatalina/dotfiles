@@ -49,5 +49,29 @@ function! QuickListToArgs()
   exe 'silent! arga' l:output
   exe 'silent! cclose'
   exe 'args'
+endfunction
 
+" Meassure file size and disable some stuff if too big
+function! LongFiles()
+    let l:long = max(map(getline(1,'$'), 'len(v:val)'))
+    if l:long > 300
+        echo 'File with long lines (' . l:long . 'chars), disabling some stuff...'
+        setlocal noautoindent nocindent nosmartindent indentexpr=
+        setlocal syntax=OFF
+    endif
+endfunction
+"
+" Times the number of times a particular command takes to execute the specified number of times (in seconds).
+function! HowLong( command, numberOfTimes )
+  " We don't want to be prompted by a message if the command being tried is
+  " an echo as that would slow things down while waiting for user input.
+  let more = &more
+  set nomore
+  let startTime = localtime()
+  for i in range( a:numberOfTimes )
+    execute a:command
+  endfor
+  let result = localtime() - startTime
+  let &more = more
+  return result
 endfunction
