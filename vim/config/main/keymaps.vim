@@ -30,3 +30,18 @@ nmap cgf :e <cfile><CR>
 map <F7> :call QuickListToArgs()<CR>
 
 nmap <silent> \r :set relativenumber!<CR>
+
+" Force Save in perforce
+command! WW :w!|:norm \pe<CR>
+
+" Stringify
+"
+" Small plugin that turns your raw templates into concatenated
+" strings.
+nmap <leader>g :call Stringify()<CR>
+vmap <leader>g :call Stringify()<CR>
+
+nmap <silent> <C-l> <Plug>(jsdoc)
+
+inoremap <C-U> <C-G>u<C-U>
+nnoremap <F3> :GundoToggle<CR>

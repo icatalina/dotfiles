@@ -1,6 +1,6 @@
 " History & Undo Level
-set history=700
-set undolevels=700
+set history=1000
+set undolevels=1000
 
 try
 	let $VIMUNDODIR = $VIMTEMP."/_vimundodir"

@@ -5,6 +5,7 @@ set hidden              " enable multiple modified buffers
 set autoread            " automatically read file that has been changed on disk and doesn't have changes in vim
 set cinoptions=:0,(s,u0,U1,g0,t0 " some indentation options ':h cinoptions' for details
 set autoindent          " automatically indent new line
+set complete-=i         " Disables included file completion, seems to be quicker
 
 " Share clipboard
 if has('unnamedplus')
@@ -53,12 +54,30 @@ set ruler
 set cmdheight=2
 set hid
 
+" Minimal number of screen lines to keep above and below the cursor.
+set scrolloff=4
+set sidescrolloff=10
+
 set whichwrap+=<,>,h,l,[,]
 
 set splitright
 set lazyredraw
 set showmatch
 set mat=2
+
+set ttimeout
+set ttimeoutlen=100
+
+" When included, as much as possible of the last line
+" in a window will be displayed.
+set display+=lastline
+
+" Show some characters
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set list!
+
+" Delete comment character when joining commented lines
+set formatoptions+=j
 
 "" Split
 "set noesckeys
@@ -119,6 +138,7 @@ so $VIMCONFIG/main/silver-search.vim
 so $VIMCONFIG/main/airline.vim
 so $VIMCONFIG/main/nerd.vim
 so $VIMCONFIG/main/history.vim
+so $VIMCONFIG/main/delimitmate.vim
 so $VIMCONFIG/main/youcompleteme.vim
 so $VIMCONFIG/main/gitgutter.vim
 so $VIMCONFIG/main/closetags.vim
@@ -135,4 +155,4 @@ endif
 
 autocmd Filetype * call LongFiles()
 
-
+autocmd BufEnter * :syntax sync minlines=500

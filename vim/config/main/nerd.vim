@@ -3,6 +3,7 @@ let g:NERDTreeBookmarksFile = $VIMTEMP."/_vimNerdTreeBookMarks"
 let NERDTreeIgnore=['\.DS_Store$']
 let g:nerdtree_tabs_open_on_gui_startup=0
 
+
 "if isdirectory(expand('%'))
     "let vimInitDir = expand('%')
 "endif
@@ -13,8 +14,6 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 "    let g:nerdtree_tabs_open_on_console_startup=1
 "    autocmd VimEnter * bd
 "endif
-
-
 
 "" MAPPINGS
 
