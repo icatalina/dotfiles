@@ -1,6 +1,6 @@
 let g:NERDTreeBookmarksFile = $VIMTEMP."/_vimNerdTreeBookMarks"
 "  autocmd VimEnter * :NERDTreeTabsToggle
-let NERDTreeIgnore=['\.DS_Store$']
+let NERDTreeIgnore=['\.DS_Store$', '\.pyc', '__pycache__', '__init__.py']
 let g:nerdtree_tabs_open_on_gui_startup=0
 
 
