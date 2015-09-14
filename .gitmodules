@@ -1,9 +1,9 @@
 [submodule "vim/vundle"]
-	path = vim/vundle
-	url = https://github.com/gmarik/Vundle.vim.git
+  path = vim/vundle
+  url = https://github.com/gmarik/Vundle.vim.git
+[submodule "zsh/pure"]
+  path = zsh/pure
+  url = https://github.com/sindresorhus/pure.git
 [submodule "zsh/base16-shell"]
 	path = zsh/base16-shell
-	url = https://github.com/chriskempson/base16-shell.git
-[submodule "zsh/pure"]
-	path = zsh/pure
-	url = https://github.com/sindresorhus/pure.git
+	url = https://github.com/xHN35RQ/base16-shell

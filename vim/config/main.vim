@@ -11,7 +11,7 @@ set complete-=i         " Disables included file completion, seems to be quicker
 if has('unnamedplus')
   set clipboard=unnamedplus
 else
-  set clipboard=unnamed
+  set clipboard+=unnamed
 endif
 
 set encoding=utf8
@@ -83,7 +83,6 @@ set formatoptions+=j
 "set noesckeys
 
 " Color Scheme
-set term=xterm
 set t_Co=256
 let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"

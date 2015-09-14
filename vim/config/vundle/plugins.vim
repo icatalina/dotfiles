@@ -55,15 +55,16 @@ Plugin 'hdima/python-syntax'
 "" Updated sass/scss syntax
 Plugin 'tpope/vim-haml'
 
-"Perforce Plugin
-Plugin 'gdw2/vimp4python'
-
 "" Custom TextObjects
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-entire'
 Plugin 'kana/vim-textobj-line'
 Plugin 'beloglazov/vim-textobj-quotes'
 
+"Perforce Plugin
+Plugin 'gdw2/vimp4python'
+
 " Location List
 Plugin 'Valloric/ListToggle'
 " Plugin 'marijnh/tern_for_vim'
+Plugin 'lucapette/vim-textobj-underscore'
