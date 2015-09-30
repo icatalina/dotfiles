@@ -16,10 +16,10 @@ vnoremap <C-z> <c-c>:update<cr>v
 au BufEnter *buffergator-buffers* silent! nunmap ds
 au BufLeave *buffergator-buffers* nmap   ds <Plug>Dsurround
 
-" Remap ctrl+enter and ctrl+shift+enter to insert a line above and below the
+" Remap ctrl+j and ctrl+k to insert a line above and below the
 " current line
-nmap <silent> <C-CR> :call InsertNewLine()<CR>
-nmap <silent> <C-S-CR> :call InsertNewLine('up')<CR>
+map <silent> <C-j> :call InsertNewLine('up')<CR>
+map <silent> <C-k> :call InsertNewLine()<CR>
 
 " Remove Trailing spaces with cdw / Quick Update for whitespaces
 nnoremap <silent> cdw :call TrimTrailingWhitespace()<CR>:AirlineToggleWhitespace<CR>:AirlineToggleWhitespace<CR>
