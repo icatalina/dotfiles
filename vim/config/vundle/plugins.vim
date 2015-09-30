@@ -68,3 +68,5 @@ Plugin 'gdw2/vimp4python'
 Plugin 'Valloric/ListToggle'
 " Plugin 'marijnh/tern_for_vim'
 Plugin 'lucapette/vim-textobj-underscore'
+Plugin 'tmux-plugins/vim-tmux-focus-events'
+
