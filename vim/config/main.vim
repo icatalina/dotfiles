@@ -155,3 +155,17 @@ endif
 autocmd Filetype * call LongFiles()
 
 autocmd BufEnter * :syntax sync minlines=500
+
+" Allow the use of the mouse to adjust pane sizes
+" within Tmux
+set mouse+=a
+if &term =~ '^screen'
+    " tmux knows the extended mouse mode
+    set ttymouse=xterm2
+endif
+
+" Keep window position when switching buffers
+if v:version >= 700
+  au BufLeave * let b:winview = winsaveview()
+  au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
+endif
