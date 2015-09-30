@@ -7,3 +7,6 @@
 [submodule "zsh/base16-shell"]
 	path = zsh/base16-shell
 	url = https://github.com/xHN35RQ/base16-shell
+[submodule "tmux/tpm"]
+	path = tmux/tpm
+	url = https://github.com/tmux-plugins/tpm.git
