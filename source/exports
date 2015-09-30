@@ -30,6 +30,7 @@ alias pipekill='awk "{print \$1}" | xargs kill -9'
 alias ng="npm list -g --depth=0 2>/dev/null"
 alias nl="npm list --depth=0 2>/dev/null"
 alias cask="brew cask"
+alias ll='ls -gA1GhF --group-directories-first --color'
 
 alias mvim='open -a MacVim'
 alias filesWithSpaces="grep -Rc '^     ' . | grep -v ':0$' | sort -t':' -n -k2"
