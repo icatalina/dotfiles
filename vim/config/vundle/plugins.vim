@@ -61,12 +61,15 @@ Plugin 'kana/vim-textobj-entire'
 Plugin 'kana/vim-textobj-line'
 Plugin 'beloglazov/vim-textobj-quotes'
 
-"Perforce Plugin
-Plugin 'gdw2/vimp4python'
-
 " Location List
 Plugin 'Valloric/ListToggle'
 " Plugin 'marijnh/tern_for_vim'
 Plugin 'lucapette/vim-textobj-underscore'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
+
+
+let s:localFile = expand("~/.local.vimplugins.vim")
+if filereadable(s:localFile)
+  exec 'source '.fnameescape(s:localFile)
+endif
 
