@@ -31,12 +31,7 @@ Plugin 'heavenshell/vim-jsdoc'
 "Plugin 'jelera/vim-javascript-syntax'
 Plugin 'othree/yajs.vim'
 
-"Angular Specific
-Plugin 'burnettk/vim-angular'
-Plugin 'matthewsimo/angular-vim-snippets'
-Plugin 'othree/javascript-libraries-syntax.vim'
-
-"" Color Schemas
+" Color Schemas
 Plugin 'chriskempson/base16-vim'
 " Plugin 'wombat256.vim'
 
@@ -47,8 +42,10 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'elzr/vim-json'
 Plugin 'evidens/vim-twig'
 Plugin 'hail2u/vim-css3-syntax'
-Plugin 'lepture/vim-velocity'
 Plugin 'othree/html5.vim'
+" Vim Velocity Plugin
+" Plugin 'lepture/vim-velocity'
+
 " Plugin 'pangloss/vim-javascript'
 Plugin 'hdima/python-syntax'
 
@@ -60,13 +57,12 @@ Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-entire'
 Plugin 'kana/vim-textobj-line'
 Plugin 'beloglazov/vim-textobj-quotes'
+Plugin 'lucapette/vim-textobj-underscore'
 
 " Location List
-Plugin 'Valloric/ListToggle'
+" Plugin 'Valloric/ListToggle'
 " Plugin 'marijnh/tern_for_vim'
-Plugin 'lucapette/vim-textobj-underscore'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
-
 
 let s:localFile = expand("~/.local.vimplugins.vim")
 if filereadable(s:localFile)

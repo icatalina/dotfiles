@@ -127,7 +127,6 @@ set splitbelow
 set splitright
 
 so $VIMCONFIG/main/functions.vim
-"so $VIMCONFIG/main/detect-indent.vim
 so $VIMCONFIG/main/ctrlp.vim
 so $VIMCONFIG/main/buffergator.vim
 so $VIMCONFIG/main/ultisnips.vim
@@ -152,7 +151,7 @@ if !has('gui_running')
     so $VIMCONFIG/main/itermhook.vim
 endif
 
-autocmd Filetype * call LongFiles()
+" autocmd Filetype * call LongFiles()
 
 autocmd BufEnter * :syntax sync minlines=500
 
