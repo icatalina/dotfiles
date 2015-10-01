@@ -13,13 +13,16 @@ compinit
 HISTFILE="$mainfolder/_local/_zshhistfile"
 HISTSIZE=1000
 SAVEHIST=1000
-bindkey -e
+
 # End of lines configured by zsh-newuser-install
 
 # Base16 Shell
 export BASE16=1
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
+# Executes $PROMPT_COMMAND before every prompt
+#  - used to change the name of tmux windows/panes
+# precmd() { eval "$PROMPT_COMMAND" }
 
 unsetopt nomatch
 
@@ -30,3 +33,12 @@ autoload -U promptinit && promptinit
 prompt pure
 
 source "$mainfolder/source/exports"
+export KEYTIMEOUT=1
+bindkey -v
+
+PROMPT='%(?.%F{magenta}.%F{red})${${KEYMAP/vicmd/❮%f}/(main|viins)/❯%f} '
+function zle-line-init zle-keymap-select {
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
