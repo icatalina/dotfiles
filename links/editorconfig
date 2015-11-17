@@ -21,3 +21,9 @@ indent_size = 2
 [*.{scss,css,js}]
 indent_size = 2
 quote_type = 'single'
+
+[*.py]
+indent_size = 4
+
+[*.diff]
+trim_trailing_whitespace = false
