@@ -15,4 +15,4 @@ so $VIMCONFIG/main/vimangular.vim
 so $VIMCONFIG/vundle.vim
 so $VIMCONFIG/main.vim
 
-hi Search ctermbg=Brown
+hi Search cterm=NONE ctermfg=white ctermbg=darkyellow
