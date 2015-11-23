@@ -250,7 +250,7 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>246 1331 924 485 0 0 1200 1898 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1196 1898 0 0 1200 1898 </string>
+	<string>0 10 1193 1888 0 0 1200 1898 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>-1920 0 1920 1178 -1920 0 1920 1178 </string>
 	<key>New Bookmarks</key>
@@ -974,7 +974,7 @@
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Vertical Spacing</key>
-			<real>0.99800729751586914</real>
+			<real>1.0729914903640747</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -986,7 +986,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>457281719.020962</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>465223669.943739</real>
+	<real>465825440.58079302</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -1053,7 +1053,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-10-01T09:09:19Z</date>
+	<date>2015-10-06T10:47:39Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -1089,7 +1089,7 @@
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
 	<key>WebKitStandardFont</key>
-	<string>.Helvetica Neue DeskInterface</string>
+	<string>.Lucida Grande UI</string>
 	<key>WindowNumber</key>
 	<true/>
 	<key>WindowStyle</key>
