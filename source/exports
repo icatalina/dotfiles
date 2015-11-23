@@ -39,3 +39,4 @@ alias pm='python3 manage.py'
 alias mvim='open -a MacVim'
 alias filesWithSpaces="grep -Rc '^     ' . | grep -v ':0$' | sort -t':' -n -k2"
 stty sane
+alias pwdx="lsof -a -d cwd -n -p"
