@@ -33,6 +33,8 @@ alias cask="brew cask"
 alias ll='ls -gA1GhF --group-directories-first --color'
 alias ve='source virtualenv/bin/activate'
 alias pm='python3 manage.py'
+alias pt='python3 test.py'
+alias eject='diskutil unmountDisk'
 
 ## alias tmux='tmux a || tmux new'
 
