@@ -1,18 +1,40 @@
-let $VIMHOME=expand('<sfile>:p:h')
-let $VIMTEMP = $VIMHOME."/../_local"
-let $VIMCONFIG=$VIMHOME.'/config'
-filetype plugin on
-
 let mapleader = " "
 
 function! CreateIfNotExist(dir)
     if(!isdirectory(a:dir))
-       execute "silent !mkdir -p \"" . a:dir . "\" >> /dev/null 2>&1"
+        execute "silent !mkdir -p \"" . a:dir . "\" >> /dev/null 2>&1"
     endif
 endfunction
 
+let $VIMHOME=expand('<sfile>:p:h')
+let $VIMTEMP = $VIMHOME."/../_local"
+let $VIMCONFIG=$VIMHOME.'/config'
 so $VIMCONFIG/main/vimangular.vim
 so $VIMCONFIG/vundle.vim
 so $VIMCONFIG/main.vim
+" so $VIMCONFIG/statuslinehelpers.vim
+" so $VIMCONFIG/statusline.vim
+
+filetype plugin on
 
 hi Search cterm=NONE ctermfg=white ctermbg=darkyellow
+
+"nerdtree settings
+let g:NERDTreeMouseMode = 2
+let g:NERDTreeWinSize = 40
+let g:NERDTreeChDirMode=2
+let g:NERDTreeMinimalUI=1
+
+"jump to last cursor position when opening a file
+"dont do it when writing a commit log entry
+autocmd BufReadPost * call SetCursorPosition()
+function! SetCursorPosition()
+    if &filetype !~ 'svn\|commit\c'
+        if line("'\"") > 0 && line("'\"") <= line("$")
+            exe "normal! g`\""
+            normal! zz
+        endif
+    else
+        call cursor(1,1)
+    endif
+endfunction

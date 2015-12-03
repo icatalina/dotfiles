@@ -20,8 +20,13 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 " NERDCommenter
 let g:nerdcreatedefaultmappings = 0
 let nerdspacedelims = 1
+
+"@n \c > Toggle Line Comment NERDCommenter
 nmap \c <Plug>NERDCommenterToggle
+"@v \c > Toggle Line Comment in selected lines NERDCommenter
 vmap \c <Plug>NERDCommenterToggle
+
+"@ <F9> > Toggle Line Comment in any any NERDCommenter
 map <F9> :normal \c<CR>
 inoremap <F9> <c-o>:normal \c<CR>
 
@@ -31,7 +36,9 @@ let g:NERDCustomDelimiters = {
     \ }
 
 " NERDTree
+"@n <Leader>n > Toggle NERDTree
 nnoremap <Leader>n :NERDTreeToggle<cr>
 " Find in Nerd Tree
+"@n <Leader>M > Find current file in NERDTree
 nmap <leader>m :NERDTreeFind<CR>
 

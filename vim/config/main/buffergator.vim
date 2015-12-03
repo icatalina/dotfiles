@@ -4,5 +4,6 @@ let g:buffergator_autoupdate=1
 let g:buffergator_suppress_keymaps=1
 
 " MAPPINGS
+"@n <Leader>b > Toggle BufferGator - Visualize Toggles
 nmap <silent> <Leader>b :BuffergatorToggle<CR>
 

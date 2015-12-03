@@ -1,47 +1,81 @@
+"@v <Leader>su > Unique Sort
 vnoremap <Leader>su :sort u<CR>
-vnoremap <Leader>sa :sort<CR>
+
+"@v <Leader>su > Unique Sort
+vnoremap <Leader>sU :sort u!<CR>
+
+"@v <Leader>sa > Sort A-Z
+vnoremap <Leader>sa :sort i<CR>
+
+"@v <Leader>sA > Sort A-Z - Case Sensitive
+vnoremap <Leader>sA :sort<CR>
+
+"@v <Leader>sz > Sort Z-A
+vnoremap <Leader>sz :sort! i<CR>
+
+"@v <Leader>sZ > Sort Z-A - Case Sensitive
+vnoremap <Leader>sz :sort!<CR>
+
+"@n <Leader>sr > Search aand Replace
 nnoremap <Leader>sr :%s/
+
+"@v \/ > Search in Visual Selection
 vnoremap \/ <Esc>/\%V
+
+"@v <Leader>sr > Search aand Replace in Visual Selection
 vnoremap <Leader>sr <Esc>:%s/\%V
 
-" Removes the previous searched string
-nnoremap <silent> <Leader>sc :let @/ = ""<CR>
-vnoremap <silent> <Leader>sc <c-c>:let @/ = ""<cr>v
+"@n <C-L> > Clean last search
+nnoremap <C-L> :let @/ = ""<CR><C-L>
+"@i <C-L> > Clean last search
+inoremap <C-L> <C-O>:let @/ = ""<CR>
 
-" Save
+"@n Y > Make Y consistent with D and C, yanking the rest of the line
+nnoremap Y y$
+
+"@n <C-Z> > Save only if modified
 nnoremap <C-z> :update<cr>
+"@i <C-Z> > Save only if modified
 inoremap <C-z> <c-o>:update<cr>
+"@v <C-Z> > Save only if modified
 vnoremap <C-z> <c-c>:update<cr>v
 
 au BufEnter *buffergator-buffers* silent! nunmap ds
 au BufLeave *buffergator-buffers* nmap   ds <Plug>Dsurround
 
-" Remap ctrl+j and ctrl+k to insert a line above and below the
-" current line
+"@ <C-J> > Inserts line above the current one
 map <silent> <C-j> :call InsertNewLine('up')<CR>
+"@ <C-K> > Inserts line below the current one
 map <silent> <C-k> :call InsertNewLine()<CR>
 
-" Remove Trailing spaces with cdw / Quick Update for whitespaces
-nnoremap <silent> cdw :call TrimTrailingWhitespace()<CR>:AirlineToggleWhitespace<CR>:AirlineToggleWhitespace<CR>
+"@n cdw > Remove Trailing Whitespaces
+nnoremap <silent> cdw :call TrimTrailingWhitespace()<CR>
 
-" Advanced gf
+"@n cgf > Go to File that will create the file if it doesn't exist
 nmap cgf :e <cfile><CR>
 
+"@ <F7> > Move the items in the QuickList to the ToArgs List
 map <F7> :call QuickListToArgs()<CR>
 
-nmap <silent> \r :set relativenumber!<CR>
+"@ <Leader>r > Move the items in the QuickList to the ToArgs List
+nmap <silent> <leader>r :set relativenumber!<CR>
 
-" Force Save in perforce
+"@c WW > Forces save and mark for edit in perforce
 command! WW :w!|:norm \pe<CR>
 
 " Stringify
 "
 " Small plugin that turns your raw templates into concatenated
 " strings.
+
+"@n <Leader>g > Converts the line into concatenated strings, 'asdfasdf' + 'asdfasdfa'
 nmap <leader>g :call Stringify()<CR>
+
+"@v <Leader>g > Converts the Selection into concatenated strings, 'asdfasdf' + 'asdfasdfa'
 vmap <leader>g :call Stringify()<CR>
 
-nmap <silent> <C-l> <Plug>(jsdoc)
+"@n <C-D> > Generate JSDocs
+nmap <silent> <C-d> <Plug>(jsdoc)
 
-inoremap <C-U> <C-G>u<C-U>
+"@n <F3> > Undo Tree (GundoToggle)
 nnoremap <F3> :GundoToggle<CR>

@@ -1,0 +1,73 @@
+@@ CtrlP
+
+@n <Leader>pp > CtrlP - Fuzzy search Files
+@n <Leader>pb > CtrlP - Fuzzy search Buffers
+@n <Leader>pm > CtrlP - Fuzzy search Most Recent Files
+@n <C-P> > CtrlP - Fuzzy search Most Recent Files
+@ctrlp <F5> > Purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+@ctrlp <F7> > Purge the MRU List
+@ctrlp <C-F> > Cycle between modes [file, mru, buffer].
+@ctrlp <C-B> > Cycle between modes [file, mru, buffer] backwards.
+@ctrlp <C-P> > Cycle between modes [file, mru, buffer].
+@ctrlp <C-D> > to switch to filename only search instead of full path.
+@ctrlp <C-R> > to switch to regexp mode.
+@ctrlp <C-J> > Or Arrow Key to navigate Up the list
+@ctrlp <C-K> > Or Arrow Key to navigate Down the list
+@ctrlp <C-T> > To open in a new Tab
+@ctrlp <C-V> > To open in a new Vertical Split
+@ctrlp <C-X> > To open in a new Horizontal Split
+@ctrlp <C-N> > To select next string from prompt
+@ctrlp <C-P> > To select previous string from prompt
+@ctrlp <C-Y> > To create a new file and its parent directories.
+@ctrlp <C-Z> > To mark/unmark multiple files
+@ctrlp <C-O> > To open serveral files marked with <C-Z>
+
+@@ BufferGator
+@n <Leader>b > Toggle BufferGator - Visualize Toggles
+
+@@ Various
+@v <Leader>su > Unique Sort
+@v <Leader>su > Unique Sort
+@v <Leader>sa > Sort A-Z
+@v <Leader>sA > Sort A-Z - Case Sensitive
+@v <Leader>sz > Sort Z-A
+@v <Leader>sZ > Sort Z-A - Case Sensitive
+@n <Leader>sr > Search aand Replace
+@v \/ > Search in Visual Selection
+@v <Leader>sr > Search aand Replace in Visual Selection
+@n <C-L> > Clean last search
+@i <C-L> > Clean last search
+@n Y > Make Y consistent with D and C, yanking the rest of the line
+@n <C-Z> > Save only if modified
+@i <C-Z> > Save only if modified
+@v <C-Z> > Save only if modified
+@ <C-J> > Inserts line above the current one
+@ <C-K> > Inserts line below the current one
+@n cdw > Remove Trailing Whitespaces
+@n cgf > Go to File that will create the file if it doesn't exist
+@ <F7> > Move the items in the QuickList to the ToArgs List
+@ <Leader>r > Move the items in the QuickList to the ToArgs List
+@c WW > Forces save and mark for edit in perforce
+@n <Leader>g > Converts the line into concatenated strings, 'asdfasdf' + 'asdfasdfa'
+@v <Leader>g > Converts the Selection into concatenated strings, 'asdfasdf' + 'asdfasdfa'
+@n <C-D> > Generate JSDocs
+@n <F3> > Undo Tree (GundoToggle)
+
+@@ NERD
+@n \c > Toggle Line Comment NERDCommenter
+@v \c > Toggle Line Comment in selected lines NERDCommenter
+@ <F9> > Toggle Line Comment in any any NERDCommenter
+@n <Leader>n > Toggle NERDTree
+@n <Leader>M > Find current file in NERDTree
+
+@@ Silver Searcher
+@n \\ > Trigger AG search
+@v \\ > Trigger AG Search for the selected word
+
+@@ Syntastic
+@n \si > Syntastic Info
+@n \st > Syntastic Toggle Mode
+@n \sr > Syntastic Reset
+@n \ss > Syntastic Check
+@n \sS > Syntastic Check and Populate and Open the LocList
+@n \sb > Syntastic Check and Populate and open the LocList and Reset Syntastic
