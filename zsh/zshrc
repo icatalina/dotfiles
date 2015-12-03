@@ -34,7 +34,7 @@ prompt pure
 
 source "$mainfolder/source/exports"
 export KEYTIMEOUT=1
-bindkey -v
+# bindkey -v
 
 PROMPT='%(?.%F{magenta}.%F{red})${${KEYMAP/vicmd/❮%f}/(main|viins)/❯%f} '
 function zle-line-init zle-keymap-select {
