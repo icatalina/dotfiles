@@ -40,6 +40,9 @@ inoremap <C-z> <c-o>:update<cr>
 "@v <C-Z> > Save only if modified
 vnoremap <C-z> <c-c>:update<cr>v
 
+"@i <C-6> > Esc and change to previous buffer
+inoremap <C-^> <Esc>:b#<cr>
+
 au BufEnter *buffergator-buffers* silent! nunmap ds
 au BufLeave *buffergator-buffers* nmap   ds <Plug>Dsurround
 
