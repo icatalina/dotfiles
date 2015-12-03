@@ -1,4 +1,4 @@
-@@ CtrlP
+@n <Leader>b > Toggle BufferGator - Visualize Toggles
 
 @n <Leader>pp > CtrlP - Fuzzy search Files
 @n <Leader>pb > CtrlP - Fuzzy search Buffers
@@ -22,10 +22,12 @@
 @ctrlp <C-Z> > To mark/unmark multiple files
 @ctrlp <C-O> > To open serveral files marked with <C-Z>
 
-@@ BufferGator
-@n <Leader>b > Toggle BufferGator - Visualize Toggles
+@n \c > Toggle Line Comment NERDCommenter
+@v \c > Toggle Line Comment in selected lines NERDCommenter
+@ <F9> > Toggle Line Comment in any any NERDCommenter
+@n <Leader>n > Toggle NERDTree
+@n <Leader>M > Find current file in NERDTree
 
-@@ Various
 @v <Leader>su > Unique Sort
 @v <Leader>su > Unique Sort
 @v <Leader>sa > Sort A-Z
@@ -41,6 +43,7 @@
 @n <C-Z> > Save only if modified
 @i <C-Z> > Save only if modified
 @v <C-Z> > Save only if modified
+@i <C-6> > Esc and change to previous buffer
 @ <C-J> > Inserts line above the current one
 @ <C-K> > Inserts line below the current one
 @n cdw > Remove Trailing Whitespaces
@@ -53,18 +56,9 @@
 @n <C-D> > Generate JSDocs
 @n <F3> > Undo Tree (GundoToggle)
 
-@@ NERD
-@n \c > Toggle Line Comment NERDCommenter
-@v \c > Toggle Line Comment in selected lines NERDCommenter
-@ <F9> > Toggle Line Comment in any any NERDCommenter
-@n <Leader>n > Toggle NERDTree
-@n <Leader>M > Find current file in NERDTree
-
-@@ Silver Searcher
 @n \\ > Trigger AG search
 @v \\ > Trigger AG Search for the selected word
 
-@@ Syntastic
 @n \si > Syntastic Info
 @n \st > Syntastic Toggle Mode
 @n \sr > Syntastic Reset
