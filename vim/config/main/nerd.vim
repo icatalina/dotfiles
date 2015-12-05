@@ -41,4 +41,4 @@ nnoremap <Leader>n :NERDTreeToggle<cr>
 " Find in Nerd Tree
 "@n <Leader>M > Find current file in NERDTree
 nmap <leader>m :NERDTreeFind<CR>
-
+let g:NERDTreeMouseMode=1

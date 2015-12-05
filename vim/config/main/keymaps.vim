@@ -57,11 +57,6 @@ nnoremap <silent> cdw :call TrimTrailingWhitespace()<CR>
 "@n cgf > Go to File that will create the file if it doesn't exist
 nmap cgf :e <cfile><CR>
 
-"@ <F7> > Move the items in the QuickList to the ToArgs List
-map <F7> :call QuickListToArgs()<CR>
-
-"@ <Leader>r > Move the items in the QuickList to the ToArgs List
-nmap <silent> <leader>r :set relativenumber!<CR>
 
 "@c WW > Forces save and mark for edit in perforce
 command! WW :w!|:norm \pe<CR>
@@ -80,5 +75,15 @@ vmap <leader>g :call Stringify()<CR>
 "@n <C-D> > Generate JSDocs
 nmap <silent> <C-d> <Plug>(jsdoc)
 
+"@ <F1> > Relative Numbers
+map <silent> <F1> :set relativenumber!<CR>
+imap <silent> <F1> <c-o>:set relativenumber!<CR>
+
+"@ <F2> > Paste Toggle
+set pastetoggle=<F2>
+
 "@n <F3> > Undo Tree (GundoToggle)
 nnoremap <F3> :GundoToggle<CR>
+
+"@ <F7> > Move the items in the QuickList to the ToArgs List
+map <F7> :call QuickListToArgs()<CR>

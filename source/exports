@@ -1,3 +1,4 @@
+# vim: syntax=sh filetype=sh
 export BASE16_SHELL="$HOME/.dotfiles/zsh/base16-shell/base16-default.dark.sh"
 if [[ -s $BASE16_SHELL ]]; then
   source $BASE16_SHELL

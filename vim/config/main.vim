@@ -24,15 +24,6 @@ set numberwidth=3       " number of culumns for line numbers
 set nowrap
 set relativenumber
 
-set viminfo+=n$VIMTEMP/_viminfo
-
-"" backup to ~/.tmp
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backupskip=/tmp/*,/private/tmp/*
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set writebackup
-
 filetype off
 syntax on
 filetype plugin indent on
@@ -55,12 +46,11 @@ set cmdheight=2
 set hid
 
 " Minimal number of screen lines to keep above and below the cursor.
-set scrolloff=4
+set scrolloff=7
 set sidescrolloff=10
 
 set whichwrap+=<,>,h,l,[,]
 
-set splitright
 set lazyredraw
 set showmatch
 set mat=2
@@ -89,11 +79,11 @@ let &t_AF="\e[38;5;%dm"
 
 set background=dark
 
-if !empty($BASE16)
+if !empty($BASE16_SHELL)
     let base16colorspace=256
-    colorscheme base16-default
+    silent! colorscheme base16-default
 else
-    colorscheme wombat256mod
+    silent! colorscheme koala
 endif
 
 hi Search cterm=NONE ctermbg=8 ctermfg=NONE guibg=gray30 guifg=NONE
@@ -113,7 +103,7 @@ set t_kb=
 nmap [3;*~ "_x
 inoremap [3;*~ <C-O>"_x
 
-" Show commands on the bar
+" Show partial commands as they're being typed on the bar
 set showcmd
 
 " Prevent slow down on logn lines
@@ -169,4 +159,15 @@ if v:version >= 700
   au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
 endif
 
-set tw=140
+
+set ruler          " Show Cursor position all the time
+set cursorline     " Enable cursor line
+set textwidth=140  " Set MAX text width
+
+" Treat <li> and <p> tags like the block tags they are
+let g:html_indent_tags = 'li\|p'
+
+set gdefault      " Add g as default on replaces
+set magic         " Enable extended regexes
+set noshowmode    " Don't show the current mode (airline.vim takes care of us)
+set nostartofline " Don't reset cursor to start of line when moving around

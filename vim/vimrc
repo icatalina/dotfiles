@@ -20,9 +20,7 @@ filetype plugin on
 hi Search cterm=NONE ctermfg=white ctermbg=darkyellow
 
 "nerdtree settings
-let g:NERDTreeMouseMode = 2
-let g:NERDTreeWinSize = 40
-let g:NERDTreeChDirMode=2
+let g:NERDTreeWinSize=30
 let g:NERDTreeMinimalUI=1
 
 "jump to last cursor position when opening a file

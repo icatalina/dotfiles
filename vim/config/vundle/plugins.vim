@@ -33,7 +33,7 @@ Plugin 'othree/yajs.vim'
 
 " Color Schemas
 Plugin 'chriskempson/base16-vim'
-" Plugin 'wombat256.vim'
+Plugin 'jonathanpatt/vim-koala'
 
 "" Syntaxes
 Plugin 'cakebaker/scss-syntax.vim'

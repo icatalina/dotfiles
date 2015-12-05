@@ -1,3 +1,8 @@
+# system-wide environment settings for zsh(1)
+if [ -x /usr/libexec/path_helper ]; then
+    eval `/usr/libexec/path_helper -s`
+fi
+
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' list-colors ''
@@ -17,7 +22,7 @@ SAVEHIST=1000
 # End of lines configured by zsh-newuser-install
 
 # Base16 Shell
-export BASE16=1
+#export BASE16=1
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 # Executes $PROMPT_COMMAND before every prompt
