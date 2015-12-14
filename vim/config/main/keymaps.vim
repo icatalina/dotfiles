@@ -87,3 +87,14 @@ nnoremap <F3> :GundoToggle<CR>
 
 "@ <F7> > Move the items in the QuickList to the ToArgs List
 map <F7> :call QuickListToArgs()<CR>
+
+"@n ,p > Paste on next line
+nmap ,p :put<CR>
+
+"@n ,P > Paste on next line
+nmap ,P :put!<CR>
+
+"@n <Enter> > Creates a new line
+nmap <Enter> o<Esc>
+"@n ,<Enter> > Creates a new line and keeps cursor position
+nmap ,<Enter> O<Esc>
