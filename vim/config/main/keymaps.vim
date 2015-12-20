@@ -87,3 +87,8 @@ nnoremap <F3> :GundoToggle<CR>
 
 "@ <F7> > Move the items in the QuickList to the ToArgs List
 map <F7> :call QuickListToArgs()<CR>
+
+"@ <F12> > Reload BASE16 and Redraw
+imap <silent><F12> <c-o>:execute 'silent !source $BASE16_SHELL'<CR><c-o>:redr!<CR>
+map <silent><F12> :execute 'silent !source $BASE16_SHELL'<CR>:redr!<CR>
+

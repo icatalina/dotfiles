@@ -40,6 +40,7 @@ alias eject='diskutil unmountDisk'
 ## alias tmux='tmux a || tmux new'
 
 alias mvim='open -a MacVim'
+alias b16='source $BASE16_SHELL'
 alias filesWithSpaces="grep -Rc '^     ' . | grep -v ':0$' | sort -t':' -n -k2"
 stty sane
 alias pwdx="lsof -a -d cwd -n -p"

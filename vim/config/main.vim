@@ -1,6 +1,6 @@
 hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 
-set shell=/bin/bash     " use bash for shell commands
+"set shell=/usr/bin/env\ bash    " use bash for shell commands
 set hidden              " enable multiple modified buffers
 set autoread            " automatically read file that has been changed on disk and doesn't have changes in vim
 set cinoptions=:0,(s,u0,U1,g0,t0 " some indentation options ':h cinoptions' for details

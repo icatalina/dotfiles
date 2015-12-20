@@ -49,3 +49,6 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 
 export SHELL=$(which zsh)
+
+autoload -U select-word-style
+select-word-style bash

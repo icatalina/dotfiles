@@ -761,16 +761,16 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>287</string>
+		<string>304</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
 	<key>NSWindow Frame Preferences</key>
-	<string>2397 633 924 485 1440 150 1920 1057 </string>
+	<string>2397 633 924 485 1440 150 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1877 150 958 1057 1440 150 1920 1057 </string>
+	<string>-1440 7 1431 867 -1440 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 0 720 877 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
@@ -2235,7 +2235,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>465437356.125714</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>470923380.88367701</real>
+	<real>471403900.14106297</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2302,13 +2302,13 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-12-04T11:52:45Z</date>
+	<date>2015-12-14T20:42:33Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowPaneTitles</key>
 	<true/>
 	<key>SmartPlacement</key>
