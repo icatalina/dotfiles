@@ -16,6 +16,7 @@ try
   let $VIMSWPDIR = $VIMTEMP."/_vimswp"
   call CreateIfNotExist($VIMSWPDIR)
   set backupdir=$VIMSWPDIR
+  set directory=$VIMSWPDIR
 catch
   set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
   set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp

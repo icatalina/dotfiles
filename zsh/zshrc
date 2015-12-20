@@ -13,6 +13,10 @@ zstyle :compinstall filename "$HOME/.zshrc"
 
 autoload -Uz compinit
 compinit
+
+# Deleting up to the previous slash with ctrl-w
+autoload -U select-word-style
+select-word-style bash
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE="$mainfolder/_local/_zshhistfile"

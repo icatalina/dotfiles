@@ -92,3 +92,13 @@ map <F7> :call QuickListToArgs()<CR>
 imap <silent><F12> <c-o>:execute 'silent !source $BASE16_SHELL'<CR><c-o>:redr!<CR>
 map <silent><F12> :execute 'silent !source $BASE16_SHELL'<CR>:redr!<CR>
 
+"@n ,p > Paste on next line
+nmap ,p :put<CR>
+
+"@n ,P > Paste on next line
+nmap ,P :put!<CR>
+
+"@n <Enter> > Creates a new line
+nmap <Enter> o<Esc>
+"@n ,<Enter> > Creates a new line and keeps cursor position
+nmap ,<Enter> O<Esc>

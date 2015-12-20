@@ -125,12 +125,12 @@ so $VIMCONFIG/main/syntastic.vim
 so $VIMCONFIG/main/silver-search.vim
 so $VIMCONFIG/main/airline.vim
 so $VIMCONFIG/main/nerd.vim
-so $VIMCONFIG/main/history.vim
 so $VIMCONFIG/main/delimitmate.vim
 so $VIMCONFIG/main/youcompleteme.vim
 so $VIMCONFIG/main/gitgutter.vim
 so $VIMCONFIG/main/closetags.vim
 so $VIMCONFIG/main/listtoggle.vim
+so $VIMCONFIG/main/history.vim
 
 " Mappings
 so $VIMCONFIG/main/uppercasecommands.vim
