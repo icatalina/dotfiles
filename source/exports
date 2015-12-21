@@ -4,8 +4,40 @@ if [[ -s $BASE16_SHELL ]]; then
   source $BASE16_SHELL
 fi
 
+stty sane
+
 # Specify your defaults in this environment variable
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# Joins a string using a multicharacter delimiter, use: $ joinstr ', ' hello world "how are you"
+joinstr() {
+  local IFS='¬'
+  local delim=$1
+  shift 1
+  echo "${*//¬/$delim}"
+}
+
+# Extracts a set of columns, use: $ ls -la | awkc 1 2 5
+awkc () {
+  awk "{print $`joinstr '"	"$' $@`}" | column -s "	" -t
+}
+
+# Executes a command using xargs adding the param at the end
+# Use ls | xxargs file
+xxargs () { xargs -i $@ "{}" }
+
+
+pwdx () {
+  if [ $# -ne 1 ]; then
+    echo "You need to specifiy at least one PID"
+    return 1
+  fi
+  if ! lsof -a -d cwd -n -p "$@"; then
+    echo "PID not running"
+  fi
+}
+
+alias pipekill='awk "{print \$1}" | xargs kill -9'
 
 alias gdf='cdiff -w0 -s'
 alias g='git'
@@ -21,15 +53,10 @@ alias gdfw='git dfw'
 alias gdf='git df'
 alias gch='git checkout'
 alias gr='git reset'
-alias awk1='awk "{print \$1}"'
-alias awk2='awk "{print \$2}"'
-alias awk3='awk "{print \$3}"'
-alias awk4='awk "{print \$4}"'
-alias awk5='awk "{print \$5}"'
-alias awk6='awk "{print \$6}"'
-alias pipekill='awk "{print \$1}" | xargs kill -9'
+
 alias ng="npm list -g --depth=0 2>/dev/null"
 alias nl="npm list --depth=0 2>/dev/null"
+
 alias cask="brew cask"
 alias ll='ls -gA1GhF --group-directories-first --color'
 alias ve='source virtualenv/bin/activate'
@@ -42,5 +69,3 @@ alias eject='diskutil unmountDisk'
 alias mvim='open -a MacVim'
 alias b16='source $BASE16_SHELL'
 alias filesWithSpaces="grep -Rc '^     ' . | grep -v ':0$' | sort -t':' -n -k2"
-stty sane
-alias pwdx="lsof -a -d cwd -n -p"

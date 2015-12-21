@@ -42,6 +42,7 @@ autoload -U promptinit && promptinit
 prompt pure
 
 source "$mainfolder/source/exports"
+source "$mainfolder/source/docker"
 export KEYTIMEOUT=1
 # bindkey -v
 

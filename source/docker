@@ -1,0 +1,53 @@
+# vim: syntax=sh filetype=sh
+
+function dk() {
+  case $* in
+    ri* ) shift 1; command docker run -i -t -P "$@" ;;
+    ex* ) shift 1; command docker exec -it "$@" ;;
+    a* ) shift 1;
+  esac
+}
+#  Reserved commands:
+#  do
+#  dd
+#  df
+#  du
+#  dc
+#  du
+#  dd
+#  df
+#  dir
+#  dig
+
+alias d='docker'
+dl () { docker ps -l -q; }
+db () { docker build -t=$@ .; }
+
+ds () { docker ps "$@"; }
+dsa () { docker ps -a "$@"; }
+dip () { docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@" }
+
+dim () { docker images "$@"; }
+drm () { docker rm "$@"; }
+drmi () { docker rmi "$@"; }
+drmiall () {docker rmi $(docker images -q); }
+drmall () {docker rm $(docker ps -a -q); }
+
+de () { docker exec -i -t "$@"; }
+dr () { docker run -i -t -P "$@"; }
+alias dri='docker run -i -t -P'
+alias drd='docker run -d -P'
+da () {
+  container=$@
+  if [ $# -lt 1 ]; then
+    container=`docker ps -l -q`
+  fi
+  docker exec -it "$container" /usr/bin/env bash;
+}
+
+dcs () { docker start "$@"; }
+
+dcx () { docker stop "$@"; }
+dcxa () { docker stop $(docker ps -a -q); }
+
+dsetup () { eval $(docker-machine env "$@"); }
