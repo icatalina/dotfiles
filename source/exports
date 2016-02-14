@@ -26,20 +26,21 @@ awkc () {
 # Use ls | xxargs file
 xxargs () { xargs -i $@ "{}" }
 
-
-pwdx () {
-  if [ $# -ne 1 ]; then
-    echo "You need to specifiy at least one PID"
-    return 1
-  fi
-  if ! lsof -a -d cwd -n -p "$@"; then
-    echo "PID not running"
-  fi
-}
+if !hash pwdx 2>/dev/null; then
+  pwdx () {
+    if [ $# -ne 1 ]; then
+      echo "You need to specifiy at least one PID"
+      return 1
+    fi
+    if ! lsof -a -d cwd -n -p "$@"; then
+      echo "PID not running"
+    fi
+  }
+fi
 
 alias pipekill='awk "{print \$1}" | xargs kill -9'
 
-alias gdf='cdiff -w0 -s'
+## alias gdf='cdiff -w0 -s'
 alias g='git'
 alias gs='git st --'
 alias gl='git log --'
@@ -65,7 +66,12 @@ alias pt='python3 test.py'
 alias eject='diskutil unmountDisk'
 
 ## alias tmux='tmux a || tmux new'
-
 alias mvim='open -a MacVim'
 alias b16='source $BASE16_SHELL'
 alias filesWithSpaces="grep -Rc '^     ' . | grep -v ':0$' | sort -t':' -n -k2"
+
+## If nvim is available, alias it to vim
+if hash nvim 2>/dev/null; then
+  alias vim=$(which nvim)
+fi
+
