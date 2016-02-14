@@ -1,35 +1,49 @@
 let mapleader = " "
 
-function! CreateIfNotExist(dir)
-    if(!isdirectory(a:dir))
-        execute "silent !mkdir -p \"" . a:dir . "\" >> /dev/null 2>&1"
-    endif
-endfunction
-
 " so $VIMCONFIG/statuslinehelpers.vim
 " so $VIMCONFIG/statusline.vim
 ""so $VIMCONFIG/vundle.vim
+" so $VIMCONFIG/main/vimangular.vim
+" so $VIMCONFIG/main/listtoggle.vim
+" so $VIMCONFIG/main/syntastic.vim
+" so $VIMCONFIG/main/filedef.vim
+" Patch for some keys in iterm
+"" if !has('gui_running')
+""     so $VIMCONFIG/main/itermhook.vim
+"" endif
 
 let $VIMHOME=expand('<sfile>:p:h')
 let $VIMTEMP=$VIMHOME."/../_local"
 let $VIMCONFIG=$VIMHOME.'/config'
-so $VIMCONFIG/main/vimangular.vim
-so $VIMHOME/config/vundle/plugins.vim
+
+so $VIMHOME/config/plugins.vim
+
+so $VIMCONFIG/main/functions.vim
+so $VIMCONFIG/main/ctrlp.vim
+so $VIMCONFIG/main/buffergator.vim
+so $VIMCONFIG/main/ultisnips.vim
+so $VIMCONFIG/main/silver-search.vim
+so $VIMCONFIG/main/airline.vim
+so $VIMCONFIG/main/nerd.vim
+so $VIMCONFIG/main/delimitmate.vim
+so $VIMCONFIG/main/youcompleteme.vim
+so $VIMCONFIG/main/gitgutter.vim
+so $VIMCONFIG/main/closetags.vim
+so $VIMCONFIG/main/history.vim
+
+" Mappings
+so $VIMCONFIG/main/uppercasecommands.vim
+so $VIMCONFIG/main/keymaps.vim
+
 so $VIMCONFIG/main.vim
 
 hi Search cterm=NONE ctermfg=white ctermbg=darkyellow
+hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 
-"jump to last cursor position when opening a file
-"dont do it when writing a commit log entry
-function! SetCursorPosition()
-    if &filetype !~ 'svn\|commit\c'
-        if line("'\"") > 0 && line("'\"") <= line("$")
-            exe "normal! g`\""
-            normal! zz
-        endif
-    else
-        call cursor(1,1)
-    endif
-endfunction
 
-autocmd BufReadPost * call SetCursorPosition()
+autocmd! BufReadPost * call SetCursorPosition()
+autocmd! BufWritePost * Neomake
+autocmd! Filetype gitcommit setlocal spell textwidth=72
+autocmd! BufEnter * :syntax sync minlines=300
+" autocmd! BufNewFile,BufRead *.html set filetype=htmldjango
+" autocmd Filetype * call LongFiles()

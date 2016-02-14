@@ -76,3 +76,22 @@ function! HowLong( command, numberOfTimes )
   let &more = more
   return result
 endfunction
+
+"jump to last cursor position when opening a file
+"dont do it when writing a commit log entry
+function! SetCursorPosition()
+    if &filetype !~ 'svn\|commit\c'
+        if line("'\"") > 0 && line("'\"") <= line("$")
+            exe "normal! g`\""
+            normal! zz
+        endif
+    else
+        call cursor(1,1)
+    endif
+endfunction
+
+function! CreateIfNotExist(dir)
+    if(!isdirectory(a:dir))
+        execute "silent !mkdir -p \"" . a:dir . "\" >> /dev/null 2>&1"
+    endif
+endfunction
