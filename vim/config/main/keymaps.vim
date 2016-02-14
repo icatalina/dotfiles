@@ -58,8 +58,8 @@ nnoremap <silent> cdw :call TrimTrailingWhitespace()<CR>
 nmap cgf :e <cfile><CR>
 
 
-"@c WW > Forces save and mark for edit in perforce
-command! WW :w!|:norm \pe<CR>
+""" @c WW > Forces save and mark for edit in perforce
+"""  command! WW :w!|:norm \pe<CR>
 
 " Stringify
 "

@@ -10,12 +10,13 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+command! -nargs=+ -complete=file -bar Ags silent! grep! <args>|cwindow|redraw!
 
 " nnoremap K :!grep "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 "@n \\ > Trigger AG search
-nnoremap \\ :Ag! -i<SPACE>
+nnoremap \\ :Ags<SPACE>
 
 "@v \\ > Trigger AG Search for the selected word
-vnoremap \\ "zy:Ag! -i <C-r>=fnameescape(@z)<CR>
+vnoremap \\ "zy:Ags <C-r>=fnameescape(@z)<CR>
+

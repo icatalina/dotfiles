@@ -2,10 +2,27 @@ hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 
 "set shell=/usr/bin/env\ bash    " use bash for shell commands
 set hidden              " enable multiple modified buffers
-set autoread            " automatically read file that has been changed on disk and doesn't have changes in vim
 set cinoptions=:0,(s,u0,U1,g0,t0 " some indentation options ':h cinoptions' for details
-set autoindent          " automatically indent new line
-set complete-=i         " Disables included file completion, seems to be quicker
+
+if !has('nvim')
+  set backspace=indent,eol,start "" Works also with backspace=2
+  set autoindent          " automatically indent new line
+  set complete-=i         " Disables included file completion, seems to be quicker
+  set display+=lastline
+  set autoread            " automatically read file that has been changed on disk and doesn't have changes in vim
+  set encoding=utf8
+  set hlsearch
+  set incsearch
+  set mouse=a
+  set nocompatible
+  set smarttab
+  set wildmenu            " enhanced command completion
+  set t_kD=[3;*~
+  set t_kb=
+  "" Fix Delete Key
+  nmap [3;*~ "_x
+  inoremap [3;*~ <C-O>"_x
+endif
 
 " Share clipboard
 if has('unnamedplus')
@@ -14,9 +31,7 @@ else
   set clipboard+=unnamed
 endif
 
-set encoding=utf8
-set ffs=unix,dos,mac
-set nocp
+set fileformats=unix,dos,mac
 
 "" Screen Configuration
 set number
@@ -24,26 +39,17 @@ set numberwidth=3       " number of culumns for line numbers
 set nowrap
 set relativenumber
 
-filetype off
 syntax on
 filetype plugin indent on
 
-set mouse=a
-
 "" Make Search Case Insensitive
-set hlsearch
-set incsearch
 set ignorecase
 set smartcase
-set magic
 
-set wildmenu            " enhanced command completion
 set visualbell          " use visual bell instead of beeping
 
 "set nofoldenable
-set ruler
 set cmdheight=2
-set hid
 
 " Minimal number of screen lines to keep above and below the cursor.
 set scrolloff=7
@@ -57,10 +63,6 @@ set mat=2
 
 set ttimeout
 set ttimeoutlen=100
-
-" When included, as much as possible of the last line
-" in a window will be displayed.
-set display+=lastline
 
 " Show some characters
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
@@ -92,16 +94,8 @@ hi Search cterm=NONE ctermbg=8 ctermfg=NONE guibg=gray30 guifg=NONE
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-set smarttab
 set shiftround
 set expandtab
-set backspace=indent,eol,start "" Works also with backspace=2
-set t_kD=[3;*~
-set t_kb=
-
-"" Fix Delete Key
-nmap [3;*~ "_x
-inoremap [3;*~ <C-O>"_x
 
 " Show partial commands as they're being typed on the bar
 set showcmd
@@ -120,8 +114,6 @@ so $VIMCONFIG/main/functions.vim
 so $VIMCONFIG/main/ctrlp.vim
 so $VIMCONFIG/main/buffergator.vim
 so $VIMCONFIG/main/ultisnips.vim
-so $VIMCONFIG/main/filedef.vim
-so $VIMCONFIG/main/syntastic.vim
 so $VIMCONFIG/main/silver-search.vim
 so $VIMCONFIG/main/airline.vim
 so $VIMCONFIG/main/nerd.vim
@@ -129,8 +121,11 @@ so $VIMCONFIG/main/delimitmate.vim
 so $VIMCONFIG/main/youcompleteme.vim
 so $VIMCONFIG/main/gitgutter.vim
 so $VIMCONFIG/main/closetags.vim
-so $VIMCONFIG/main/listtoggle.vim
 so $VIMCONFIG/main/history.vim
+autocmd! BufWritePost * Neomake
+" so $VIMCONFIG/main/listtoggle.vim
+" so $VIMCONFIG/main/syntastic.vim
+" so $VIMCONFIG/main/filedef.vim
 
 " Mappings
 so $VIMCONFIG/main/uppercasecommands.vim
@@ -143,22 +138,20 @@ endif
 
 " autocmd Filetype * call LongFiles()
 
-autocmd BufEnter * :syntax sync minlines=500
+autocmd BufEnter * :syntax sync minlines=300
 
 " Allow the use of the mouse to adjust pane sizes
 " within Tmux
-set mouse+=a
 if &term =~ '^screen'
     " tmux knows the extended mouse mode
     set ttymouse=xterm2
 endif
 
 " Keep window position when switching buffers
-if v:version >= 700
-  au BufLeave * let b:winview = winsaveview()
-  au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
-endif
-
+"" if v:version >= 700
+""   au BufLeave * let b:winview = winsaveview()
+""   au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
+"" endif
 
 set ruler          " Show Cursor position all the time
 set cursorline     " Enable cursor line

@@ -6,26 +6,21 @@ function! CreateIfNotExist(dir)
     endif
 endfunction
 
-let $VIMHOME=expand('<sfile>:p:h')
-let $VIMTEMP = $VIMHOME."/../_local"
-let $VIMCONFIG=$VIMHOME.'/config'
-so $VIMCONFIG/main/vimangular.vim
-so $VIMCONFIG/vundle.vim
-so $VIMCONFIG/main.vim
 " so $VIMCONFIG/statuslinehelpers.vim
 " so $VIMCONFIG/statusline.vim
+""so $VIMCONFIG/vundle.vim
 
-filetype plugin on
+let $VIMHOME=expand('<sfile>:p:h')
+let $VIMTEMP=$VIMHOME."/../_local"
+let $VIMCONFIG=$VIMHOME.'/config'
+so $VIMCONFIG/main/vimangular.vim
+so $VIMHOME/config/vundle/plugins.vim
+so $VIMCONFIG/main.vim
 
 hi Search cterm=NONE ctermfg=white ctermbg=darkyellow
 
-"nerdtree settings
-let g:NERDTreeWinSize=30
-let g:NERDTreeMinimalUI=1
-
 "jump to last cursor position when opening a file
 "dont do it when writing a commit log entry
-autocmd BufReadPost * call SetCursorPosition()
 function! SetCursorPosition()
     if &filetype !~ 'svn\|commit\c'
         if line("'\"") > 0 && line("'\"") <= line("$")
@@ -36,3 +31,5 @@ function! SetCursorPosition()
         call cursor(1,1)
     endif
 endfunction
+
+autocmd BufReadPost * call SetCursorPosition()

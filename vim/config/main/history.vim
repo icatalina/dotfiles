@@ -10,7 +10,12 @@ try
 catch
 endtry
 
-set viminfo+=n$VIMTEMP/_viminfo
+" NeoVim uses a different info file
+if has('nvim')
+  set viminfo+=n$VIMTEMP/_nviminfo
+else
+  set viminfo+=n$VIMTEMP/_viminfo
+endif
 
 try
   let $VIMSWPDIR = $VIMTEMP."/_vimswp"

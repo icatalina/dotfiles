@@ -1,25 +1,11 @@
-let g:NERDTreeBookmarksFile = $VIMTEMP."/_vimNerdTreeBookMarks"
-"  autocmd VimEnter * :NERDTreeTabsToggle
-let NERDTreeIgnore=['\.DS_Store$', '\.pyc', '__pycache__', '__init__.py']
-let g:nerdtree_tabs_open_on_gui_startup=0
-
-
-"if isdirectory(expand('%'))
-    "let vimInitDir = expand('%')
-"endif
-
-"if (expand('%') == '' && exists('vimInitDir') &&  isdirectory(vimInitDir)) || isdirectory(expand('%'))
-"    cd `=vimInitDir`
-"    let g:nerdtree_tabs_open_on_gui_startup=1
-"    let g:nerdtree_tabs_open_on_console_startup=1
-"    autocmd VimEnter * bd
-"endif
-
-"" MAPPINGS
-
 " NERDCommenter
 let g:nerdcreatedefaultmappings = 0
-let nerdspacedelims = 1
+let g:nerdspacedelims = 1
+
+let g:NERDCustomDelimiters = {
+      \ 'javascript' : { 'left': '// ', 'leftAlt': '/*', 'rightAlt': '*/' },
+      \ 'javascript.jquery': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }
+    \ }
 
 "@n \c > Toggle Line Comment NERDCommenter
 nmap \c <Plug>NERDCommenterToggle
@@ -30,15 +16,17 @@ vmap \c <Plug>NERDCommenterToggle
 map <F9> :normal \c<CR>
 inoremap <F9> <c-o>:normal \c<CR>
 
-let g:NERDCustomDelimiters = {
-      \ 'javascript' : { 'left': '// ', 'leftAlt': '/*', 'rightAlt': '*/' },
-      \ 'javascript.jquery': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }
-    \ }
 
 " NERDTree
+let g:NERDTreeBookmarksFile = $VIMTEMP."/_vimNerdTreeBookMarks"
+let g:NERDTreeIgnore=['\.DS_Store$', '\.pyc', '__pycache__', '__init__.py']
+let g:nerdtree_tabs_open_on_gui_startup=0
+let g:NERDTreeMouseMode=1
+let g:NERDTreeWinSize=30
+let g:NERDTreeMinimalUI=1
+
 "@n <Leader>n > Toggle NERDTree
 nnoremap <Leader>n :NERDTreeToggle<cr>
 " Find in Nerd Tree
 "@n <Leader>M > Find current file in NERDTree
 nmap <leader>m :NERDTreeFind<CR>
-let g:NERDTreeMouseMode=1

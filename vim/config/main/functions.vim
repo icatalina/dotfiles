@@ -60,6 +60,7 @@ function! LongFiles()
         setlocal syntax=OFF
     endif
 endfunction
+
 "
 " Times the number of times a particular command takes to execute the specified number of times (in seconds).
 function! HowLong( command, numberOfTimes )
