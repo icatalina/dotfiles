@@ -1,8 +1,8 @@
 # vim: syntax=gitconfig filetype=gitconfig
 
 [core]
-    #whitespace = fix,trailing-space
-    #autocrlf = input
+  #whitespace = fix,trailing-space
+  #autocrlf = input
   commentchar = "\""
   editor = /usr/local/bin/vim
 [mergetool "p4merge"]
