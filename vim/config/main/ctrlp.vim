@@ -6,7 +6,8 @@ let g:ctrlp_custom_ignore = {
  \ }
 
 "Make CtrlP Use the CWD
-let g:ctrlp_working_path_mode = 'a'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_mruf_relative = 1
 let g:ctrlp_cmd = 'CtrlPMRUFiles'
 " map <C-P> <Plug>(ctrlp)
 
