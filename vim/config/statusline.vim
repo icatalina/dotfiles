@@ -43,15 +43,20 @@ set statusline+=\ %-0.50f
 "modified flag
 set statusline+=%(%4*%m%)
 set statusline+=%*
-set statusline+=\ %(❪%{GetGitStatus()}❫%)
+if has('nvim')
+  set statusline+=\ %(❪%{GetGitStatus()}❫%)
+endif
 
 set statusline+=%=      "left/right separator
 
 "display a warning if fileformat isnt unix
 set statusline+=%2*
 set statusline+=%([%R%H%{&ff!='unix'?','.&ff:''}%{(&fenc!='utf-8'&&&fenc!='')?','.&fenc:''}]%)
-set statusline+=%3*
-set statusline+=%([%{StatuslineTabWarning()}%{StatuslineTrailingSpaceWarning()}]%)
+
+if has('nvim')
+  set statusline+=%3*
+  set statusline+=%([%{StatuslineTabWarning()}%{StatuslineTrailingSpaceWarning()}]%)
+endif
 
 set statusline+=%*
 set statusline+=%y  "filetype

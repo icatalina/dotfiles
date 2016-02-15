@@ -1,10 +1,9 @@
-# vim: syntax=gitconfig filetype=gitconfig
+# vim: syntax=gitconfig filhhtype=gitconfig
 
 [core]
   #whitespace = fix,trailing-space
   #autocrlf = input
   commentchar = "\""
-  editor = /usr/local/bin/vim
 [mergetool "p4merge"]
   cmd = /Applications/p4merge.app/Contents/MacOS/p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
   keepTemporaries = false

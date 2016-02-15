@@ -71,6 +71,8 @@ alias filesWithSpaces="grep -Rc '^     ' . | grep -v ':0$' | sort -t':' -n -k2"
 ## If nvim is available, alias it to vim
 if hash nvim 2>/dev/null; then
   alias vim=$(which nvim)
+  export VISUAL=$(which nvim)
+  export EDITOR=$(which nvim)
 fi
 
 if hash brew 2>/dev/null; then
