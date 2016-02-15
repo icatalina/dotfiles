@@ -57,3 +57,7 @@ export SHELL=$(which zsh)
 
 autoload -U select-word-style
 select-word-style bash
+
+if hash direnv 2> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi
