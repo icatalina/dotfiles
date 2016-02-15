@@ -63,6 +63,7 @@ alias ve='source virtualenv/bin/activate'
 alias pm='python3 manage.py'
 alias pt='python3 test.py'
 alias eject='diskutil unmountDisk'
+alias mkdir='mkdir -p'
 
 ## alias tmux='tmux a || tmux new'
 alias b16='source $BASE16_SHELL'
@@ -77,4 +78,8 @@ fi
 
 if hash brew 2>/dev/null; then
   alias cask="brew cask"
+fi
+
+if hash go 2>/dev/null; then
+  export GOPATH="$HOME/.go"
 fi
