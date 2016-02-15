@@ -1,7 +1,5 @@
 let mapleader = " "
 
-" so $VIMCONFIG/statuslinehelpers.vim
-" so $VIMCONFIG/statusline.vim
 ""so $VIMCONFIG/vundle.vim
 " so $VIMCONFIG/main/vimangular.vim
 " so $VIMCONFIG/main/listtoggle.vim
@@ -40,10 +38,14 @@ so $VIMCONFIG/main.vim
 hi Search cterm=NONE ctermfg=white ctermbg=darkyellow
 hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 
-
 autocmd! BufReadPost * call SetCursorPosition()
 autocmd! BufWritePost * Neomake
-autocmd! Filetype gitcommit setlocal spell textwidth=72
 autocmd! BufEnter * :syntax sync minlines=300
+
+autocmd! Filetype gitcommit setlocal spell textwidth=72
+
+so $VIMCONFIG/statuslinehelpers.vim
+so $VIMCONFIG/statusline.vim
+
 " autocmd! BufNewFile,BufRead *.html set filetype=htmldjango
 " autocmd Filetype * call LongFiles()

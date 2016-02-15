@@ -22,7 +22,7 @@ call plug#begin('~/.vim/_plugged')
 
 
 " 005.851
-Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+" Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 " 000.119
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
 " 000.102

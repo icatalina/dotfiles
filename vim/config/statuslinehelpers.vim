@@ -1,7 +1,15 @@
 function! GetGitStatus()
-  let l:exec = 'git -C ' . expand('%:p:h') .
-    \ ' status 2> /dev/null | head -n 1 | sed "s/On branch \(.*\)/ [\1] /g"'
-  return substitute(system(l:exec), '\n', '', 'g')
+  if expand('%:p') != ''
+    let l:branch = 'git status -- ' . expand('%:p') . ' 2> /dev/null | head -1 | sed "s/On branch //"'
+    let l:output=substitute(system(l:branch), '\n', '', 'g')
+
+    let l:fstatus='git status -s -- ' . expand('%:p') . ' 2> /dev/null | awk "{print \$1}"'
+    let l:fstatus=substitute(system(l:fstatus), '\n', '', 'g')
+    if l:fstatus!=''
+      let l:output.=tolower('|'.l:fstatus)
+    endif
+    return l:output
+  endif
 endfunction
 
 "recalculate the trailing whitespace warning when idle, and after saving
@@ -18,7 +26,7 @@ function! StatuslineTrailingSpaceWarning()
         endif
 
         if search('\s\+$', 'nw') != 0
-            let b:statusline_trailing_space_warning = '[\s]'
+            let b:statusline_trailing_space_warning = ',trailing-spaces'
         else
             let b:statusline_trailing_space_warning = ''
         endif
@@ -57,9 +65,9 @@ function! StatuslineTabWarning()
         let spaces = search('^ \{' . &ts . ',}[^\t]', 'nw') != 0
 
         if tabs && spaces
-            let b:statusline_tab_warning =  '[mixed-indenting]'
+            let b:statusline_tab_warning =  ',mixed-indenting'
         elseif (spaces && !&et) || (tabs && &et)
-            let b:statusline_tab_warning = '[expandtabs]'
+            let b:statusline_tab_warning = ',expandtabs'
         endif
     endif
     return b:statusline_tab_warning

@@ -38,6 +38,7 @@ set noshowmode                          " Don't show the current mode (airline.v
 set nostartofline                       " Don't reset cursor to start of line when moving around
 set nowrap                              " Prevent lines from wrapping
 set numberwidth=3                       " Number of culumns for line numbers
+set number                              " Makes the current line to show the linenumber instead of 0
 set relativenumber                      " Show relative numbers
 set ruler                               " Show Cursor position all the time
 set scrolloff=7                         " Minium number of lines above and below the cursor
@@ -45,6 +46,7 @@ set shiftround                          " Round the indent to a multiple of shif
 set shiftwidth=0                        " Columns the text is shifted with << >> (0 follows tabstop)
 set showcmd                             " Show partial commands as they're being typed on the bar
 set showmatch                           " When a bracket is inserted, jump to the matched one for a few ms
+set showtabline=0                       " Hide Tabs on the top of the window
 set sidescrolloff=10                    " Minium number of characters left and right of the cursor
 set smartcase                           " Enables case sensitive search when an uppercase letter is used on the search string
 set softtabstop=-1                      " Columns used when Tab is hitted in insert mode (-1 follows tabstop)
@@ -57,7 +59,6 @@ set ttimeout                            " Enable timeout for key codes
 set ttimeoutlen=100                     " Time in ms waited for a key code secuence to complete
 set visualbell                          " Use visual bell instead of beeping
 set whichwrap+=<,>,h,l,[,]              " Let keys move the cursor to the previous/next line when it's on the first/last character on a line
-
 set formatoptions+=tcqjrob              " Configure the formmating options
 "t Auto-wrap text using textwidth
 "c Auto-wrap comments using textwidth, inserting the current comment leader automatically.
