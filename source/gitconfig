@@ -1,27 +1,66 @@
-# vim: syntax=gitconfig filhhtype=gitconfig
+# vim: syntax=gitconfig filetype=gitconfig
 
 [core]
   #whitespace = fix,trailing-space
   #autocrlf = input
   commentchar = "\""
+  pager = diff-highlight | diff-so-fancy | less -r
+
 [mergetool "p4merge"]
   cmd = /Applications/p4merge.app/Contents/MacOS/p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
   keepTemporaries = false
   trustExitCode = false
   keepBackup = false
+
 [merge]
   tool = p4merge
+
 [filter "hawser"]
   clean = git hawser clean %f
   smudge = git hawser smudge %f
   required = true
+
 [push]
-    default = current
+  default = current
+
 [alias]
   st = status -sb
-  ls = log --oneline
-  lss = log --oneline -20
+  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+  ls2 = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+  lss = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate -20
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+  fl = log -u
   show-files = diff-tree --no-commit-id -M --name-status -r
   df = diff --cached
   dfw = diff --cached -w --word-diff=color
   ca = clean -f -d
+  sclone = clone --depth=1
+
+[color]
+  ui = always
+
+[color "diff"]
+  meta = yellow bold
+  commit = green bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = "red bold 52"
+  newNormal = "green bold"
+  newHighlight = "green bold 22"
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "status"]
+  added = green
+  changed = yellow
+  untracked = cyan
