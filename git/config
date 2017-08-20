@@ -1,0 +1,159 @@
+# vim: syntax=gitconfig filetype=gitconfig tabstop=2 shiftwidth=2 softtabstop=2
+
+[alias]
+  branch-name = "!git rev-parse --abbrev-ref HEAD"
+
+  stash = "stash --keep-index --include-untracked"
+
+  lss2 = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+
+  fl = log --patch
+
+  d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+  dlog = log --pretty=date -20
+  z-log-20 = log --pretty=standard -20
+  z-log-comments = log --pretty=comments
+  z-status = status --short --branch
+  z-status-tracked-only = status --short --branch --untracked-files=no
+
+  z-merge-log = "!f() { git log --pretty=standard \"$1^..$1\"; }; f"
+
+  z-add-tracked = add --update
+  z-add-patch = add --patch
+
+  z-new-branch = checkout -b
+
+  z-diff-word = diff --ignore-all-space --word-diff=color
+  z-diff-word-cached = diff --cached --ignore-all-space --word-diff=color
+
+  # -d:  Remove untracked directories in addition to untracked files.
+  z-clean-all = clean --force -d
+
+  # -r: recursive
+  z-show-files = diff-tree --no-commit-id --find-renames --name-status -r
+  z-shallow-clone = clone --depth=1
+  z-reset-branch = reset --hard @{upstream}
+  z-undo-commit = reset head^
+
+  br=branch -vv
+
+[init]
+    templatedir = ~/.config/git/git-templates
+
+[color]
+  ui = true
+
+[log]
+  decorate = short
+
+[pretty]
+  standard = "%C(yellow)%h %C(green)%<(14,trunc)%an %Creset%s%Cred%d"
+  date = "%C(yellow)%h %G? %C(blue)%>(14,trunc)%cr %C(green)%<(14,trunc)%an %Creset%s%Cred%d"
+  comments = "%s"
+  sizes = "-----------------\n%aD"
+  github = "# %s%-n%b"
+  stacked = "%n%n%-D%n%C(yellow)%h %>(14,trunc)%Cgreen%cr %C(blue)%<(50,trunc)%s %Creset%<(15,trunc)%an"
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  commit = green bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+
+[color "diff-highlight"]
+  oldNormal = "red bold"
+  oldHighlight = "red bold 11"
+  newNormal = "green bold"
+  newHighlight = "green bold 10"
+
+[color "status"]
+  added = green
+  changed = yellow
+  untracked = cyan
+
+[core]
+  #whitespace = fix,trailing-space
+  #autocrlf = input
+  pager = diff-so-fancy | less --tabs=4 -RFX
+  excludesfile = /Users/ignacio.catalina/.config/git/ignore
+  autocrlf = false
+  safecrlf = false
+  quotepath = false
+
+[filter "hawser"]
+  clean = git hawser clean %f
+  smudge = git hawser smudge %f
+  required = true
+
+[filter "lfs"]
+  smudge = git-lfs smudge %f
+  required = true
+  clean = git-lfs clean %f
+
+[diff-so-fancy]
+  useUnicodeRuler= false
+
+[pull]
+  default = current
+
+[push]
+  followTags = true
+  default = current
+
+[rebase]
+  stat = true
+
+[branch "master"]
+  pushRemote = origin
+
+[status]
+  showUntrackedFiles = all
+
+[commit]
+  verbose = true
+  template = ~/.config/git/templates/commit
+
+[interactive]
+  diffFitlter = diff-so-fancy --patch-mode | less --tabs=4 -RFX
+
+[diff]
+  algorithm = patience
+  tool = vimdiff
+
+[merge]
+  algorithm = patience
+  strategy = recursive
+  tool = diffconflicts
+
+[difftool]
+  trustExitCode = true
+  prompt = false
+
+[mergetool]
+  trustExitCode = false
+  prompt = false
+  keepBackup = false
+
+[mergetool "p4"]
+  cmd = /Applications/p4merge.app/Contents/MacOS/p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+  keepTemporaries = false
+  trustExitCode = false
+  keepBackup = false
+
+[include]
+  path = ~/.local/gitconfig
+
+[mergetool "fugitive"]
+  cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+
+[mergetool "diffconflicts"]
+  cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
+  trustExitCode = true
