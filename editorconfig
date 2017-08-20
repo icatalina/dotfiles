@@ -1,0 +1,40 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+charset = utf-8
+curly_bracket_next_line = false
+spaces_around_operators = true
+spaces_around_brackets = outside
+indent_brace_style = K&R
+indent_size = 2
+
+[vimrc,init.vim]
+trim_trailing_whitespace = false
+
+# Matches multiple files with brace expansion notation
+# Set default charset
+[*.{scss,css,js}]
+indent_size = 2
+quote_type = 'single'
+
+[*.py]
+indent_size = 4
+
+[*.php]
+indent_size = 4
+curly_bracket_next_line = false
+
+[*.{tpl,tmp,inc}.php]
+indent_size = 2
+curly_bracket_next_line = false
+
+[*.diff]
+trim_trailing_whitespace = false
