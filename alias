@@ -1,4 +1,4 @@
-# vim: syntax=sh filetype=sh
+# vim: syntax=sh filetype=sh foldmethod=marker foldlevel=0
 
 export VISUAL=`which vim`
 export EDITOR=`which vim`
@@ -48,9 +48,6 @@ alias z-npm-run='npm-run'
 # -g: like -l, but do not list owner
 # -1: list one file per line.  Avoid '\n' with -q or -b
 alias z-fancy-ls='ls --almost-all --no-group --human-readable --classify -g -1 --group-directories-first --color'
-
-# Git Config
-alias z-git-config-repo='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Activate Python VirtualEnv
 alias z-source-virtualenv='source virtualenv/bin/activate'
@@ -136,7 +133,6 @@ alias ve='z-source-virtualenv'
 alias ng='z-node-list-global'
 alias nl='z-node-list-local'
 alias nr='z-npm-run'
-alias cfg='z-git-config-repo'
 alias mkdir='z-mkdir-parents'
 
 alias desk='z-go-desktop'
@@ -159,24 +155,7 @@ if hash brew 2>/dev/null; then
   alias cask="brew cask"
 fi
 
-## Docker Aliases/Functions
-
-function dk() {
-  case $* in
-    ri* ) shift 1; command docker run -i -t -P "$@" ;;
-    ex* ) shift 1; command docker exec -it "$@" ;;
-    a* ) shift 1;
-  esac
-}
-
-function swap() {
-    local TMPFILE=tmp.$$
-    mv "$1" $TMPFILE && mv "$2" "$1" && mv $TMPFILE $2
-}
-
-function commit() {
-    hub browse -- commit/$1
-}
+## Docker Aliases/Functions {{{
 
 #  Reserved commands:
 #  do
@@ -189,6 +168,14 @@ function commit() {
 #  df
 #  dir
 #  dig
+
+function dk() {
+  case $* in
+    ri* ) shift 1; command docker run -i -t -P "$@" ;;
+    ex* ) shift 1; command docker exec -it "$@" ;;
+    a* ) shift 1;
+  esac
+}
 
 alias d='docker'
 dl () {
@@ -254,11 +241,19 @@ dcxa () {
 dsetup () {
   eval `docker-machine env "$@"`;
 }
-
-alias gulp='nr gulp'
+# }}}
 
 function notify() {
   osascript -e "display notification \"$2\" with title \"$1\""
+}
+
+function swap() {
+    local TMPFILE=tmp.$$
+    mv "$1" $TMPFILE && mv "$2" "$1" && mv $TMPFILE $2
+}
+
+function commit() {
+    hub browse -- commit/$1
 }
 
 function set-upstream() {
@@ -266,80 +261,7 @@ function set-upstream() {
   git branch --set-upstream-to="origin/$branch_name"
 }
 
-function release-branch() {
-  local origin='origin'
-  local upstream='bc'
-
-  local branch_name=`git rev-parse --abbrev-ref HEAD`
-  local release_branch="${branch_name}-release"
-
-  local remote_url=`git config --get remote.$origin.url`
-  local bc_url=`git config --get remote.$upstream.url`
-
-  local exists=`git rev-parse --verify $release_branch`
-  if [ -n "$exists" ]; then
-    git branch -D $release_branch
-  fi
-
-  git checkout -b $release_branch
-
-  npm run deploy
-  git add dist
-  git commit -m "$branch_name DO NOT MERGE: TESTING!"
-  git push -u $origin $release_branch --force
-  git checkout $branch_name
-
-  cd $BC_APP_DIR
-  git stash
-  revert=$?
-
-  local prev_branch=`git rev-parse --abbrev-ref HEAD`
-  local exists=`git rev-parse --verify $branch_name`
-  if [ -n "$exists" ]; then
-    git checkout $branch_name
-  else
-    git checkout master
-  fi
-
-  local exists=`git rev-parse --verify $release_branch`
-  if [ -n "$exists" ]; then
-    git branch -D $release_branch
-  fi
-
-  git checkout -b $release_branch
-  sed "s;$bc_url#[^\"]\+;$remote_url#$release_branch;" -i bower.json
-  git add bower.json
-  git commit -m "$branch_name DO NOT MERGE: TESTING!"
-  git push -u $origin $release_branch --force
-
-  git checkout $prev_branch
-  if [ -n "$revert" ]; then
-    git stash pop > /dev/null
-  fi
-  cd -
-
-  echo "Click here to open launchbay and create a deployment of this branch:"
-  echo "https://launchbay.bigcommerce.net/projects/1/releases/integration"
-  echo "Branch $release_branch created and pushed"
-}
-
-alias repush="git commit --amend --no-edit && git push --force && lb"
-
-
-function jira() {
-  if [[ "$@" == "" ]]; then
-    open 'https://jira.bigcommerce.com/secure/RapidBoard.jspa?rapidView=383&quickFilter=3239'
-  else
-    for var in "$@"; do
-      open "https://jira.bigcommerce.com/browse/$var"
-    done
-  fi
-}
-
-alias lb="open https://launchbay.bigcommerce.net/projects/1/releases/integration"
-
 unalias z
-
 z() {
   if [[ -z "$@" ]]; then
     local dir=`_z 2>&1 | sort -rh | awk '{print $2}' | fzf`
@@ -351,8 +273,6 @@ z() {
   fi
 }
 
-function vim-readme() {
-  vmd "$@" & vim "$@"
-}
-
+alias repush="git commit --amend --no-edit && git push --force && lb"
+alias gulp='nr gulp'
 alias ls='ls --color=always'
