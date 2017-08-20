@@ -1,0 +1,170 @@
+# vim: syntax=sh filetype=sh fdm=marker foldenable foldlevel=0
+
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+export PATH="$HOME/.bin:$PATH"
+
+# Helper Functions {{{ #
+
+# Joins a string using a multicharacter delimiter
+# use: $ joinstr ', ' hello world "how are you"
+joinstr() {
+  local IFS='¬'
+  local delim=$1
+  shift 1
+  echo "${*//¬/$delim}"
+}
+
+# Executes a command using xargs adding the param at the end
+# Use ls | xxargs file
+xxargs () {
+  xargs -i $@ "{}"
+}
+
+
+if [ ! hash pwdx 2>/dev/null ]; then
+  pwdx () {
+    if [ $# -ne 1 ]; then
+      echo "You need to specifiy at least one PID"
+      return 1
+    fi
+    if ! lsof -a -d cwd -n -p "$@"; then
+      echo "PID not running"
+    fi
+  }
+fi
+
+# Adds a git remote,
+# $1 = remote name
+# $2 = replaces :repo_name/ => :$2/
+addremote () {
+    if [ $# -lt 1 ]; then
+      echo "You need to specify the remote name."
+      echo "$0 origin_name [repo]"
+      return 1
+    fi
+
+    new_remote=$1
+    new_repo=$1
+
+    if [ "$2" != "" ]; then
+        new_repo=$2
+    fi
+
+    remote_url=`git ls-remote --get-url`
+    new_remote_url=`echo $remote_url | sed "s/:.*\?\//:$new_repo\//"`
+    git remote add "$new_remote" "$new_remote_url"
+
+    if [ $? -eq 0 ]; then
+        git remote -v
+    fi
+}
+# }}} Helper Functions #
+# GO Configuration {{{ #
+# Export GO Home folder if go is installed
+if hash go 2>/dev/null; then
+  export GOPATH="$HOME/.config/go"
+fi
+# }}} GO Configuration #
+# Pyenv Configuration {{{ #
+export PYENV_ROOT="$HOME/.pyenv"
+if hash pyenv 2>/dev/null; then
+  python_init() {
+    unalias pyenv
+    unalias python
+    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+  }
+
+  pyenv_lazy() {
+    python_init
+    pyenv $@
+  }
+
+  python_lazy() {
+    python_init
+    python $@
+  }
+
+  alias pyenv=pyenv_lazy
+  alias python=python_lazy
+fi
+# }}} Pyenv Configuration #
+
+# Creating Temporal Directory
+[ ! -d '~/.local/tmp' ] && mkdir -p ~/.local/tmp
+
+# Specifies the Shell Theme to be used
+export BASE16_SHELL=~/.config/zsh/base16-shell/base16-flat.dark.sh
+#{{{#}}}
+# Specify your defaults in this environment variable
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+eval `dircolors -b ~/.cfg/dircolors.theme`
+
+export FZF_DEFAULT_OPTS="--extended --reverse --multi --cycle\
+  --ansi +s +m\
+  --bind=ctrl-n:toggle-down\
+  --color=fg:8,fg+:-1,bg:-1,bg+:-1,hl:0,hl+:3,prompt:2,marker:2,pointer:2,info:9"
+
+export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+fancy-branch() {
+  local awk_coloring='BEGIN { prev=""; color=0; } ! /^$/ { first=$1; $1 = ""; if (prev != first) { color=(color + 1) % 6; prev=first; } print "\x1b[3" color ";1m" first "\x1b[m\t" $0; }'
+  local other_coloring='{print "\x1b[" color ";1m" text "\x1b[m\t" $1}'
+
+  local branches=`git ub | awk -v color=36 -v text="local" $other_coloring`
+  local remote_branches=`git branch -r | grep -v HEAD | cut -c 3-`
+  local tags=`git tag -l --sort=-taggerdate | awk -v color=37 -v text="tag" $other_coloring`
+
+  local origin=`printf $remote_branches | grep '^\s*origin/'`
+  local other=`printf $remote_branches | grep -v '^\s*origin/'`
+  local remote_sorted=`printf "$origin\n$other" | awk -F "/" $awk_coloring`
+
+  local selected=`echo "$branches\n$remote_sorted\n$tags" | column -t | sed '/^$/d' | fzf --no-hscroll --ansi +m -d "\t"`
+
+  if [[ -n "$selected" ]]; then
+    local type=`printf $selected | awk '{print $1}'`
+    local target=`printf $selected | awk '{print $2}'`
+
+    if [[ "$type" == "remote" ]]; then
+      target=`print $target | sed 's|.*/||'`
+    fi
+
+    if [[ -z "$LBUFFER" ]]; then
+        LBUFFER="git checkout $target"
+    else
+        LBUFFER="$LBUFFER$target"
+    fi
+  fi
+}
+
+C() {
+  printf "$@" | pbcopy
+}
+
+command-palette() {
+local cmd=`cat ~/.commands | awk -F " ## " '! /(^\s*$|^#)/{print "\x1b[32;1m" $1 "\x1b[37m ## " $2 "\x1b[m"}' | fzf -e -s | awk -F " ## " '{print $2}'`
+  if [[ -n "$cmd" ]]; then
+    local output=`eval "$cmd"`
+    LBUFFER="$LBUFFER$output"
+  fi
+}
+
+zle -N command-palette
+bindkey '^ ' command-palette
+
+zle -N fancy-branch
+bindkey '^b' fancy-branch
+
+zle -N git-ub
+bindkey '^g' git-ub
+
+source /usr/local/etc/profile.d/z.sh
+
+stty sane
