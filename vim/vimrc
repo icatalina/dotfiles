@@ -5,50 +5,19 @@ syntax enable
 scriptencoding utf-8
 filetype plugin indent on
 
-" allow italics
+" Allow italics {{{
+
 set t_ZH=[3m
 set t_ZR=[23m
 
-" VIM Addon Manager {{{
-
-function! SetupVAM()
-  let c = get(g:, 'vim_addon_manager', {})
-  let g:vim_addon_manager = c
-  let c.plugin_root_dir = expand('$HOME', 1) . '/.vim/_vim-addons'
-
-  " Force your ~/.vim/after directory to be last in &rtp always:
-  " let g:vim_addon_manager.rtp_list_hook = 'vam#ForceUsersAfterDirectoriesToBeLast'
-
-  " most used options you may want to use:
-  " let c.log_to_buf = 1
-  " let c.auto_install = 0
-  let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
-  if !isdirectory(c.plugin_root_dir.'/vim-addon-manager/autoload')
-    execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '
-        \       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
-  endif
-
-  " This provides the VAMActivate command, you could be passing plugin names, too
-  call vam#ActivateAddons([], {})
-endfunction
-call SetupVAM()
-
-call vam#ActivateAddons([
-      \  'github:heavenshell/vim-jsdoc',
-      \  'github:sirver/ultisnips',
-      \  'github:pangloss/vim-javascript',
-      \  'github:editorconfig/editorconfig-vim',
-      \  'github:sheerun/vim-wombat-scheme',
-      \  'github:tpope/vim-fugitive',
-      \  'github:w0rp/ale',
-      \  'github:airblade/vim-gitgutter',
-      \  'github:curist/vim-angular-template',
-      \  'github:majutsushi/tagbar',
-      \  'github:bogado/file-line',
-      \  'github:atelierbram/Base2Tone-vim',
-  \ ], {})
 " }}}
-" Vim Plugin configuration {{{
+" Change cursor in insert mode {{{
+
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+" }}}
+" Mark some vim plugins as loaded (not really in use) {{{
 let g:loaded_getscriptPlugin = 1
 let g:loaded_gzip = 1
 let g:loaded_logiPat = 1
@@ -58,29 +27,301 @@ let g:loaded_rrhelper = 1
 let g:loaded_tarPlugin = 1
 let g:loaded_vimballPlugin = 1
 let g:loaded_zipPlugin = 1
+" }}}
 
-let g:html_indent_tags = 'li\|p'
+" Vim Addon Manager {{{
+function! SetupVAM()
+  let c = get(g:, 'vim_addon_manager', {})
+  let g:vim_addon_manager = c
+  let c.plugin_root_dir = expand('$HOME', 1) . '/.vim/_vim-addons'
+  let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
+  if !isdirectory(c.plugin_root_dir.'/vim-addon-manager/autoload')
+    execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '
+        \       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
+  endif
 
-let g:jsdoc_enable_es6 = 1
+  " This provides the VAMActivate command, you could be passing plugin names, too
+  call vam#ActivateAddons([
+        \  'github:heavenshell/vim-jsdoc',
+        \  'github:sirver/ultisnips',
+        \  'github:pangloss/vim-javascript',
+        \  'github:editorconfig/editorconfig-vim',
+        \  'github:tpope/vim-fugitive',
+        \  'github:w0rp/ale',
+        \  'github:airblade/vim-gitgutter',
+        \  'github:curist/vim-angular-template',
+        \  'github:bogado/file-line',
+        \ ], {})
+endfunction
+call SetupVAM()
+" }}}
 
-let g:ale_linters = {
-\   'html': [],
-\}
+" () AngularGoToFile: Allow gf in angular imports {{{
+function! AngularGoToFile(file)
+  let l:file=system("rg -lF angular.module\\\(\\'" . a:file . "\\' | head -1")
+  let l:cleanPath=substitute(l:file,'^[\n]\+\|[\n]\+$','','g')
+  return l:cleanPath
+endfunction
+" }}}
+" () Better Incremental Search {{{
 
-let g:ale_sign_column_always = 1
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_statusline_format = ['E%d', 'W%d', '']
-let g:ale_sign_error = 'E'
-let g:ale_sign_warning = 'W'
+function! BetterIncSearch(key) abort
+  let l:cmdType = getcmdtype()
+
+  if l:cmdType ==# '/' || l:cmdType ==# '?'
+    " Search Mode
+    let l:cmd = getcmdline()
+
+    call feedkeys("\<C-C>:set hlsearch\<Enter>")
+
+    if @/ !=# l:cmd
+      call setreg('/', l:cmd)
+    else
+      let l:direction = v:searchforward && l:cmdType ==# '/'
+      if xor(l:direction, a:key ==# 'tab')
+        call feedkeys('N')
+      else
+        call feedkeys('n')
+      end
+    endif
+
+    call feedkeys(l:cmdType . "\<C-R>/")
+    return
+  else
+    " Not in search mode
+    if a:key ==# 'tab'
+      return "\<Tab>"
+    else
+      return "\<S-Tab>"
+    endif
+  endif
+endfunction
 
 " }}}
-" Settings {{{
+" () CaseChange: Loop over different casings {{{
+function! CaseChange(str)
+    let l:snake = '^[a-z0-9]\+\(-\+[a-z0-9]\+\)\+$'
+    let l:camel = '\C^[a-z][a-z0-9]*\([A-Z][a-z0-9]*\)*$'
+    let l:under = '\C^[a-z0-9]\+\(_\+[a-z0-9]\+\)*$'
+    let l:constant = '\C^[A-Z][A-Z0-9]*\(_[A-Z0-9]\+\)*$'
+    let l:pascal = '\C^[A-Z][a-z0-9]*\([A-Z0-9][a-z0-9]*\)*$'
+
+    if (a:str =~ l:snake)
+        return substitute(a:str, '-\+\([a-z]\)', '\U\1', 'g')
+    elseif (a:str =~ l:camel)
+        return substitute(a:str, '^.*$', '\u\0', 'g')
+    elseif (a:str =~ l:constant)
+        return tolower(a:str)
+    elseif (a:str =~ l:pascal)
+        return toupper(substitute(a:str, '\C^\@<![A-Z]', '_\0', 'g'))
+    else
+        return substitute(a:str, '_\+', '-', 'g')
+    endif
+endfunction
+" }}}
+" () CompleteSnippets: Autocomplete Snippets {{{
+" Method to show an completion list of the snippets
+" available on a particular file.
+
+function! CompleteSnippets(findstart, base)
+  if a:findstart
+    " locate the start of the word
+    let line = getline('.')
+    let start = col('.') - 1
+    while start > 0 && line[start - 1] =~ '\a'
+      let start -= 1
+    endwhile
+    return start
+  else
+    " find months matching with "a:base"
+    for element in items(UltiSnips#SnippetsInCurrentScope())
+      if element[0] =~ '^' . a:base
+        call complete_add(element[0])
+      endif
+      if complete_check()
+        break
+      endif
+    endfor
+    return []
+  endif
+endfun
+
+" }}}
+" () Delete Hidden Buffers {{{
+
+function! DeleteHiddenBuffers()
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent execute 'bd' buf
+    endfor
+endfunction
+command! DeleteHiddenBuffers call DeleteHiddenBuffers()
+
+" }}}
+" () GetFolder: If the folder is a git repo, get the root of it, otherwise, the cwd {{{
+
+function! GetFolder()
+    let l:is_git_dir = system("git rev-parse >/dev/null 2>&1; printf $?") == 0
+
+    if l:is_git_dir
+        return system('git rev-parse --show-toplevel')
+    else
+        return getcwd()
+    end
+endfunction
+
+" }}}
+" () GetVisualSelection: Returns the visual selection {{{
+
+function! GetVisualSelection()
+  try
+    let l:a_save = @a
+    silent normal! gv"aygv
+    return @a
+  finally
+    let @a = l:a_save
+  endtry
+endfunction
+
+" }}}
+" () Grep {{{
+
+function! s:Grep(command, ...)
+  echom a:command
+  exec "silent grep! " . a:command . " | redraw! | copen"
+endfunction
+command! -nargs=+ -bang -complete=dir Grep call s:Grep(<q-args>, <bang>0)
+
+" }}}
+" () FindFile: Finds a file within the CWD {{{
+
+function! FindFile(file)
+    let l:path=system('find -type f -name "' . a:file . '" | head -1')
+    return l:cleanPath
+endfunction
+
+" }}}
+" () OpenAllVisuallySelectedFiles {{{
+
+function! OpenAllVisuallySelectedFiles()
+  if line(".") == line("'>")
+    execute "edit " . getline(".")
+  else
+    execute "edit " . getline(".") | b#
+  endif
+endfunction
+
+" }}}
+" () Opens an Scratch Buffer {{{
+
+" @param command {string} Command to run in order to fill the scratch buffer
+function! ScratchBuffer(command, ...)
+  if exists("g:file_buffer") && buffer_exists(g:file_buffer)
+    exec ":b" . g:file_buffer . " | norm ggdG"
+  else
+    enew
+    set buftype=nofile
+    nnoremap <buffer> <C-C> :bw<cr>
+    let g:file_buffer = buffer_number('%')
+  endif
+
+  exec "set filetype=" . a:1
+  exec a:command
+endfunction
+
+" }}}
+" () Relative: Gets the relative path of a file {{{
+
+function! Relative(file)
+  let l:path=expand('%:p:h')
+  let l:fullFile=expand('~/develop/ng-checkout-build/src/' . a:file)
+  return substitute(system("python -c \"import os.path; path=os.path.relpath('" . l:fullFile . "', '" . l:path . "'); print ('./' if path[0] != '.' else '') + path \""), '\n', '', 'g')
+endfunction
+
+" }}}
+" () RepositionCursor: Repositions the cursor if the file type is not in `file_list` {{{
+
+function! RepositionCursor()
+  let l:file_list = [
+        \ 'gitrebase',
+        \ 'gitcommit'
+      \]
+
+  let l:should_reposition_this_file = index(l:file_list, &filetype) == -1
+
+  if !&diff
+    \&& l:should_reposition_this_file
+    \&& line("'\"") > 1
+    \&& line("'\"") <= line("$")
+    execute "normal! g`\""
+  endif
+endfunction
+
+" }}}
+" () SearchEscape: Escape string for using it in Search strings {{{
+function! SearchEscape(reg)
+    return substitute(escape(a:reg, '\'), '\n', '\\n', 'g')
+endfunction
+
+" }}}
+" () SetSearch: Set the search register {{{
+
+function! SetSearch(reg)
+    call setreg('/', "\\V" . SearchEscape(a:reg))
+endfunction
+
+" }}}
+" () SetSearchWord: Set the search register with word boundaris {{{
+
+function! SetSearchWord(reg)
+    call setreg('/', "\\V\\<" . SearchEscape(a:reg) . "\\>")
+endfunction
+
+" }}}
+" () Toggle CWD {{{
+function! ToggleCWD()
+    if !exists("g:change_cwd_root_directory")
+        let g:change_cwd_root_directory = getcwd()
+    endif
+
+    let l:currentFileDir=expand('%:p:h')
+
+    if l:currentFileDir != getcwd()
+        exec("cd " . l:currentFileDir)
+    else
+        exec("cd " . g:change_cwd_root_directory)
+    endif
+endfunction
+command! ToggleCWD call ToggleCWD()
+" }}}
+" () ToggleWildIgnore {{{
+
+function! ToggleWildIgnore()
+  if exists("g:wildignore")
+    let &wildignore=g:wildignore
+    unlet g:wildignore
+  else
+    let g:wildignore=&wildignore
+    set wildignore=
+  end
+
+  set wildignore?
+endfunction
+command! ToggleWildIgnore call WildIgnore()
+
+" }}}
+
+" Vim Settings {{{
+let mapleader = " "
+
 set autoread                          " Automatically read files that have been changed on disk
 au CursorHold * checktime             " Needed for the set autoread
 
 set ttimeoutlen=0                     " Need for the cursor to behave properly
 set backspace=indent,eol,start        " bs anything
 set completeopt=longest,menu
+set completefunc=CompleteSnippets
 set cursorline                        " Enable cursor line
 set fileformat=unix                   " Prefered format
 set fileformats=unix,dos,mac          " Preference list for file formats
@@ -105,13 +346,14 @@ set signcolumn=yes                    " Always show sign column
 set undofile                          " Use an undo file
 set undodir=$HOME/.vim/_undo
 
+set wildcharm=<Tab>
 set wildignorecase                    " When set case is ignored when completing file names and directories.
 set wildmenu                          " Enhanced command line completion.
 set wildmode=list:full                " Complete files using a menu AND list
 
 set wildignore+=*/node_modules/*,*/bower_components/*,*/build/*/,build,node_modules,bower_components
 set path=.,**
-set includeexpr=IncludeExpr(v:fname)
+set includeexpr=AngularGoToFile(v:fname)
 set suffixesadd+=.js
 
 set expandtab                         " default to spaces instead of tabs
@@ -129,335 +371,12 @@ set smarttab
 set list
 set listchars=tab:→\ ,trail:·,extends:»,precedes:«,nbsp:⣿
 
-set formatoptions=
-set formatoptions+=c                  " Auto-wrap comments using textwidth
-set formatoptions+=r                  " Continue comments by default
-set formatoptions-=o                  " do not continue comment using o or O
-set formatoptions+=q                  " continue comments with gq
-set formatoptions+=n                  " Recognize numbered lists
-set formatoptions+=2                  " Use indent from 2nd line of a paragraph
-set formatoptions-=l                  " break lines that are already long?
-set formatoptions+=1                  " Break before 1-letter words
-set formatoptions+=j                  " When joining commented lines (J), avoid comment characters
-
-" }}}
-" Change cursor shape in insert mode {{{
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-" }}}
-" Remaps {{{
-
-let mapleader = " "
-
-let g:UltiSnipsEditSplit='vertical'
-
-"@ i_TAB Triggers snippet completion
-let g:UltiSnipsExpandTrigger='<Tab>'
-"@ i_S-Up Jumps to previous placeholder
-let g:UltiSnipsJumpBackwardTrigger='<s-up>'
-"@ i_S-Down Jumps to next placeholder
-let g:UltiSnipsJumpForwardTrigger='<s-down>'
-"@ i_Shift-Right List all snippets
-let g:UltiSnipsListSnippets='<s-right>'
-
-"@ SPACE-D Inserts JSDoc Block
-nmap <silent> <leader>d <Plug>(jsdoc)
-
-"@ Y Make (Y)ank behave like (D)elete or (C)hange
-nnoremap Y y$
-"@ BS Hide search results
-nnoremap <silent> <BS> :noh<cr>
-"@ cgf Forced go to file
-nnoremap cgf :e <cfile><CR>
-"@ C-B Show buffer list
-nnoremap <C-B> :ls<cr>:b
-"@ C-F Show File List
-nnoremap <C-F> :Gls<cr>
-"@ C-F Start Search
-nnoremap <C-F> :Gls<cr>
-"@ CTRL-N Next buffer
-nnoremap <silent> <C-N> :bn<CR>
-"@ CTRL-P Previous buffer
-nnoremap <silent> <C-P> :bp<CR>
-"@ CTRL-C Close buffer
-nnoremap <silent> <C-C> :bp<CR>:bd#<CR>
-"@ <Leader>-CTRL-C Force close previous buffer
-nnoremap <leader><C-C> :bd!#\|echo 'Force Closed! '.expand('#')<CR>
-
-nnoremap <C-W>T :tab sp<CR>
-nnoremap <C-W><C-T> :tab sp<CR>
-
-"@ CTRL-S Search
-cnoremap <C-S> %s////gc<left><left><left>
-nnoremap <C-S> :%s////gc<left><left><left>
-vnoremap <C-S> :s////gc<left><left><left>
-"@ v_CTRL-S Search visually selected string
-
-function! GetVisualSelection()
-  try
-    let l:a_save = @a
-    silent normal! gv"aygv
-    return @a
-  finally
-    let @a = l:a_save
-  endtry
-endfunction
-
-function! SearchEscape(reg)
-    return substitute(escape(a:reg, '\'), '\n', '\\n', 'g')
-endfunction
-
-function! SetSearch(reg)
-    call setreg('/', "\\V" . SearchEscape(a:reg))
-endfunction
-
-function! SetSearchWord(reg)
-    call setreg('/', "\\V\\<" . SearchEscape(a:reg) . "\\>")
-endfunction
-
-function! CaseChange(str)
-    let l:snake = '^[a-z0-9]\+\(-\+[a-z0-9]\+\)\+$'
-    let l:camel = '\C^[a-z][a-z0-9]*\([A-Z][a-z0-9]*\)*$'
-    let l:under = '\C^[a-z0-9]\+\(_\+[a-z0-9]\+\)*$'
-    let l:constant = '\C^[A-Z][A-Z0-9]*\(_[A-Z0-9]\+\)*$'
-    let l:pascal = '\C^[A-Z][a-z0-9]*\([A-Z0-9][a-z0-9]*\)*$'
-
-    if (a:str =~ l:snake)
-        return substitute(a:str, '-\+\([a-z]\)', '\U\1', 'g')
-    elseif (a:str =~ l:camel)
-        return substitute(a:str, '^.*$', '\u\0', 'g')
-    elseif (a:str =~ l:constant)
-        return tolower(a:str)
-    elseif (a:str =~ l:pascal)
-        return toupper(substitute(a:str, '\C^\@<![A-Z]', '_\0', 'g'))
-    else
-        return substitute(a:str, '_\+', '-', 'g')
-    endif
-endfunction
-
-vnoremap ~ "zc<C-R>=CaseChange(@z)<CR><Esc>v`[
-
-"@ c_CTRL-P Up
-cnoremap <C-P> <Up>
-"@ c_CTRL-N Down
-cnoremap <C-N> <Down>
-"@ c_CTRL-A Start of the line
-cnoremap <C-A> <Home>
-"@ c_CTRL-E End of the line
-cnoremap <C-E> <End>
-
-"@ v_* Search visually selected text
-xnoremap <silent> * :call SetSearch(GetVisualSelection())\|set hlsearch<CR>
-nnoremap <silent> * :call SetSearchWord(expand("<cword>"))\|set hlsearch<CR>
-
-nnoremap <silent> <leader>u :GitGutterUndoHunk<CR>
-nnoremap <silent> <leader>n :GitGutterNextHunk<CR>
-nnoremap <silent> <leader>p :GitGutterPrevHunk<CR>
-
-nnoremap <silent> <leader>q vipgq
-
-"@ s Stamp text to terminal
-nnoremap s :let @*=@"<cr>:echo 'Stamped'<cr>
-
-"@ c_CTRL-X Insert file path
-cnoremap <C-x> <C-r>=expand("%:p:h")<CR>/
-
-" Fix C-X commands with arrows
-inoremap <c-x><up>    <c-x><c-k>
-inoremap <c-x><down>  <c-x><c-j>
-inoremap <c-x><left>  <c-x><c-h>
-inoremap <c-x><right> <c-x><c-l>
-" }}}
-" Helper Functions {{{
-
-" Open all visually selected files
-function! OpenAllVisuallySelectedFiles()
-  if line(".") == line("'>")
-    execute "edit " . getline(".")
-  else
-    execute "edit " . getline(".") | b#
-  endif
-endfunction
-
-" Method to show an completion list of the snippets
-" available on a particular file.
-function! CompleteSnippets(findstart, base)
-  if a:findstart
-    " locate the start of the word
-    let line = getline('.')
-    let start = col('.') - 1
-    while start > 0 && line[start - 1] =~ '\a'
-      let start -= 1
-    endwhile
-    return start
-  else
-    " find months matching with "a:base"
-    for element in items(UltiSnips#SnippetsInCurrentScope())
-      if element[0] =~ '^' . a:base
-        call complete_add(element[0])
-      endif
-      if complete_check()
-        break
-      endif
-    endfor
-    return []
-  endif
-endfun
-
-" Opens an Scratch Buffer
-" Opens an Scratch buffer and executes `commands` to fetch the data
-" @param command {string} Command to run in order to fill the scratch buffer
-function! ScratchBuffer(command, ...)
-  if exists("g:file_buffer") && buffer_exists(g:file_buffer)
-    exec ":b" . g:file_buffer . " | norm ggdG"
-  else
-    enew
-    set buftype=nofile
-    nnoremap <buffer> <C-C> :bw<cr>
-    let g:file_buffer = buffer_number('%')
-  endif
-
-  exec "set filetype=" . a:1
-  exec a:command
-endfunction
-
-" Gets the relative path of a file
-function! Relative(file)
-  let l:path=expand('%:p:h')
-  let l:fullFile=expand('~/develop/ng-checkout-build/src/' . a:file)
-  return substitute(system("python -c \"import os.path; path=os.path.relpath('" . l:fullFile . "', '" . l:path . "'); print ('./' if path[0] != '.' else '') + path \""), '\n', '', 'g')
-endfunction
-
-" Finds a file within the CWD
-function! GetFile(file)
-    let l:path=system('find -type f -name "' . a:file . '" | head -1')
-    return l:cleanPath
-endfunction
-
-" Allow gf in angular imports
-function! IncludeExpr(file)
-  let l:file=system("ag -lQ angular.module\\\(\\'" . a:file . "\\' | head -1")
-  let l:cleanPath=substitute(l:file,'^[\n]\+\|[\n]\+$','','g')
-  return l:cleanPath
-endfunction
-
-
-" If the folder is a git repo, get the root of it, otherwise, the cwd
-function! GetFolder()
-    let l:is_git_dir = system("git rev-parse >/dev/null 2>&1; printf $?") == 0
-
-    if l:is_git_dir
-        return system('git rev-parse --show-toplevel')
-    else
-        return getcwd()
-    end
-endfunction
-
-" Toggles WildIgnore {{{
-function! WildIgnore()
-  if exists("g:wildignore")
-    let &wildignore=g:wildignore
-    unlet g:wildignore
-  else
-    let g:wildignore=&wildignore
-    set wildignore=
-  end
-
-  set wildignore?
-endfunction
-" }}}
-command! ToggleWildIgnore call WildIgnore()
-" Opens current file/folder in atom {{{
-" @param openFolder {boolean} Opens cwd/git root
-function! Atom(openFolder)
-    if a:openFolder
-        exec '!atom -a ' . GetFolder()
-    else
-        exec '!atom -a ' . expand('%')
-    end
-endfunction
-" }}}
-"# :Atom[!] Opens a file (!:folder) in Atom
-command! -nargs=* -bang -complete=dir Atom silent call Atom(<bang>0) | redraw!
-" Repositions the cursor if the file type is not in `file_list` {{{
-function! RepositionCursor()
-  let l:file_list = [
-        \ 'gitrebase',
-        \ 'gitcommit'
-      \]
-
-  let l:should_reposition_this_file = index(l:file_list, &filetype) == -1
-
-  if !&diff
-    \&& l:should_reposition_this_file
-    \&& line("'\"") > 1
-    \&& line("'\"") <= line("$")
-    execute "normal! g`\""
-  endif
-endfunction
-" }}}
-au BufReadPost * call RepositionCursor()
-
-if executable('rg')
-    " Note we extract the column as well as the file and line number
-    set grepformat=%f:%l:%c:%m,%f:%l:%m
-    set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --hidden
-endif
-
-function! s:Grep(command, ...)
-  echom a:command
-  exec "silent grep! " . a:command . " | redraw! | copen"
-endfunction
-
-"# :Grep Greps for the passed string within the current directory
-command! -nargs=+ -bang -complete=dir Grep call s:Grep(<q-args>, <bang>0)
-nnoremap <C-G> :Grep<space>
-
-" Toggles between current file CWD and project CWD {{{
-function! ChangeCWD()
-    if !exists("g:change_cwd_root_directory")
-        let g:change_cwd_root_directory = getcwd()
-    endif
-
-    let l:currentFileDir=expand('%:p:h')
-
-    if l:currentFileDir != getcwd()
-        exec("cd " . l:currentFileDir)
-    else
-        exec("cd " . g:change_cwd_root_directory)
-    endif
-endfunction
-" }}}
-command! ToggleCWD call ChangeCWD()
-"@ F4 Toggle between file/project cwd
-nmap <silent> <F4> :call ChangeCWD()<CR>
-
-"# :Gls Opens a scratch buffer with a list of git files (folder optional)
-command! -nargs=* -bang -complete=dir Gls call ScratchBuffer('.!git ls-files ' . <q-args> . ' | sort | uniq', 'filelist')
-"# :Gst Opens a scratch buffer with a list of the files in git status
-command! -nargs=* -bang -complete=dir Gst call ScratchBuffer('.!git status -su ' . <q-args>, 'filelist')
-
-command! -nargs=* -bang -complete=dir CommitList call ScratchBuffer('.!git log -100 --no-merges --pretty="\%s@@@@\%b~~~~" | sed "s/@@@@~~~~/\n----------/g" | sed "s/~~~~/----------/g"| sed "s/@@@@/\n\n/g"', 'commitlist')
-
-"@ v_gf Opens all visually selected files
-xnoremap gf :call OpenAllVisuallySelectedFiles()<cr>:echo<cr>
-"@ F2 Toggles WildIgnore
-nnoremap <silent> <F2> :call WildIgnore()<CR>
-"@ CTRL-G List Git Files
-" nnoremap <C-G> :Gls
-"@ CTRL-X_CTRL-U Autocompletes Snippets for this file
-set completefunc=CompleteSnippets
-
-" }}}
-" Colorscheme / Status Line {{{
 set background=light
 set termguicolors
 colorscheme icc-light
 
-" Clean wombat theme colorcolumn configuration
-if exists('g:colors_name') && g:colors_name == 'wombat'
-  set colorcolumn=
-endif
+" }}}
+" Status Line Configuration {{{
 
 " Checks for a function to exists so the statusline doesn't go crazy
 function! SL(function)
@@ -510,147 +429,175 @@ set statusline+=[%3c]                   " Column number
 set statusline+=[#%n]                   " Buffer Number
 set statusline+=%y                      " Type of file in the buffer, e.g., "[vim]".  See 'filetype'.
 
-hi ALEErrorSign guibg=#fafafa guifg=#bb0900
-hi ALEWarningSign guibg=#f9f9fb guifg=#c1a700
+" }}}
+" Format Options {{{
+set formatoptions=
+set formatoptions+=c                  " Auto-wrap comments using textwidth
+set formatoptions+=r                  " Continue comments by default
+set formatoptions-=o                  " do not continue comment using o or O
+set formatoptions+=q                  " continue comments with gq
+set formatoptions+=n                  " Recognize numbered lists
+set formatoptions+=2                  " Use indent from 2nd line of a paragraph
+set formatoptions-=l                  " break lines that are already long?
+set formatoptions+=1                  " Break before 1-letter words
+set formatoptions+=j                  " When joining commented lines (J), avoid comment characters
+" }}}
+
+" Scratch Buffers {{{
+
+"# :Gls Opens a scratch buffer with a list of git files (folder optional)
+command! -nargs=* -bang -complete=dir Gls call ScratchBuffer('.!git ls-files ' . <q-args> . ' | sort | uniq', 'filelist')
+"# :Gst Opens a scratch buffer with a list of the files in git status
+command! -nargs=* -bang -complete=dir Gst call ScratchBuffer('.!git status -su ' . <q-args>, 'filelist')
+"# :CommitList Opens a scratch buffer with a list of the 100 previous commits
+command! -nargs=* -bang -complete=dir CommitList call ScratchBuffer('.!git log -100 --no-merges --pretty="\%s@@@@\%b~~~~" | sed "s/@@@@~~~~/\n----------/g" | sed "s/~~~~/----------/g"| sed "s/@@@@/\n\n/g"', 'commitlist')
 
 " }}}
 
-if filereadable(expand("~/.local/vimrc"))
-  source ~/.local/vimrc
-endif
+" Command Palette Remaps {{{
+" CTRL-P Up
 
-function! SetPath()
-  let l:dirs = split(system("ls -d */"), "\n")
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
 
-  set path=.
+" CTRL-X Insert file path
+cnoremap <C-x> <C-r>=expand("%:p:h")<CR>/
 
-  if v:shell_error != 0
-    return
-  endif
+" AutoEscape / and ?
+cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 
-  let l:exclude = [
-  \ 'node_modules/',
-  \ 'bower_components/',
-  \ 'coverage/',
-  \ 'karma_html/',
-  \ 'build/',
-  \ 'dist/',
-  \]
+cnoremap <expr> <Tab> BetterIncSearch('tab')
+cnoremap <expr> <S-Tab> BetterIncSearch('stab')
 
-  for dir in l:dirs
-    if index(l:exclude, dir) < 0
-        execute "set path+=".dir."**"
-    endif
-  endfor
-endfunction
+" }}}
+" HotKeys {{{
 
-function! TogglePath()
-  if exists("g:selective_path")
-    let &path=g:selective_path
-    unlet g:selective_path
-  else
-    let g:selective_path=&path
-    call SetPath()
-  end
+" BS Hide search results
+nnoremap <silent> <BS> :noh<cr>
 
-  set path?
-endfunction
+" cgf Forced go to file
+nnoremap cgf :e <cfile><CR>
+" gf Opens all visually selected files
+xnoremap gf :call OpenAllVisuallySelectedFiles()<cr>:echo<cr>
 
-command! TogglePath call TogglePath()
-nnoremap <F5> :call TogglePath()<CR>
+" Buffer Navigation
+nnoremap <silent> <C-N> :bn<CR>
+nnoremap <silent> <C-P> :bp<CR>
 
-function! DeleteHiddenBuffers()
-    let tpbl=[]
-    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
-    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
-        silent execute 'bd' buf
-    endfor
-endfunction
-command! DeleteHiddenBuffers call DeleteHiddenBuffers()
+" C-B Show buffer list
+nnoremap <C-B> :ls<cr>:b
+" C-F Show File List
+nnoremap <C-F> :Gls<cr>
+" <C-G> Grep
+nnoremap <C-G> :Grep<space>
+" CTRL-S Search
+cnoremap <C-S> %s////gc<left><left><left>
+nnoremap <C-S> :%s////gc<left><left><left>
+vnoremap <C-S> :s////gc<left><left><left>
+
+" CTRL-C Close buffer
+nnoremap <silent> <C-C> :bp<CR>:bd#<CR>
+" <leader>CTRL-C Force Close buffer
+nnoremap <leader><C-C> :bd!#\|echo 'Force Closed! '.expand('#')<CR>
+
+" <C-W>T Open current file in new tab
+nnoremap <C-W>T :tab sp<CR>
+nnoremap <C-W><C-T> :tab sp<CR>
+
+" ~ Change casing for the selected string
+vnoremap ~ "zc<C-R>=CaseChange(@z)<CR><Esc>v`[
+
+" * Search visually selected text
+xnoremap <silent> * :call SetSearch(GetVisualSelection())\|set hlsearch<CR>
+nnoremap <silent> * :call SetSearchWord(expand("<cword>"))\|set hlsearch<CR>
+
+" Git Gutter mappings
+nnoremap <silent> <leader>u :GitGutterUndoHunk<CR>
+nnoremap <silent> <leader>n :GitGutterNextHunk<CR>
+nnoremap <silent> <leader>p :GitGutterPrevHunk<CR>
+
+" s Stamp text to terminal
+nnoremap s :let @*=@"<cr>:echo 'Stamped'<cr>
+
+" F2 Toggles WildIgnore
+nnoremap <silent> <F2> :call WildIgnore()<CR>
+" F4 Toggle between file/project cwd
+nnoremap <silent> <F4> :call ToggleCWD()<CR>
 
 inoremap {<cr> {<cr>}<esc>O
 inoremap [<cr> [<cr>]<esc>O
 inoremap (<cr> (<cr>)<esc>O
 
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-
-function! Omni(...)
-  let l:cwd = getcwd()
-  let l:file_name = expand('~/.vim/_sessions/') . substitute(l:cwd, '/', '_', 'g')
-
-  if filereadable(l:file_name)
-    exec ':source ' . l:file_name
-  else
-    exec ':Obsession ' . l:file_name
-  endif
-endfunction
-
-" autocmd WinLeave * :mksession! prev.vim
-" nnoremap <leader>z :source prev.vim<CR>
-
-" Check ~/.vim/after/plugins/omni.vim for some extra lines related to Omni
-nnoremap <F9> :call Omni()<CR>
-nnoremap <S-F9> :silent Obsession!\|call Omni()<CR>
-
-command! Color vs ~/.vim/colors/icc-light.vim
-command! Vimrc vs ~/.vim/vimrc | wincmd H | setlocal nobuflisted
-
-inoremap <C-R> <C-G>u<C-R>
-
-" Tab to cycle through instances of partially complete search pattern {{{
-
 nnoremap <Tab> n
 nnoremap <S-Tab> N
 
-" better incremental search
-set wildcharm=<Tab>
-cnoremap <expr> <Tab> BetterIncSearch('tab')
-cnoremap <expr> <S-Tab> BetterIncSearch('stab')
-function! BetterIncSearch(key) abort
-  let l:cmdType = getcmdtype()
+" Y Make (Y)ank behave like (D)elete or (C)hange
+nnoremap Y y$
 
-  if l:cmdType ==# '/' || l:cmdType ==# '?'
-    " Search Mode
-    let l:cmd = getcmdline()
+inoremap <C-R> <C-G>u<C-R>
 
-    call feedkeys("\<C-C>:set hlsearch\<Enter>")
+" Fix C-X commands with arrows
+inoremap <c-x><up>    <c-x><c-k>
+inoremap <c-x><down>  <c-x><c-j>
+inoremap <c-x><left>  <c-x><c-h>
+inoremap <c-x><right> <c-x><c-l>
 
-    if @/ !=# l:cmd
-      call setreg('/', l:cmd)
-    else
-      let l:direction = v:searchforward && l:cmdType ==# '/'
-      if xor(l:direction, a:key ==# 'tab')
-        call feedkeys('N')
-      else
-        call feedkeys('n')
-      end
-    endif
+au BufReadPost * call RepositionCursor()
 
-    call feedkeys(l:cmdType . "\<C-R>/")
-    return
-  else
-    " Not in search mode
-    if a:key ==# 'tab'
-      return "\<Tab>"
-    else
-      return "\<S-Tab>"
-    endif
-  endif
-endfunction
+" }}}
+" ALE Configuration {{{
+
+let g:ale_linters = {
+\   'html': [],
+\}
+
+let g:ale_sign_column_always = 1
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_statusline_format = ['E%d', 'W%d', '']
+let g:ale_sign_error = 'E'
+let g:ale_sign_warning = 'W'
+
+hi ALEErrorSign guibg=#fafafa guifg=#bb0900
+hi ALEWarningSign guibg=#f9f9fb guifg=#c1a700
+
+" }}}
+" JSDoc Configuration {{{
+
+let g:jsdoc_enable_es6 = 1
+nmap <silent> <leader>d <Plug>(jsdoc)
+
+" }}}
+" UltiSnips Configuration {{{
+
+let g:UltiSnipsEditSplit='vertical'
+
+"@ i_TAB Triggers snippet completion
+let g:UltiSnipsExpandTrigger='<Tab>'
+"@ i_S-Up Jumps to previous placeholder
+let g:UltiSnipsJumpBackwardTrigger='<s-up>'
+"@ i_S-Down Jumps to next placeholder
+let g:UltiSnipsJumpForwardTrigger='<s-down>'
+"@ i_Shift-Right List all snippets
+let g:UltiSnipsListSnippets='<s-right>'
+
+" }}}
+" VimGrep Configuration {{{
+if executable('rg')
+    " Note we extract the column as well as the file and line number
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+    set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --hidden
+endif
 " }}}
 
-" AutoEscape / and ? {{{
-cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
-cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
-" }}}
+let g:html_indent_tags = 'li\|p'
+command! Color vs ~/.vim/colors/icc-light.vim
+command! Vimrc vs ~/.vim/vimrc | wincmd H | setlocal nobuflisted
 
-cnoremap <C-_> <C-R>/
-
-set foldmethod=indent
-set foldlevelstart=5
-set foldnestmax=5
+if filereadable(expand("~/.local/vimrc"))
+  source ~/.local/vimrc
+endif
 
 set secure
