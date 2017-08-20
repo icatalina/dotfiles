@@ -1,0 +1,16 @@
+snippet // "Adding branch name" i
+${1:<type>}(${2:<scope>}): `git rev-parse --abbrev-ref HEAD | sed 's/\w\+\/\(IC-\w\+\).*/\1/'` ${0:<subject>}
+
+
+`git log -10 --oneline --no-merges --no-decorate | sed 's/^[a-f0-9]\+\s\+/# /'`
+endsnippet
+
+snippet $ "commits" i
+$0
+
+`git log -10 --oneline --no-merges --no-decorate | sed 's/^[a-f0-9]\+\s\+/# /'`
+endsnippet
+
+snippet # "commits" i
+`git rev-parse --abbrev-ref HEAD | sed 's/\([A-Z]\+-[0-9]\+\)-.*/\1/'` $0
+endsnippet

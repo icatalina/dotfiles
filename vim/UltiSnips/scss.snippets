@@ -1,0 +1,15 @@
+extends css
+
+snippet ext "@extend" b
+@extend %${1};${0}
+endsnippet
+
+snippet inc "@include" b
+@include ${1}${2:($3)};${0}
+endsnippet
+
+snippet @$ "@media" b
+@media #{$${1:media}} {
+	${0:${VISUAL:rules}}
+}
+endsnippet

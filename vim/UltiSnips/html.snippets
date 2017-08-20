@@ -1,0 +1,42 @@
+priority 1
+clearsnippets li div ul
+
+snippet doctype "HTML - 5.0 (doctype)" w
+<!DOCTYPE html>
+${0}
+endsnippet
+
+snippet l. "List with class" w
+<li${1: class="${2:class}"}$3>${0:${VISUAL:<!-- Content -->}}</li>
+endsnippet
+
+snippet u. "List with class" w
+<ul ${1:class="${2:class}"}$3>$0</ul>
+endsnippet
+
+snippet d. "List with class" w
+<div${1}>
+	${0:${VISUAL:<!-- Content -->}}
+</div>
+endsnippet
+
+snippet cls "Class" w
+class="$1"$0
+endsnippet
+
+snippet span "Span" w
+<span${2}>${1:${VISUAL:<!-- Content -->}}</span>${0}
+endsnippet
+
+snippet html "Html" b
+<!DOCTYPE html>
+<html${1}>
+	${2:${VISUAL:<!-- Content -->}}${0}
+</html>
+endsnippet
+
+snippet #svg "SVGIcon" b
+<svg>
+	<use xlink:href="#${1:icon-1}"></use>
+</svg>
+endsnippet

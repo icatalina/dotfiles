@@ -1,0 +1,101 @@
+snippet >> "FatArrow with arguments" i
+${1:($2)} => ${3:{ $4 }}
+endsnippet
+
+snippet sfun "Self Executing Function" w
+(function() {
+  var ${1:name} = function() {
+    ${0}
+  };
+
+
+  return $1;
+}());
+endsnippet
+
+snippet var "Var Declaration" b
+var $1 = $2;
+$0
+endsnippet
+
+snippet str "use strict" b
+'use strict';
+
+$0
+endsnippet
+
+snippet if "If Statement" b
+if ($1) {
+	${2:${VISUAL:Code}}
+}
+$0
+endsnippet
+
+snippet else "Else Statement" b
+else {
+	${1:${VISUAL:Code}}
+}
+$0
+endsnippet
+
+snippet elif "Else Statement" b
+else if ($1) {
+	${2:${VISUAL:Code}}
+}
+$0
+endsnippet
+
+snippet prom "Promise" b
+return new Promise(function(resolve, reject) {
+	${2:${VISUAL:Code}}
+});
+endsnippet
+
+snippet xhr "XMLHttpRequest" b
+var xhr = new XMLHttpRequest();
+xhr.open('${1:GET/POST}', '${2:/url/target.php}', true);
+
+xhr.addEventListener('load', ${3:function() {
+
+}});
+
+xhr.send(${4:payload})
+endsnippet
+
+snippet cl "ConsoleLog" w
+console.log(${2:${VISUAL:'here'}});
+endsnippet
+
+snippet wow
+${1:Text}`!p snip.rv = (75-2*len(t[1]))*' '+t[1].upper()`
+endsnippet
+
+global !p
+import re
+def dasherize(text):
+  return re.sub(r"(?<!^)([A-Z])", "-\\1", text).lower()
+endglobal
+
+snippet service "Service" b
+class ${1:ServiceName} {
+	constructor() {
+		'ngInject';
+
+		$0
+	}
+}
+
+export default angular.module('ng-checkout.services.`!p snip.rv = dasherize(t[1])`', [])
+    .${2:service}('${1/.*/\l$0/g}', $1);
+endsnippet
+
+snippet ngin "nginject" b
+'nginject';
+endsnippet
+
+snippet fun "function" b
+function $1($2) {
+	${3:${VISUAL}}
+}
+endsnippet
+

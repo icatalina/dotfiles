@@ -1,0 +1,43 @@
+extends javascript-jasmine
+priority 1
+
+snippet des "describe" b
+describe('${1:description}', () => {
+	${0:${VISUAL}}
+});
+endsnippet
+
+snippet it "it" b
+it('${1:should$2}', ($4) => ${5:{
+	${0:${VISUAL}}
+}});
+endsnippet
+
+snippet bef "beforeEach" b
+beforeEach(($2) => ${3:{
+	${0:${VISUAL}}
+}});
+endsnippet
+
+snippet befa "beforeAll" b
+beforeAll(${1:() => {
+	${0:${VISUAL}}
+}});
+endsnippet
+
+snippet inj "inject" b
+inject(${1:${VISUAL}}
+}});
+endsnippet
+
+snippet injg "inject.get" b
+$1 = $injector.get('$1');
+endsnippet
+
+snippet spy "SpyOn" b
+spyOn($1, '$2')$0;
+endsnippet
+
+snippet exp "expect" b
+expect($1).${2:toEqual}($3);
+endsnippet
