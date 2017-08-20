@@ -3,6 +3,7 @@ local m = {}
 
 local secureNetworks = {
   'WPA Personal Mixed',
+  'WPA Enterprise Mixed',
 }
 
 local whiteList = {
@@ -14,7 +15,7 @@ function ssidChanged()
   local wifiName = hs.wifi.currentNetwork()
   local security = hs.wifi.interfaceDetails().security
 
-  if hs.fnutils.contains(secureNetworks, security) and hs.fnutils.contains(whiteList, wifiName) then
+  if not wifiName or hs.fnutils.contains(secureNetworks, security) and hs.fnutils.contains(whiteList, wifiName) then
     if m.wifiMenu then
       m.wifiMenu:removeFromMenuBar()
     end
@@ -27,7 +28,7 @@ function ssidChanged()
     m.wifiMenu:setTooltip('This WiFi network is not recognized. Consider using a known one.')
 
     if not hs.fnutils.contains(secureNetworks, security) then
-      m.wifiMenu:setTitle('Insecure: '.. wifiName)
+      m.wifiMenu:setTitle('Insecure: ' .. wifiName)
       m.wifiMenu:setTooltip('This WiFi network is insecure. Consider using a secure one.')
     end
 
