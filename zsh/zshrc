@@ -1,0 +1,133 @@
+# system-wide environment settings for zsh(1)
+if [ -x /usr/libexec/path_helper ]; then
+    eval `/usr/libexec/path_helper -s`
+fi
+
+DISABLE_AUTO_TITLE="true"
+
+# The following lines were added by compinstall
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' menu select
+zstyle :compinstall filename "$HOME/.zshrc"
+
+autoload -Uz compinit
+compinit
+
+# Deleting up to the previous slash with ctrl-w
+autoload -U select-word-style
+select-word-style bash
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+
+# History
+HISTFILE=~/.local/tmp/zsh_history
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
+
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt HIST_REDUCE_BLANKS
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+
+
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+
+unsetopt nomatch
+
+export KEYTIMEOUT=1
+bindkey -e
+
+function zle-line-init zle-keymap-select {
+  zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+# Enable direnv if it's available
+# if hash direnv 2> /dev/null; then
+#   eval "$(direnv hook zsh)"
+# fi
+
+export SHELL=$(which zsh)
+
+# .zshrc
+autoload -U promptinit && promptinit
+prompt pure
+
+
+# Mac Keyboard - I hope it will work for most keyboards
+bindkey    "^[[1~"          beginning-of-line
+bindkey    "^[[3~"          delete-char
+bindkey    "^[3;5~"         delete-char
+bindkey    "^[[4~"          end-of-line
+bindkey    "^[[5~"          up-line-or-search
+bindkey    "^[[6~"          down-line-or-search
+bindkey    "^[[1;9D"        backward-word
+bindkey    "^[[1;9C"        forward-word
+
+# Ctrl-X E / Ctrl-X Ctrl-E to edit command in Vi
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^xe'  edit-command-line
+bindkey '^x^e' edit-command-line
+
+# stop control flow, gimme ctrl-s back
+stty -ixon
+
+jobscount() {
+  local jobs=$(jobs | grep ^\\\[ | wc -l)
+  ((jobs)) && echo -n "${jobs} "
+}
+
+GREEN=$(tput setaf 2)
+BLACK=$(tput setaf 0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf )
+BLUE=$(tput setaf 4)
+PINK=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 7)
+RESET=$(tput sgr0)
+
+get_git_title() {
+  top_folder=`git rev-parse --show-toplevel`
+  title=`cat "$top_folder/package.json" | jq '.name' --raw-output`
+  branch=`git rev-parse --abbrev-ref HEAD`
+  echo "$title#$branch"
+}
+
+function title {
+  echo -ne "\033]0;"$*"\007"
+}
+
+icc_prompt() {
+  # shows the full path in the title
+  local TITLE=$PWD:t
+  local GIT_INFO=''
+  local PATH_INFO="${BLUE}${PWD/#$HOME/~}${RESET}"
+
+  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    local BRANCH=`git rev-parse --abbrev-ref HEAD`
+    local TITLE=`get_git_title`
+    local STATUS=`git status -s -b`
+    [[ `echo $STATUS | grep -v '^##' | wc -l` -eq 0 ]] && local CHANGES="" || local CHANGES="*"
+    local AHEAD=$GREEN`echo $STATUS grep '^##' | sed '/\[ahead/!d;s/.*\[ahead \([0-9]\+\),.*/\1/'`$RESET
+    local BEHIND=$RED`echo $STATUS grep '^##' | sed '/behind /!d;s/.*behind \([0-9]\+\)\].*/\1/'`$RESET
+
+    local GIT_INFO="${WHITE}${BRANCH}${CHANGES} ${AHEAD}${BEHIND}${RESET}"
+  fi
+
+  PROMPT=$'\n'"${PATH_INFO} ${GIT_INFO}"$'\n'"$(jobscount)$RESET❯ "
+  title "${TITLE}"
+}
+
+PROMPT='$(jobscount)'$PROMPT
+# add-zsh-hook precmd icc_prompt
+
