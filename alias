@@ -1,0 +1,358 @@
+# vim: syntax=sh filetype=sh
+
+export VISUAL=`which vim`
+export EDITOR=`which vim`
+
+# Back to suspended job
+alias f='fg'
+
+alias z-copy-one-line-escaped='head -1 | xargs -i printf %q "{}" | tee /dev/tty | pbcopy'
+
+# Git Aliases
+alias z-git='git'
+alias z-git-status='git z-status'
+alias z-git-log='git z-log-20'
+alias z-git-add='git add'
+alias z-git-add-patch='git z-add-patch'
+alias z-git-add-tracked-files='git z-add-tracked'
+alias z-git-diff='git diff'
+alias z-git-diff-word='git z-diff-word'
+alias z-git-diff-cached='git diff --cached'
+alias z-git-diff-word-cached='git z-diff-word-cached'
+alias z-git-next-file='git diff --name-only | z-copy-one-line-escaped'
+alias z-git-rebase-with-tig='git rebase -i $(tig-pick)^'
+
+# Git Short aliases
+alias g='z-git'
+alias gs='z-git-status'
+alias gls='z-git-log'
+alias ga='z-git-add'
+alias gap='z-git-add-patch'
+alias grt='z-git-rebase-with-tig'
+alias gau='z-git-add-tracked-files'
+alias gn='z-git-next-file'
+alias gd='z-git-diff'
+alias gdn='z-git-diff `git diff --name-only | head -1`'
+alias gdc='z-git-diff-cached'
+alias gdw='z-git-diff-word'
+alias gdwc='z-git-diff-word-cached'
+
+alias vssh='vagrant ssh'
+
+# NPM Aliases
+alias z-node-list-global='npm list -g --depth=0 2>/dev/null'
+alias z-node-list-local='npm list --depth=0 2>/dev/null'
+alias z-npm-run='npm-run'
+
+# Fancy ls
+# -g: like -l, but do not list owner
+# -1: list one file per line.  Avoid '\n' with -q or -b
+alias z-fancy-ls='ls --almost-all --no-group --human-readable --classify -g -1 --group-directories-first --color'
+
+# Git Config
+alias z-git-config-repo='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+# Activate Python VirtualEnv
+alias z-source-virtualenv='source virtualenv/bin/activate'
+
+# Django Specifics
+# Run manage.py
+alias z-python-manage='python3 manage.py'
+# Run test.py
+alias z-python-test='python3 test.py'
+
+# Unmount Disk (OSx Specific)
+alias z-eject='diskutil unmountDisk'
+
+# Kill the output of a ps
+alias z-killthem='awk "{print \$1}" | xargs kill -9'
+
+# Make mkdir always create intermediate directories
+alias z-mkdir-parents='mkdir --parents'
+
+# Moving around
+alias z-go-desktop='cd ~/Desktop'
+alias z-go-develop='cd ~/develop'
+
+#alias z-shortcuts='alias | grep -E "=['\'']?z-" | grep "^[^=]\+" --color'
+alias z-helpers='alias | grep "^z-" | grep "^[^=]\+" --color'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../../..'
+alias ........='cd ../../../../../../..'
+
+# Optimized rsync for backup
+# -v: natural sort of (version) numbers within text
+# -x: list entries by lines instead of by columns
+# -X: sort alphabetically by entry extension
+alias z-rsyncbackup="rsync --all --almost-all --dereference-command-line -Xxv --numeric-ids --progress -e \"ssh -T -c arcfour -o Compression=no -x\""
+
+# Pipe to remove the colours
+alias z-remove-colors='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
+alias z-notify="say 'finished!'"
+
+alias z-remove-dsstore='find -name .DS_Store -type f | xargs -i rm "{}"'
+
+function __githubURL() {
+  if git rev-parse --git-dir > /dev/null 2>&1; then
+    following=`git status -sb | head -1 | sed 's/.*\.\.\.//' | sed 's/ \[.\+\?]$//'`
+
+    if [[ $following == *"/"* ]]; then
+      branch=${following#*/}
+      repo=${following%/*}
+    else
+      branch='master'
+      repo=''
+    fi
+
+    repoURL=`git ls-remote --get-url ${repo}`;
+    repoURL=${repoURL/:/\/}
+    repoURL=${repoURL#git@*}
+    repoURL=${repoURL%\.git*}
+    repoURL="https://${repoURL}/tree/${branch}"
+    open "${repoURL}"
+  else
+    echo "Not a git repo"
+  fi
+}
+
+github() {
+  if [[ "$@" == "" ]]; then
+    hub browse
+  else
+    hub browse -- commit/$@
+  fi
+}
+
+# Shortcuts
+alias ll='z-fancy-ls'
+alias pm='z-python-manage'
+alias pt='z-python-test'
+alias ve='z-source-virtualenv'
+alias ng='z-node-list-global'
+alias nl='z-node-list-local'
+alias nr='z-npm-run'
+alias cfg='z-git-config-repo'
+alias mkdir='z-mkdir-parents'
+
+alias desk='z-go-desktop'
+alias dev='z-go-develop'
+alias d2h='diff2html -s side -d word --lm words --su open --sc enabled'
+
+alias Vim=vim
+alias VIm=vim
+alias VIM=vim
+
+alias vimrc='vim ~/.vim/vimrc'
+alias valias='vim ~/.config/alias'
+
+if hash trash 2>/dev/null; then
+  alias rm='trash'
+fi
+
+## Aliases cask to brew cask if brew is installed
+if hash brew 2>/dev/null; then
+  alias cask="brew cask"
+fi
+
+## Docker Aliases/Functions
+
+function dk() {
+  case $* in
+    ri* ) shift 1; command docker run -i -t -P "$@" ;;
+    ex* ) shift 1; command docker exec -it "$@" ;;
+    a* ) shift 1;
+  esac
+}
+
+function swap() {
+    local TMPFILE=tmp.$$
+    mv "$1" $TMPFILE && mv "$2" "$1" && mv $TMPFILE $2
+}
+
+function commit() {
+    hub browse -- commit/$1
+}
+
+#  Reserved commands:
+#  do
+#  dd
+#  df
+#  du
+#  dc
+#  du
+#  dd
+#  df
+#  dir
+#  dig
+
+alias d='docker'
+dl () {
+  docker ps -l -q;
+}
+db () {
+  docker build -t=$@ .;
+}
+
+ds () {
+  docker ps "$@";
+}
+dsa () {
+  docker ps -a "$@";
+}
+dip () {
+  docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
+}
+
+dim () {
+  docker images "$@";
+}
+drm () {
+  docker rm "$@";
+}
+drmi () {
+  docker rmi "$@";
+}
+drmiall () {
+  docker rmi `docker images -q`;
+}
+drmall () {
+  docker rm `docker ps -a -q`;
+}
+
+de () {
+  docker exec -i -t "$@";
+}
+dr () {
+  docker run -i -t -P "$@";
+}
+alias dri='docker run -i -t -P'
+alias drd='docker run -d -P'
+da () {
+  container=$@
+  if [ $# -lt 1 ]; then
+    container=`docker ps -l -q`
+  fi
+  docker exec -it "$container" /usr/bin/env bash;
+}
+
+dcs () {
+  docker start "$@";
+}
+
+dcx () {
+  docker stop "$@";
+}
+dcxa () {
+  docker stop `docker ps -a -q`;
+}
+
+dsetup () {
+  eval `docker-machine env "$@"`;
+}
+
+alias gulp='nr gulp'
+
+function notify() {
+  osascript -e "display notification \"$2\" with title \"$1\""
+}
+
+function set-upstream() {
+  local branch_name=`git rev-parse --abbrev-ref HEAD`
+  git branch --set-upstream-to="origin/$branch_name"
+}
+
+function release-branch() {
+  local origin='origin'
+  local upstream='bc'
+
+  local branch_name=`git rev-parse --abbrev-ref HEAD`
+  local release_branch="${branch_name}-release"
+
+  local remote_url=`git config --get remote.$origin.url`
+  local bc_url=`git config --get remote.$upstream.url`
+
+  local exists=`git rev-parse --verify $release_branch`
+  if [ -n "$exists" ]; then
+    git branch -D $release_branch
+  fi
+
+  git checkout -b $release_branch
+
+  npm run deploy
+  git add dist
+  git commit -m "$branch_name DO NOT MERGE: TESTING!"
+  git push -u $origin $release_branch --force
+  git checkout $branch_name
+
+  cd $BC_APP_DIR
+  git stash
+  revert=$?
+
+  local prev_branch=`git rev-parse --abbrev-ref HEAD`
+  local exists=`git rev-parse --verify $branch_name`
+  if [ -n "$exists" ]; then
+    git checkout $branch_name
+  else
+    git checkout master
+  fi
+
+  local exists=`git rev-parse --verify $release_branch`
+  if [ -n "$exists" ]; then
+    git branch -D $release_branch
+  fi
+
+  git checkout -b $release_branch
+  sed "s;$bc_url#[^\"]\+;$remote_url#$release_branch;" -i bower.json
+  git add bower.json
+  git commit -m "$branch_name DO NOT MERGE: TESTING!"
+  git push -u $origin $release_branch --force
+
+  git checkout $prev_branch
+  if [ -n "$revert" ]; then
+    git stash pop > /dev/null
+  fi
+  cd -
+
+  echo "Click here to open launchbay and create a deployment of this branch:"
+  echo "https://launchbay.bigcommerce.net/projects/1/releases/integration"
+  echo "Branch $release_branch created and pushed"
+}
+
+alias repush="git commit --amend --no-edit && git push --force && lb"
+
+
+function jira() {
+  if [[ "$@" == "" ]]; then
+    open 'https://jira.bigcommerce.com/secure/RapidBoard.jspa?rapidView=383&quickFilter=3239'
+  else
+    for var in "$@"; do
+      open "https://jira.bigcommerce.com/browse/$var"
+    done
+  fi
+}
+
+alias lb="open https://launchbay.bigcommerce.net/projects/1/releases/integration"
+
+unalias z
+
+z() {
+  if [[ -z "$@" ]]; then
+    local dir=`_z 2>&1 | sort -rh | awk '{print $2}' | fzf`
+    if [[ -n "$dir" ]]; then
+      cd $dir
+    fi
+  else
+    _z $@
+  fi
+}
+
+function vim-readme() {
+  vmd "$@" & vim "$@"
+}
+
+alias ls='ls --color=always'
