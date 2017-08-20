@@ -1,0 +1,65 @@
+# vim: syntax=zsh filetype=zsh
+
+bind generic g  none
+bind generic gg move-first-line
+bind main G  move-last-line
+bind generic G  move-last-line
+
+bind generic <C-f> move-page-down
+bind generic <C-b> move-page-up
+
+bind generic <C-w><C-w> view-next
+
+set main-view = id:width=10 date author commit-title:yes,refs
+
+set diff-context = 6
+
+set refs-view = date:default author:full id ref:true commit-title:true
+
+set tab-size = 4
+
+#set reference-format = [branch] <tag> {remote} ~replace~
+set main-options = -n 1000
+set blame-options = -C -C -C
+
+set refresh-mode = auto          # Enum: manual, auto, after-command, periodic
+set refresh-interval = 10        # Interval in seconds between refreshes
+set ignore-case = yes            # Ignore case when searching?
+set focus-child = yes            # Move focus to child view when opened?
+set horizontal-scroll  = 20%     # Number of columns to scroll as % of width
+set split-view-height  = 80%     # Height of the bottom view for horizontal splits
+set vertical-split = horizontal  # Enum: horizontal, vertical, auto; Use auto to
+
+# switch to horizontal split when width allows it
+set split-view-width = 50%       # Width of right-most view for vertical splits
+set editor-line-number = yes     # Automatically pass line number to editor? Used
+
+# for opening file at specific line e.g. from a diff
+set mouse = yes                  # Enable mouse support?
+set mouse-scroll = 3             # Number of lines to scroll via the mouse
+
+
+bind main B ?git rebase -i %(commit)^
+
+bind main U ?git push -u %(remote) %(commit):refs/heads/%(branch)
+bind main P ?git push %(remote) %(commit):%(branch) --force
+bind main C ?git checkout %(commit)
+bind diff B ?git rebase -i %(commit)^
+bind diff D !git difftool --tool=vimdiff --no-prompt --trust-exit-code %(commit)^! -- %(file)
+bind diff A !git checkout %(stash) -- %(file)
+bind generic D !git difftool --tool=vimdiff --no-prompt --trust-exit-code %(commit)^!
+
+bind diff F !tig -- %(file)
+
+bind main H @hub browse -- commit/%(commit)
+bind diff H @hub browse -- commit/%(commit)
+bind blob H @hub browse -- tree/%(commit)/%(file)
+
+
+bind generic c @sh -c "printf '%s' %(commit) | pbcopy"
+bind stage <Enter> :/^@@
+
+color cursor black green
+color status green default
+color title-focus black white
+color title-blur white black
