@@ -34,7 +34,6 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt SHARE_HISTORY
 setopt INC_APPEND_HISTORY
 
-
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
@@ -46,20 +45,15 @@ bindkey -e
 function zle-line-init zle-keymap-select {
   zle reset-prompt
 }
+
 zle -N zle-line-init
 zle -N zle-keymap-select
-
-# Enable direnv if it's available
-# if hash direnv 2> /dev/null; then
-#   eval "$(direnv hook zsh)"
-# fi
 
 export SHELL=$(which zsh)
 
 # .zshrc
 autoload -U promptinit && promptinit
 prompt pure
-
 
 # Mac Keyboard - I hope it will work for most keyboards
 bindkey    "^[[1~"          beginning-of-line
@@ -85,49 +79,4 @@ jobscount() {
   ((jobs)) && echo -n "${jobs} "
 }
 
-GREEN=$(tput setaf 2)
-BLACK=$(tput setaf 0)
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-YELLOW=$(tput setaf )
-BLUE=$(tput setaf 4)
-PINK=$(tput setaf 5)
-CYAN=$(tput setaf 6)
-WHITE=$(tput setaf 7)
-RESET=$(tput sgr0)
-
-get_git_title() {
-  top_folder=`git rev-parse --show-toplevel`
-  title=`cat "$top_folder/package.json" | jq '.name' --raw-output`
-  branch=`git rev-parse --abbrev-ref HEAD`
-  echo "$title#$branch"
-}
-
-function title {
-  echo -ne "\033]0;"$*"\007"
-}
-
-icc_prompt() {
-  # shows the full path in the title
-  local TITLE=$PWD:t
-  local GIT_INFO=''
-  local PATH_INFO="${BLUE}${PWD/#$HOME/~}${RESET}"
-
-  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    local BRANCH=`git rev-parse --abbrev-ref HEAD`
-    local TITLE=`get_git_title`
-    local STATUS=`git status -s -b`
-    [[ `echo $STATUS | grep -v '^##' | wc -l` -eq 0 ]] && local CHANGES="" || local CHANGES="*"
-    local AHEAD=$GREEN`echo $STATUS grep '^##' | sed '/\[ahead/!d;s/.*\[ahead \([0-9]\+\),.*/\1/'`$RESET
-    local BEHIND=$RED`echo $STATUS grep '^##' | sed '/behind /!d;s/.*behind \([0-9]\+\)\].*/\1/'`$RESET
-
-    local GIT_INFO="${WHITE}${BRANCH}${CHANGES} ${AHEAD}${BEHIND}${RESET}"
-  fi
-
-  PROMPT=$'\n'"${PATH_INFO} ${GIT_INFO}"$'\n'"$(jobscount)$RESET❯ "
-  title "${TITLE}"
-}
-
 PROMPT='$(jobscount)'$PROMPT
-# add-zsh-hook precmd icc_prompt
-
