@@ -36,5 +36,9 @@ curly_bracket_next_line = false
 indent_size = 2
 curly_bracket_next_line = false
 
+[*.lua]
+indent_size = 2
+curly_bracket_next_line = false
+
 [*.diff]
 trim_trailing_whitespace = false
