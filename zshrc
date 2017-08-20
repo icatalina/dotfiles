@@ -80,3 +80,14 @@ jobscount() {
 }
 
 PROMPT='$(jobscount)'$PROMPT
+
+[ -f $HOME/.local/zshrc      ] && source "$HOME/.local/zshrc"
+
+[ -f $HOME/.cfg/sourcefile ] && source "$HOME/.cfg/sourcefile"
+[ -f $HOME/.local/sourcefile  ] && source "$HOME/.local/sourcefile"
+
+[ -f $HOME/.cfg/alias ] && source "$HOME/.cfg/alias"
+[ -f $HOME/.local/alias  ] && source "$HOME/.local/alias"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source ~/.dev_profile
