@@ -4,6 +4,8 @@ local m = {}
 local secureNetworks = {
   'WPA Personal Mixed',
   'WPA Enterprise Mixed',
+  'WPA2 Personal',
+  'WPA2 Enterprise',
 }
 
 local whiteList = {
