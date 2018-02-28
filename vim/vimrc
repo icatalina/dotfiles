@@ -528,6 +528,7 @@ nnoremap <silent> <F2> :call WildIgnore()<CR>
 nnoremap <silent> <F4> :call ToggleCWD()<CR>
 
 inoremap {<cr> {<cr>}<esc>O
+inoremap {{ {{}}<esc>hi
 inoremap [<cr> [<cr>]<esc>O
 inoremap (<cr> (<cr>)<esc>O
 
