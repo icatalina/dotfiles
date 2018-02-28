@@ -531,8 +531,6 @@ inoremap {<cr> {<cr>}<esc>O
 inoremap [<cr> [<cr>]<esc>O
 inoremap (<cr> (<cr>)<esc>O
 
-nnoremap <Tab> n
-nnoremap <S-Tab> N
 
 " Y Make (Y)ank behave like (D)elete or (C)hange
 nnoremap Y y$
