@@ -40,10 +40,10 @@ hi VertSplit guifg=#f0f0f0 guibg=#f0f0f0 gui=none
 
 hi LineNr guibg=#fafafa guifg=#aaaaaa gui=none cterm=NONE term=NONE
 hi SpecialKey guifg=#aaaaaa guibg=NONE gui=reverse
-hi WarningMsg guifg=#ffdc00
+hi WarningMsg guifg=#e06900
 hi ErrorMsg guifg=#f9f9fb guibg=#bb0900 gui=NONE
 
-hi CursorLine guibg=NONE gui=NONE cterm=NONE
+hi CursorLine guibg=#f9f9fb gui=NONE cterm=NONE
 hi CursorLineNr guifg=#f9f9fb guibg=#96928f
 hi CursorColumn guibg=#f9f9fb gui=NONE cterm=NONE
 hi! link CursorColumn CursorLine
