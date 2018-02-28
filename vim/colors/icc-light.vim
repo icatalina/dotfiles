@@ -8,22 +8,22 @@ endif
 
 let colors_name = "icc"
 
-" black: '#1a1a1a',
-" red: '#bb0900',
-" green: '#28b238',
-" yellow: '#c1a700',
-" blue: '#0066ff',
-" magenta: '#b10dc9',
-" cyan: '#00a4e4',
-" white: '#aaaaaa',
-" lightblack: '#7c7c7c',
-" lightred: '#ff4136',
-" lightgreen: '#5eda6c',
-" lightyellow: '#ffdc00',
-" lightblue: '#0066ff',
-" lightmagenta: '#db40f3',
-" lightcyan: '#7fdbff',
-" lightwhite: '#ffffff'
+" black:         #1a1a1a
+" red:           #bb0900
+" green:         #28b238
+" yellow:        #c1a700
+" blue:          #0066ff
+" magenta:       #b10dc9
+" cyan:          #00a4e4
+" white:         #aaaaaa
+" lightblack:    #7c7c7c
+" lightred:      #ff4136
+" lightgreen:    #5eda6c
+" lightyellow:   #ffdc00
+" lightblue:     #0066ff
+" lightmagenta:  #db40f3
+" lightcyan:     #7fdbff
+" lightwhite:    #ffffff
 
 " General colors
 hi Normal guifg=#1a1a1a guibg=NONE gui=none
