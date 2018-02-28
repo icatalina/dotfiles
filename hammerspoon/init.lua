@@ -1,7 +1,7 @@
-mash = {"cmd", "alt", "ctrl"}
+mash = {'cmd', 'alt', 'ctrl'}
 
 -- Reload Hammerspoon Config
-hs.hotkey.bind(mash, "`", function()
+hs.hotkey.bind(mash, '`', function()
   hs.notify.new({
     title = 'Hammerspoon',
     subTitle = 'Config Reloaded!',
@@ -13,12 +13,12 @@ hs.hotkey.bind(mash, "`", function()
 end)
 
 -- Reload Chrome active tab
-hs.hotkey.bind({'ctrl', 'cmd'}, "R", function()
+hs.hotkey.bind({'ctrl', 'cmd'}, 'R', function()
   hs.osascript.applescript('tell application "Google Chrome" to tell the active tab of its first window to reload')
 end)
 
 -- Sleep system
-hs.hotkey.bind(mash, "escape", function()
+hs.hotkey.bind(mash, 'escape', function()
   hs.caffeinate.startScreensaver()
 end)
 
@@ -45,7 +45,7 @@ end
 
 -- Ensure everything is loaded before hiding the icon :)
 -- Show/Hide menu icon
-hs.hotkey.bind(mash, "-", function()
+hs.hotkey.bind(mash, '-', function()
   hs.menuIcon(not hs.menuIcon())
 end)
 hs.menuIcon(false)
