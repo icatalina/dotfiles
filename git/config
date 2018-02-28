@@ -60,7 +60,7 @@
   remote = green
 
 [color "diff"]
-  meta = yellow bold
+  meta = blue bold
   commit = green bold
   frag = magenta bold
   old = red bold
@@ -69,7 +69,7 @@
 
 [color "diff-highlight"]
   oldNormal = "red bold"
-  oldHighlight = "red bold 11"
+  oldHighlight = "red bold 9"
   newNormal = "green bold"
   newHighlight = "green bold 10"
 
