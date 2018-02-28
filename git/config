@@ -3,8 +3,7 @@
 [alias]
   branch-name = "!git rev-parse --abbrev-ref HEAD"
 
-  stash = "stash --keep-index --include-untracked"
-
+  ls = log --pretty=standard -20
   lss2 = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 
   fl = log --patch
@@ -33,11 +32,11 @@
   # -r: recursive
   z-show-files = diff-tree --no-commit-id --find-renames --name-status -r
   z-shallow-clone = clone --depth=1
-  z-reset-branch = reset --hard @{upstream}
-  z-undo-commit = reset head^
 
-  br=branch -vv
+  wip = !"git add . && git commit -m \"WIP $(date +'%F %R')\""
+  undo = reset head^
 
+  branch=branch -vvv
 [init]
     templatedir = ~/.config/git/git-templates
 
