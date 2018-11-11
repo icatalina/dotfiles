@@ -5,6 +5,9 @@ syntax enable
 scriptencoding utf-8
 filetype plugin indent on
 
+let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
 " Allow italics {{{
 
 set t_ZH=[3m
