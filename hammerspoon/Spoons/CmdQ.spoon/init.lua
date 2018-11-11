@@ -1,6 +1,10 @@
--- Module to show a warning on quit. having to press CMD+Q twice to quit
+local obj = {}
+obj.__index = obj
 
-local m = {}
+-- Metadata
+obj.name = "CMD-Q Protection"
+obj.version = "1.0"
+obj.author = "Ignacio Catalina <icatalina@gmail.com>"
 
 local quitModal = hs.hotkey.modal.new('cmd', 'q')
 
@@ -14,9 +18,13 @@ local function doQuit()
     quitModal:exit()
 end
 
-m.start = function()
+function obj:start()
   quitModal:bind('cmd', 'q', doQuit)
   quitModal:bind('', 'escape', function() quitModal:exit() end)
 end
 
-return m
+function obj:stop()
+    quotModal:delete()
+end
+
+return obj

@@ -1,13 +1,25 @@
 -- caffeine
-local m = {}
+local obj = {}
+obj.__index = obj
+
+-- Metadata
+obj.name = "Caffeine Alternative"
+obj.version = "1.0"
+obj.author = "Ignacio Catalina <icatalina@gmail.com>"
 
 local caffeine
 
-local imgs = {
-  inactive     = 'imgs/inactive@2x.png',
-  active       = 'imgs/active@2x.png',
-  activeSystem = 'imgs/activesystem@2x.png',
+-- Internal function used to find our location, so we know where to load files from
+local function script_path()
+  local str = debug.getinfo(2, "S").source:sub(2)
+  return str:match("(.*/)")
+end
+obj.spoonPath = script_path()
 
+local imgs = {
+  inactive     = obj.spoonPath .. 'imgs/inactive@2x.png',
+  active       = obj.spoonPath .. 'imgs/active@2x.png',
+  activeSystem = obj.spoonPath .. 'img/activesystem@2x.png',
 }
 
 local function setCaffeineDisplay(state)
@@ -46,8 +58,7 @@ local function caffeineClicked(t)
   end
 end
 
-
-function m.start()
+function obj:start()
   caffeine = hs.menubar.new()
 
   if caffeine then
@@ -56,4 +67,8 @@ function m.start()
   end
 end
 
-return m
+function obj:stop()
+  caffeine:delete()
+end
+
+return obj
