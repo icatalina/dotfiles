@@ -54,6 +54,8 @@ function! SetupVAM()
         \  'github:airblade/vim-gitgutter',
         \  'github:curist/vim-angular-template',
         \  'github:bogado/file-line',
+        \  'github:michaeljsmith/vim-indent-object',
+        \  'github:bitfyre/vim-indent-html',
         \ ], {})
 endfunction
 call SetupVAM()
