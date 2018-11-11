@@ -1,7 +1,7 @@
 mash = {'cmd', 'alt', 'ctrl'}
 
 -- Reload Hammerspoon Config
-hs.hotkey.bind(mash, '`', function()
+hs.hotkey.bind(mash, 'z', function()
   hs.notify.new({
     title = 'Hammerspoon',
     subTitle = 'Config Reloaded!',
