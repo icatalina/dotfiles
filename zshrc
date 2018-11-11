@@ -20,13 +20,13 @@ __fancy_branch() { # {{{
 
   local branches=`git ub | awk -v color=36 -v text="local" $other_coloring`
   local remote_branches=`git branch -r | grep -v HEAD | cut -c 3-`
-  local tags=`git tag -l --sort=-taggerdate | awk -v color=37 -v text="tag" $other_coloring`
+  #local tags=`git tag -l --sort=-taggerdate | awk -v color=37 -v text="tag" $other_coloring`
 
   local origin=`printf $remote_branches | grep '^\s*origin/'`
   local other=`printf $remote_branches | grep -v '^\s*origin/'`
   local remote_sorted=`printf "$origin\n$other" | awk -F "/" $awk_coloring`
 
-  local selected=`echo "$branches\n$remote_sorted\n$tags" | column -t | sed '/^$/d' | fzf --no-hscroll --ansi +m -d "\t"`
+  local selected=`echo "$branches\n$remote_sorted" | column -t | sed '/^$/d' | fzf --no-hscroll --ansi +m -d "\t"`
 
   if [[ -n "$selected" ]]; then
     local type=`printf $selected | awk '{print $1}'`
