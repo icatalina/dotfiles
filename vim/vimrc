@@ -528,7 +528,7 @@ nnoremap <silent> <leader>p :GitGutterPrevHunk<CR>
 nnoremap s :let @*=@"<cr>:echo 'Stamped'<cr>
 
 " F2 Toggles WildIgnore
-nnoremap <silent> <F2> :call WildIgnore()<CR>
+nnoremap <silent> <F2> :call ToggleWildIgnore()<CR>
 " F4 Toggle between file/project cwd
 nnoremap <silent> <F4> :call ToggleCWD()<CR>
 
