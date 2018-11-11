@@ -189,8 +189,8 @@ __git_extended() {
 
 
 alias j='__jump_directories'
-alias ls='ls --color=always'
-alias ll='ls --almost-all --no-group --human-readable --classify -g -1 --group-directories-first --color'
+alias ls='\gls --color=always'
+alias ll='\gls --almost-all --no-group --human-readable --classify -g -1 --group-directories-first --color'
 
 # Git common commands
 alias g='git'
