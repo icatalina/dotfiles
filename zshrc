@@ -8,13 +8,6 @@ fi
 __cdwhich() { #{{{
   cd "$(dirname $(which $1))"
 } # }}}
-__command_palette() { # {{{
-  local cmd=`cat ~/.commands | awk -F " ## " '! /(^\s*$|^#)/{print "\x1b[32;1m" $1 "\x1b[37m ## " $2 "\x1b[m"}' | fzf -e -s | awk -F " ## " '{print $2}'`
-  if [[ -n "$cmd" ]]; then
-    local output=`eval "$cmd"`
-    LBUFFER="$LBUFFER$output"
-  fi
-} # }}}
 __git_files() { # {{{
   local file=`git -c color.status=always status --short | fzf -e -m -s | awk '{print $2}' | xargs`
   if [[ -n "$file" ]]; then
@@ -160,11 +153,9 @@ zle -N edit-command-line
 bindkey '^xe'  edit-command-line
 bindkey '^x^e' edit-command-line
 
-zle -N '__command_palette'
 zle -N '__fancy_branch'
 zle -N '__git_files'
 
-bindkey '^ ' __command_palette
 bindkey '^b' __fancy_branch
 bindkey '^g' __git_files
 
@@ -342,6 +333,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # Ignore case in matchings:
 
 autoload -Uz compinit
 compinit
+
+[ -f $HOME/.cfg/zsh_command_palette ] && source "$HOME/.cfg/zsh_command_palette"
 
 [ -f $HOME/.local/zshrc ] && source "$HOME/.local/zshrc"
 [ -f $HOME/.dev_profile ] && source "$HOME/.dev_profile"

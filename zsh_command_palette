@@ -1,0 +1,10 @@
+local __command_palette() { # {{{
+  local cmd=`cat ${COMMANDS_FILE:-~/.commands} | awk -F " ## " '! /(^\s*$|^#)/{print "\x1b[32;1m" $1 "\x1b[37m ## " $2 "\x1b[m"}' | fzf -e -s | awk -F " ## " '{print $2}'`
+  if [[ -n "$cmd" ]]; then
+    local output=`eval "$cmd"`
+    LBUFFER="$LBUFFER$output"
+  fi
+}
+
+zle -N '__command_palette'
+bindkey '^ ' __command_palette
