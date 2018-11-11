@@ -316,7 +316,7 @@ hash go 2>/dev/null && export GOPATH="$HOME/.config/go"
 [ -f $HOME/.cfg/prompt.zsh ] && source ~/.cfg/prompt.zsh
 
 # Load local zshrc
-eval `dircolors -b ~/.cfg/dircolors.theme`
+eval `gdircolors -b ~/.cfg/dircolors.theme`
 
 colors
 # The following lines were added by compinstall
