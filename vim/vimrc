@@ -502,7 +502,7 @@ nnoremap <C-S> :%s////gc<left><left><left>
 vnoremap <C-S> :s////gc<left><left><left>
 
 " CTRL-C Close buffer
-nnoremap <silent> <C-C> :bp<CR>:bd#<CR>
+nnoremap <silent> <C-C> :b#<CR>:bd#<CR>
 " <leader>CTRL-C Force Close buffer
 nnoremap <leader><C-C> :bd!#\|echo 'Force Closed! '.expand('#')<CR>
 
