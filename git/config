@@ -71,9 +71,9 @@
 
 [color "diff-highlight"]
   oldNormal = "red bold"
-  oldHighlight = "red bold 9"
-  newNormal = "green bold"
-  newHighlight = "green bold 10"
+  oldHighlight = "15 red"
+  newNormal = "green bold bold"
+  newHighlight = "15 bold green"
 
 [color "status"]
   added = green
