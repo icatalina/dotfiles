@@ -26,10 +26,10 @@ require('cursor_key_remap')
 require('screen_management')
 
 local mods = {
-  'event_listener',
+--  'event_listener',
   'show_hide_dotfiles',
-  'fix_shift_key',
-  'browser_handler',
+--  'fix_shift_key',
+--  'browser_handler',
   'caffeine',
   'wifi',
   'cmdq',
