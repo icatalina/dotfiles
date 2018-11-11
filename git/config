@@ -37,6 +37,8 @@
   undo = reset head^
 
   branch=branch -vvv
+  move-to = "!f() { git branch $1 && git reset --hard @{u} && git checkout $1; }; f"
+
 [init]
     templatedir = ~/.config/git/git-templates
 
