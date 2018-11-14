@@ -17,6 +17,7 @@ hs.grid.setGrid(GRID_WIDTH .. 'x' .. GRID_HEIGHT)
 
 -- Screen fullscreen
 function obj:fullScreen()
+
   local win    = hs.window.focusedWindow()
 
   local oldSize = win:size()
@@ -30,91 +31,70 @@ function obj:fullScreen()
   end
 end
 
-function obj:moveUp()
-  local win = hs.window.focusedWindow()
-
-  local oldSize = win:size()
-  local topLeft = win:topLeft()
-
-  hs.grid.pushWindowUp(win)
-
-  if oldSize == win:size() and topLeft == win:topLeft() then
-    hs.grid.resizeWindowShorter(win)
-  end
-end
-
 function obj:moveDown()
-  local win = hs.window.focusedWindow()
-
-  local oldSize = win:size()
-  local topLeft = win:topLeft()
-
-  hs.grid.pushWindowDown(win)
-
-  if oldSize == win:size() and topLeft == win:topLeft() then
-    hs.grid.resizeWindowShorter(win)
-    hs.grid.pushWindowDown(win)
-  end
+  hs.grid.adjustWindow(function(cell)
+    cell.y = cell.y + 1
+  end)
 end
 
 function obj:moveRight()
-  local win = hs.window.focusedWindow()
+  hs.grid.adjustWindow(function(cell)
+    cell.x = cell.x + 1
+  end)
+end
 
-  local oldSize = win:size()
-  local topLeft = win:topLeft()
-
-  hs.grid.pushWindowRight(win)
-
-  if oldSize == win:size() and topLeft == win:topLeft() then
-    hs.grid.resizeWindowThinner(win)
-    hs.grid.pushWindowRight(win)
-  end
+function obj:moveUp()
+  hs.grid.adjustWindow(function(cell)
+    if cell.y == 0 then
+      cell.h = cell.h - 1
+    else
+      cell.y = cell.y - 1
+    end
+  end)
 end
 
 function obj:moveLeft()
-  local win = hs.window.focusedWindow()
-
-  local oldSize = win:size()
-  local topLeft = win:topLeft()
-
-  hs.grid.pushWindowLeft(win)
-
-  if oldSize == win:size() and topLeft == win:topLeft() then
-    hs.grid.resizeWindowThinner(win)
-  end
+  hs.grid.adjustWindow(function(cell)
+    if cell.x == 0 then
+      cell.w = cell.w - 1
+    else
+      cell.x = cell.x - 1
+    end
+  end)
 end
 
---
 function obj:extendUp()
-  local win = hs.window.focusedWindow()
-  local topLeft = win:topLeft()
-
-  hs.grid.resizeWindowTaller(win)
-
-  if topLeft == win:topLeft() then
-    hs.grid.pushWindowUp(win)
-  end
+  hs.grid.adjustWindow(function(cell)
+    cell.y = cell.y - 1
+    cell.h = cell.h + 1
+  end)
 end
 
 function obj:extendDown()
-  local win = hs.window.focusedWindow()
-  hs.grid.resizeWindowTaller(win)
+  hs.grid.adjustWindow(function(cell)
+    if cell.h + cell.y == GRID_HEIGHT then
+      cell.y = cell.y - 1
+    end
+
+    cell.h = cell.h + 1
+  end)
 end
 
 function obj:extendRight()
-  local win = hs.window.focusedWindow()
-  hs.grid.resizeWindowWider(win)
+  hs.grid.adjustWindow(function(cell)
+    if cell.w + cell.x == GRID_WIDTH then
+      cell.x = cell.x - 1
+    end
+
+    cell.w = cell.w + 1
+  end)
 end
 
 function obj:extendLeft()
-  local win = hs.window.focusedWindow()
-  local topLeft = win:topLeft()
-
-  hs.grid.resizeWindowWider(win)
-
-  if topLeft == win:topLeft() then
-    hs.grid.pushWindowRight(win)
-  end
+  hs.grid.adjustWindow(function(cell)
+    cell.x = cell.x - 1
+    cell.w = cell.w + 1
+  end)
 end
 
 function obj:nextScreen()
@@ -122,8 +102,8 @@ function obj:nextScreen()
   win:moveToScreen(win:screen():next(), false, true)
 end
 
-function obj:showGrid() 
-  hs.grid.toggleShow() 
+function obj:showGrid()
+  hs.grid.toggleShow()
 end
 
 function obj:bindHotkeys(mappings)
