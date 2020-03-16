@@ -7,7 +7,7 @@ obj.version = "1.0"
 obj.author = "Ignacio Catalina <icatalina@gmail.com>"
 
 local GRID_WIDTH  = 4
-local GRID_HEIGHT = 4
+local GRID_HEIGHT = 3
 local READ_SIZE   = .70
 
 hs.window.animationDuration = 0
@@ -18,7 +18,7 @@ hs.grid.setGrid(GRID_WIDTH .. 'x' .. GRID_HEIGHT)
 -- Screen fullscreen
 function obj:fullScreen()
 
-  local win    = hs.window.focusedWindow()
+  local win = hs.window.focusedWindow()
 
   local oldSize = win:size()
   local topLeft = win:topLeft()
