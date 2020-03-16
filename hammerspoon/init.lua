@@ -3,100 +3,73 @@ local shiftMash = {'cmd', 'alt', 'ctrl', 'shift'}
 
 local keys = hs.keycodes.map
 
-hs.loadSpoon('Hammer'):bindHotkeys({
-  toggle = { mash, '-' },
-  reload = { mash, 'z' }
-}):hide()
+function alert(msg)
+  return function()
+    hs.alert.show(msg, 0.3)
+  end
+end
 
 hs.loadSpoon('CmdQ'):start()
 hs.loadSpoon('Caffeine'):start()
+hs.loadSpoon('WifiSecurity')
+  :config({
+    whiteList = {
+      'Marbella+',
+      'Infinity',
+    },
+  })
+  :start()
 
-hs.loadSpoon('Dotfiles'):bindHotkeys({
-  toggle = { mash, '.' },
-})
 
-hs.loadSpoon('WifiSecurity'):config({
-  whiteList = {
-    'Marbella+',
-    'Infinity',
-  },
-}):start()
+local badge = hs.loadSpoon('Badge'):getBadge('#ff00aa')
+local vim = hs.loadSpoon('Vim')
 
-hs.loadSpoon('ScreenManagement'):bindHotkeys({
-  nextScreen = { mash, keys.n },
-  fullScreen = { mash, keys.m },
-  showGrid   = { mash, keys.g },
+function enable()
+  badge:show()
+  vim:enable()
+end
 
-  moveLeft  = { mash, keys.left, },
-  moveRight = { mash, keys.right },
-  moveDown  = { mash, keys.down },
-  moveUp    = { mash, keys.up },
+function disable()
+  badge:hide()
+  vim:disable()
+end
 
-  extendLeft  = { shiftMash, keys.left },
-  extendRight = { shiftMash, keys.right },
-  extendDown  = { shiftMash, keys.down },
-  extendUp    = { shiftMash, keys.up },
-})
 
-hs.loadSpoon('Chrome'):bindHotkeys({
-  reload = { {'ctrl', 'cmd'}, keys.r },
-})
+modal = hs.loadSpoon('Modal'):new({ 'fn' }, keys.escape, 300, enable, disable)
 
-local km = hs.loadSpoon('KeyMapper')
 
--- KBParadise V60 Keyboard - Allow ~ with <shift-esc>
-km:map(keys.escape, { 'shift' }, '`', {'shift'})
-km:map(keys.escape, { 'cmd' }, '`', {'cmd'})
-km:map('\'', { 'ctrl' }, '`')
-km:map('\'', { 'ctrl', 'alt' }, '`', { 'alt' })
+local hammer = hs.loadSpoon('Hammer')
+local chrome = hs.loadSpoon('Chrome')
+local dotfiles = hs.loadSpoon('Dotfiles')
+local screen = hs.loadSpoon('ScreenManagement')
 
-km:map(keys.delete, { 'ctrl' }, keys.forwarddelete)
-km:map(keys.delete, { 'ctrl', 'alt' }, keys.forwarddelete, { 'alt'})
+modal
+  :mapKey({}, keys.delete, {}, keys.forwarddelete)
+  :mapKey({ 'alt' }, keys.delete, { 'alt' }, keys.forwarddelete)
+  :mapKey({ 'cmd' }, keys.delete, { 'cmd' }, keys.forwarddelete)
 
--- Map Ctrl-H/J/K/L to Arrow keys
-km:map(keys.h, {'ctrl'}, keys.left)
-km:map(keys.j, {'ctrl'}, keys.down)
-km:map(keys.k, {'ctrl'}, keys.up)
-km:map(keys.l, {'ctrl'}, keys.right)
+  :mapKey({}, keys['return'], { 'ctrl' }, keys['return'])
 
--- Map Ctrl-Shift-H/J/K/L to Shift-Arrow keys
-km:map(keys.h, {'ctrl', 'shift'}, keys.left,  {'shift'})
-km:map(keys.j, {'ctrl', 'shift'}, keys.down,  {'shift'})
-km:map(keys.k, {'ctrl', 'shift'}, keys.up,    {'shift'})
-km:map(keys.l, {'ctrl', 'shift'}, keys.right, {'shift'})
+  :bind({}, keys.tab, alert('That is not a ctrl key'))
+  :bind({'shift'}, keys.tab, alert('That is not a ctrl key'))
 
--- Map Ctrl-Cmd-H/J/K/L to Cmd-Arrow keys
-km:map(keys.h, {'ctrl', 'cmd'}, keys.left,  {'cmd'})
-km:map(keys.j, {'ctrl', 'cmd'}, keys.down,  {'cmd'})
-km:map(keys.k, {'ctrl', 'cmd'}, keys.up,    {'cmd'})
-km:map(keys.l, {'ctrl', 'cmd'}, keys.right, {'cmd'})
+  :mapKey({}, keys.a, { 'cmd' }, keys.left)
+  :mapKey({}, keys.e, { 'cmd' }, keys.right)
 
--- Map Ctrl-Alt-H/J/K/L to Alt-Arrow keys
-km:map(keys.h, {'ctrl', 'alt'}, keys.left,  {'alt'})
-km:map(keys.j, {'ctrl', 'alt'}, keys.down,  {'alt'})
-km:map(keys.k, {'ctrl', 'alt'}, keys.up,    {'alt'})
-km:map(keys.l, {'ctrl', 'alt'}, keys.right, {'alt'})
+  :bind({ 'shift' }, keys.t, function() hs.timer.doAfter(0.2, function() hs.hid.capslock.toggle() end) end)
 
--- Map Ctrl-Shift-Cmd-H/J/K/L to Shift-Cmd-Arrow keys
-km:map(keys.h, {'ctrl', 'shift', 'cmd'}, keys.left,  {'shift', 'cmd'})
-km:map(keys.j, {'ctrl', 'shift', 'cmd'}, keys.down,  {'shift', 'cmd'})
-km:map(keys.k, {'ctrl', 'shift', 'cmd'}, keys.up,    {'shift', 'cmd'})
-km:map(keys.l, {'ctrl', 'shift', 'cmd'}, keys.right, {'shift', 'cmd'})
+  :bind({ 'shift' }, keys.r, function() chrome:reload() end)
 
--- Map Ctrl-Shift-Alt-H/J/K/L to Shift-Alt-Arrow keys
-km:map(keys.h, {'ctrl', 'shift', 'alt'}, keys.left,  {'shift', 'alt'})
-km:map(keys.j, {'ctrl', 'shift', 'alt'}, keys.down,  {'shift', 'alt'})
-km:map(keys.k, {'ctrl', 'shift', 'alt'}, keys.up,    {'shift', 'alt'})
-km:map(keys.l, {'ctrl', 'shift', 'alt'}, keys.right, {'shift', 'alt'})
+  :bind({ 'shift' }, keys['\\'], function() hammer:reload() end)
+  :bind({}, keys['\\'], function() hammer:toggle() end)
 
--- Map Ctrl-Cmd-Alt-H/J/K/L to Ctrl-Shift-Cmd-Arrow keys
-km:map(keys.h, {'ctrl', 'cmd', 'alt'}, keys.left,  {'cmd', 'ctrl', 'alt'})
-km:map(keys.j, {'ctrl', 'cmd', 'alt'}, keys.down,  {'cmd', 'ctrl', 'alt'})
-km:map(keys.k, {'ctrl', 'cmd', 'alt'}, keys.up,    {'cmd', 'ctrl', 'alt'})
-km:map(keys.l, {'ctrl', 'cmd', 'alt'}, keys.right, {'cmd', 'ctrl', 'alt'})
+  :bind({}, keys['.'], function() dotfiles:toggle() end)
 
--- Map Ctrl-Cmd-Alt-Shift-H/J/K/L to Ctrl-Cmd-Shift-Alt-Arrow keys
-km:map(keys.h, {'ctrl', 'cmd', 'alt', 'shift'}, keys.left,  {'cmd', 'ctrl', 'alt', 'shift'})
-km:map(keys.j, {'ctrl', 'cmd', 'alt', 'shift'}, keys.down,  {'cmd', 'ctrl', 'alt', 'shift'})
-km:map(keys.k, {'ctrl', 'cmd', 'alt', 'shift'}, keys.up,    {'cmd', 'ctrl', 'alt', 'shift'})
-km:map(keys.l, {'ctrl', 'cmd', 'alt', 'shift'}, keys.right, {'cmd', 'ctrl', 'alt', 'shift'})
+  :bind({}, keys.m, function() screen:fullScreen() end)
+  :bind({}, keys.n, function() screen:nextScreen() end)
+  :bind({}, keys.i, function() screen:showGrid() end)
+
+  :bind({}, keys[']'], function() screen:moveRight() end)
+  :bind({}, keys['['], function() screen:moveLeft() end)
+  :bind({ 'shift '}, keys[']'], function() screen:extendRight() end)
+  :bind({ 'shift' }, keys['['], function() screen:extendLeft() end)
