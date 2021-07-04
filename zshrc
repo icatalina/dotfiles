@@ -89,4 +89,4 @@ alias ll='\gls --almost-all --no-group --human-readable --classify -g -1 --group
 export DISABLE_OPENCOLLECTIVE=true
 export ADBLOCK=true
 
-source ~/.dev_profile
+[ -f "$HOME/.dev_profile" ] && source "$HOME/.dev_profile"
