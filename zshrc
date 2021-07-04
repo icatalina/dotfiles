@@ -48,6 +48,9 @@ export npm_config_cache=$HOME/.npm
 export EDITOR="$(which vim)"
 export VISUAL="$EDITOR"
 
+# Reset emac keybindings
+bindkey -e
+
 # Set zsh as the default SHELL
 export SHELL="$(which zsh)"
 
