@@ -23,9 +23,6 @@ zadd icatalina/zsh-navi-plugin
 
 export FZF_DEFAULT_OPTS="--reverse --height=50%"
 
-bindkey '^r' fzf-insert-history
-bindkey '^ ' navi_widget
-
 # Colorize `ls`
 eval `gdircolors -b $CONFIG_ROOT/theme.dircolors`
 
@@ -50,6 +47,9 @@ export VISUAL="$EDITOR"
 
 # Reset emac keybindings
 bindkey -e
+
+bindkey '^r' fzf-insert-history
+bindkey '^ ' navi_widget
 
 # Set zsh as the default SHELL
 export SHELL="$(which zsh)"
