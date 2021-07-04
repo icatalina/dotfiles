@@ -64,7 +64,7 @@ unsetopt INC_APPEND_HISTORY     # This needs to be off if SHARE_HISTORY is on
 
 unsetopt NOMATCH                # If a pattern for filename generation has no matches, print an error
 
-stty sane                       
+stty sane
 stty -ixon -ixoff               # Disable ctrl-s/ctrl-q (scroll-lock)
 
 # Highlight autocompletion menu
@@ -82,5 +82,8 @@ alias xx="exit"
 # require gls (coreutils)
 alias ls='\gls --color --classify --group-directories-first'
 alias ll='\gls --almost-all --no-group --human-readable --classify -g -1 --group-directories-first --color'
+
+export DISABLE_OPENCOLLECTIVE=true
+export ADBLOCK=true
 
 source ~/.dev_profile
