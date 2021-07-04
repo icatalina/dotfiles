@@ -77,6 +77,9 @@ alias gls="git ls"
 alias ga="git add"
 alias gd="git diff"
 alias gdc="git diff --cached"
+
+alias nssh='ssh -o UserKnownHostsFile=/dev/null -o CheckHostIP=no -o StrictHostKeyChecking=no'
+
 alias xx="exit"
 
 # require gls (coreutils)
