@@ -1,3 +1,5 @@
+export CONFIG_ROOT="$(dirname $(realpath $HOME/.zshrc))"
+
 setopt prompt_subst
 
 autoload -U colors && colors
@@ -25,7 +27,7 @@ bindkey '^r' fzf-insert-history
 bindkey '^ ' navi_widget
 
 # Colorize `ls`
-eval `gdircolors -b ~/.config/dircolors/theme.dircolors`
+eval `gdircolors -b $CONFIG_ROOT/theme.dircolors`
 
 if [ -f "/usr/local/opt/asdf/asdf.sh" ]; then
     source /usr/local/opt/asdf/asdf.sh
