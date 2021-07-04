@@ -40,7 +40,7 @@ fi
 export PHP_WITHOUT_PDO_PGSQL=yes
 
 # Some dependencies (eg. node-sass), use the `npm_config_cache` variable to check for build artifacts.
-# With Yarn, this variable is not define, this causes yarn install to rebuild the binaries on every
+# With Yarn, this variable is not defined, this causes yarn install to rebuild the binaries on every
 # install
 export npm_config_cache=$HOME/.npm
 
@@ -90,3 +90,7 @@ export DISABLE_OPENCOLLECTIVE=true
 export ADBLOCK=true
 
 [ -f "$HOME/.dev_profile" ] && source "$HOME/.dev_profile"
+
+if [ "$TERM_PROGRAM" == "vscode" ]; then
+    source "$CONFIG_ROOT/vscode.zsh"
+fi
