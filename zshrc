@@ -8,6 +8,13 @@ autoload -Uz compinit && compinit
 
 stty werase undef
 
+# Set vim as the default editor
+export EDITOR="$(which vim)"
+export VISUAL="$EDITOR"
+
+# Reset emac keybindings
+bindkey -e
+
 # Remove Last Login message
 [ ! -f $HOME/.hushlogin ] && touch $HOME/.hushlogin
 
@@ -40,13 +47,6 @@ export PHP_WITHOUT_PDO_PGSQL=yes
 # With Yarn, this variable is not defined, this causes yarn install to rebuild the binaries on every
 # install
 export npm_config_cache=$HOME/.npm
-
-# Set vim as the default editor
-export EDITOR="$(which vim)"
-export VISUAL="$EDITOR"
-
-# Reset emac keybindings
-bindkey -e
 
 bindkey '^r' fzf-insert-history
 bindkey '^ ' navi_widget
